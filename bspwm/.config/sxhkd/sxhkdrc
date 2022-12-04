@@ -1,0 +1,357 @@
+#################################################
+#	███████╗██╗  ██╗██╗  ██╗██╗  ██╗██████╗		#
+#	██╔════╝╚██╗██╔╝██║  ██║██║ ██╔╝██╔══██╗	#
+#	███████╗ ╚███╔╝ ███████║█████╔╝ ██║  ██║	#
+#	╚════██║ ██╔██╗ ██╔══██║██╔═██╗ ██║  ██║ 	#
+#	███████║██╔╝ ██╗██║  ██║██║  ██╗██████╔╝	#
+#	╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═════╝		#
+#################################################
+
+##---------- Keybindings for bspwm ----------##
+
+# Help
+ctrl + super + h
+	$HOME/.config/bspwm/bspwmfloat uxterm -name Float -e ~/.config/bspwm/show_keys
+
+# Terminal
+super + Return
+	terminator
+
+# uxterm
+super + alt + Return
+	$HOME/.config/bspwm/bin/bspfloat xterm -name Float -e bash
+
+# Terminal or Fullscreen Terminal
+super + {_,shift + } Return
+	{uxterm,~/.config/bspwm/scripts/bin/furminal}
+
+# Toggle notification center
+super + o
+	notificationcenter
+
+# Lockscreen
+super + alt + 0
+	i3lock
+
+
+##---------- Reload ----------##
+
+# quit/restart bspwm
+ctrl + super + {x,b}
+	bspc {quit,wm -r}
+
+# Reload Sxhkd
+ctrl + super + k
+	pkill -USR1 -x sxhkd
+
+# Reloading Polybar
+ctrl + super + p
+	sh ~/.config/bspwm/bin/bspbar
+
+# Reloading Alternative Polybar
+alt + super + p
+	sh ~/.config/polybar/launch.sh
+
+# Hide/Show Polybar
+super + shift + p
+	polybar-msg cmd toggle
+
+# Hide/Unhide Window
+super + shift + w
+	winmask	
+
+# Kill Conky
+ctrl + super + c
+	killall conky
+
+##---------- Menus ----------##
+
+# rofi
+super + Tab
+	sh ~/.config/bspwm/rofi/bin/launcher
+
+# Rofi Themes
+super + alt + Tab
+	sh ~/.config/bspwm/rofi/bin/themes
+
+# Rofi Menus/Applets
+super + {w,0,r,p,n,g}
+	sh ~/.config/bspwm/rofi/bin/{windows,powermenu,asroot,mpd,network,apps}
+
+# Rofi Network Manager
+super + alt + n
+	~/.config/bspwm/rofi/rofi-network-manager/rofi-network-manager.sh
+
+# dmenu
+super + alt + d
+	dmenu_run -l 10 -nb '#323f4e' -nf '#cfd8dc' -sb '#cfd8dc' -sf '#263238' -fn 'Source Code Pro Medium-9' -p ' '
+
+##---------- Applications ----------##
+
+# Htop
+super + F1
+	uxterm -e htop
+
+# Firefox
+super + F2
+	firefox
+
+# Midori
+super + shift + F2
+	midori
+
+# Pcmanfm
+super + F3
+	pcmanfm
+
+#.Ranger
+super + shift + F3
+	uxterm -e 'ranger'
+
+# Search
+super + alt + F3
+pcmanfm_pkexec
+
+#.Mousepad
+super + F4
+	mousepad
+
+# Code
+super + F5
+	code
+
+# Zeal
+super + shift + F5
+	zeal
+
+# Telegram
+super + F6
+	telegram-desktop
+
+# Slack
+super + shift + F6
+	slack
+
+# Zoom
+super + alt + F6
+	zoom
+
+#.VLC
+super + F7
+	vlc
+
+# SMTube
+super + shift + F7
+	smtube
+
+#.Calculator
+super + F8
+	galculator
+
+# Libreoffice
+super + F9
+	libreoffice
+
+# Scan
+super + shift + F9
+	simple-scan
+
+#.links2
+super + F11
+	uxterm -e 'links2 www.google.com'
+
+# Color Picker
+super + Insert
+	~/.config/bspwm/scripts/bin/color-gpick
+
+##---------- Screenshot ----------##
+
+# Rofi Screenshot
+Print
+	sh ~/.config/bspwm/rofi/bin/screenshot
+
+# Take a screenshot
+super + F12
+	gnome-screenshot
+	
+# Take screenshot interactive
+super + alt + F12
+	gnome-screenshot -i --interactive
+
+# Take screenshot in area
+super + shift + F12
+	gnome-screenshot -a --area
+
+# Take screenshot of active window
+super + ctrl + F12
+	gnome-screenshot -w --window
+
+##---------- System Keys ----------##
+
+# Brighness control
+XF86MonBrightness{Up,Down}
+	~/.config/bspwm/scripts/bin/brightness{ --inc, --dec}
+	
+# Volume control
+XF86Audio{RaiseVolume,LowerVolume}
+	~/.config/bspwm/scripts/bin/volume{ --inc, --dec}
+
+XF86AudioMute
+	~/.config/bspwm/scripts/bin/volume --toggle
+	
+# Music control
+XF86Audio{Next,Prev,Play,Stop}
+
+# Music control
+super + F10
+	pavucontrol
+
+##---------- Bspwm ----------##
+
+# Close App
+super + shift + q
+	bspc node -c
+
+# kill window
+super + x
+	bspc node -k
+	
+# Kill a window using left click
+ctrl + alt + x
+    xkill
+
+# Split horizontal, vertical or cancel
+super + shift + s : {h,v,q}
+	bspc node -p {east,south,cancel}
+
+#Monocle mode
+super + m
+	bspc desktop -l next
+
+# hide current node, or restore a queried hidden node
+super + {_,shift} + minus
+	bspc node {,$(bspc query -N -d -n .hidden | head -n 1)} -g hidden
+
+# Global window gaps scroll
+super + alt + button {4,5}
+	bspc config window_gap $(( $(bspc config window_gap) {-,+} 5 ))
+
+##---------- Windows ----------##
+
+# Fullscreen or Monocle
+super + shift + Space
+#	bspc node -t {fullscreen} || \ bspc node -t {tiled}
+	bspc window -t {fullscreen,tiled}
+
+# Toggle beetwen floating & tiled
+super + Space
+#	bspc node -t {floating} || \ bspc node -t {pseudo_tiled}
+	bspc window -t {floating,pseudo_tiled}
+
+# Go to specific window
+super + alt + Space
+	WindowSelector
+
+# set the window state
+super + {a,s,d,f}
+	bspc node -t {pseudo_tiled,floating,tiled,fullscreen}
+
+# Set the node flags (marked,locked,sticky,private)
+super + shift + {a,s,d,f}
+	bspc node -g {marked,locked,sticky,private}
+
+# Switch workspace
+ctrl + super + {Left,Right}
+	bspc desktop -f {prev.local,next.local}
+
+# Switch to last opened workspace
+#super + {Tab,grave}
+#	bspc {node,desktop} -f last
+
+# Send the window to another edge of the screen
+super + {_,shift + }{h,j,k,l}
+	bspc node -{f,s} {west,south,north,east}
+
+##---------- Moving ----------##
+
+
+super + {1,2,3,4,5,6,7,8,9}
+	bspc desktop -f {1,2,3,4,5,6,7,8,9}
+
+super + {_,shift + }{1-9,0}
+	bspc node -d '^{1-9,10}'
+
+# move a floating window
+super + {Left,Down,Up,Right}
+	bspc node -v {-20 0,0 20,0 -20,20 0}
+
+## Resize windows
+super + alt + r : {Left,Down,Up,Right}
+	bspc node -z {bottom_right -20 -20, bottom 0 20, bottom 0 -20, right 20 0}
+
+# expand a window by moving one of its side outward
+super + alt + {Left,Down,Up,Right}
+	bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
+
+# contract a window by moving one of its side inward
+super + alt + shift + {Left,Down,Up,Right}
+	bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
+
+##---------- focus/swap ----------##
+
+# Send focused window to another workspace
+super + {_,shift + }{1-8}
+	bspc {desktop -f,node -d} '^{1-8}'
+
+# focus the node in the given direction
+super + {_,shift + }{Left,Down,Up,Right}
+	bspc node -{f,s} {west,south,north,east}
+
+# focus the next/previous window in the current desktop
+super + {_,shift + }z
+	bspc node -f {next,prev}.local.!hidden.window
+
+# Change focus to next window, including floating window
+super + z
+	bspc node -f {next.local,prev.local}
+
+# focus the next/previous desktop in the current monitor
+super + bracket{left,right}
+	bspc desktop -f {prev,next}.local
+
+# focus the last node/desktop
+super + alt + {grave,Tab}
+	bspc {node,desktop} -f last
+
+# swap the current node and the biggest node
+super + alt + n
+	bspc node -s biggest
+
+# focus the node for the given path jump
+#super + {p,b,comma,period}
+#	bspc node -f @{parent,brother,first,second}
+
+##---------- Preselect ----------##
+
+# preselect the direction
+super + p ; {h,j,k,l}
+	bspc node -p {west,south,north,east}
+
+# preselect the ratio
+super + p ; {1-9}
+	bspc node -o 0.{1-9}
+
+# cancel the preselection for the focused desktop
+super + p ; Escape
+	bspc query -N -d | xargs -I id -n 1 bspc node id -p cancel
+
+# cancel the preselection for the focused node
+super + alt + Escape
+	bspc node -p cancel
+
+# send the newest marked node to the newest preselected node
+# super + y
+	# bspc node newest.marked.local -n newest.!automatic.local
+
+
+##---------- EOF ----------##

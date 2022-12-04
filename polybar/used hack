@@ -1,0 +1,89 @@
+##########
+bspmw
+sxhkd
+rofi
+rofi themes
+rofi network manager
+dmenu
+awesome
+nerdfont
+dust
+nitrogen
+polybar
+polybar themes
+polybar script
+thefuck
+zsh
+# Plugins
+zsh-syntax-highlighting.zsh
+zsh-autosuggestions.zsh
+sudo.plugin.zsh
+powerlevel10k
+oh my zsh
+picom
+#########
+
+##############Modulos 
+##Internal
+alsa
+battery
+cpu
+show-desktop
+date
+filesystem
+github
+memory
+mpd
+pulseaudio
+temperature
+keyboard 
+title
+i3
+bspwm
+openbox
+wireless-network = wlan
+wired-network = eth
+network
+blacklight
+workspaces
+
+
+##bar
+brightness
+battery_bar
+cpu_bar
+filesystem_bar
+memory_bar
+mpd_bar
+volume
+
+##External
+sep
+links
+decor-glyph
+decor1
+decor2
+decor3
+decor4
+checknet
+updates
+launcher
+sysmenu
+color-switch
+google
+reddit
+gmail
+twitter
+apps*
+term
+files
+browser
+powermenu
+menu
+info-hackspeed
+weather
+rofi-run
+spotify
+notify
+info-docker
+info-kernel

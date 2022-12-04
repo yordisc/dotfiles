@@ -1,0 +1,10 @@
+include /usr/share/nano-syntax-highlighting/*.nanorc
+
+set linenumbers
+set autoindent
+set mouse
+set showcursor
+set tabsize 2
+set titlecolor red,yellow
+set tempfile
+set historylog search.log

@@ -1,0 +1,76 @@
+# See https://wiki.debian.org/SourcesList for more information.
+
+deb http://deb.debian.org/debian bullseye main
+deb-src http://deb.debian.org/debian bullseye main
+
+deb http://deb.debian.org/debian bullseye-updates main
+deb-src http://deb.debian.org/debian bullseye-updates main
+
+## debian-security
+# deb http://deb.debian.org/debian-security/ bullseye-security non-free contrib main 
+# deb-src http://deb.debian.org/debian-security/ bullseye-security non-free contrib main 
+
+## backports
+# deb http://deb.debian.org/debian/ bullseye-backports non-free contrib main 
+# deb-src http://deb.debian.org/debian/ bullseye-backports non-free contrib main 
+
+## Debian Testing
+# deb http://deb.debian.org/debian/ testing main contrib non-free 
+# deb-src http://deb.debian.org/debian/ testing non-free contrib main 
+
+## Actualizaciones de seguridad
+# deb http://security.debian.org/ testing/updates non-free contrib main 
+# deb-src http://security.debian.org/ testing/updates non-free contrib main 
+
+## Debian Unstable (sid)
+deb http://deb.debian.org/debian/ unstable main 
+deb-src http://deb.debian.org/debian/ unstable main 
+
+# deb http://ftp.de.debian.org/debian/ sid main 
+# deb http://ftp.de.debian.org/debian/ sid main contrib 
+
+deb http://deb.debian.org/debian/ sid main non-free 
+deb-src http://deb.debian.org/debian/ sid main non-free 
+
+## Multimedia estable (actual)
+# deb http://www.deb-multimedia.org/ stable main non-free 
+
+## Multimedia testing
+# deb http://www.deb-multimedia.org/ testing non-free main 
+# deb https://www.deb-multimedia.org/ bookworm main non-free 
+
+## Multimedia Sid
+# deb https://www.deb-multimedia.org/ sid main 
+# deb http://www.deb-multimedia.org/ sid main non-free main 
+
+## Ubuntu
+# deb http://us.archive.ubuntu.com/ubuntu/ xenial restricted main 
+# deb http://archive.ubuntu.com/ubuntu/ jammy restricted main 
+# deb http://archive.ubuntu.com/ubuntu/ jammy main restricted universe multiverse 
+# deb http://archive.ubuntu.com/ubuntu/ jammy-updates main restricted universe multiverse 
+# deb http://archive.ubuntu.com/ubuntu/ jammy-backports main restricted universe multiverse 
+
+# deb http://security.ubuntu.com/ubuntu/ jammy-security main restricted universe multiverse 
+# deb http://archive.canonical.com/ubuntu/ jammy partner 
+
+## LxMint
+# deb http://packages.linuxmint.com/ vanessa backport import upstream main  
+
+## MX Community Main and Test Repos
+# deb http://mxrepo.com/mx/repo/ bullseye ahs  
+
+## Kali 
+# deb http://http.kali.org/kali/ kali-rolling non-free contrib main 
+
+## Stable Parrot repository
+# deb http://deb.parrotsec.org/parrot/ stable non-free contrib main 
+# deb-src http://archive.parrotsec.org/parrot/ stable contrib non-free 
+
+# Kaisen
+# deb https://deb.kaisenlinux.org kaisen-rolling main contrib non-free
+# deb-src https://deb.kaisenlinux.org kaisen-rolling main contrib non-free
+
+
+## Unoficial
+
+# deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main

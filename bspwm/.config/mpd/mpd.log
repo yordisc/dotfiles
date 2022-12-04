@@ -1,0 +1,23 @@
+Nov 18 06:33 : avahi: Service 'Music Player @ tardis01' successfully established.
+Nov 18 06:40 : exception: Failed to read mixer for 'MPD Audio': no such mixer control: PCM
+Nov 18 10:25 : avahi: Service 'Music Player @ tardis01' successfully established.
+Nov 19 07:18 : avahi: Service 'Music Player @ tardis01' successfully established.
+Nov 19 15:22 : avahi: Service 'Music Player @ tardis01' successfully established.
+Nov 20 07:22 : avahi: Service 'Music Player @ tardis01' successfully established.
+Nov 21 06:33 : avahi: Service 'Music Player @ tardis01' successfully established.
+Nov 22 07:17 : avahi: Service 'Music Player @ tardis01' successfully established.
+Nov 23 07:26 : avahi: Service 'Music Player @ tardis01' successfully established.
+Nov 23 18:45 : avahi: Client Disconnected, will reconnect shortly
+Nov 23 18:46 : avahi: Service 'Music Player @ tardis01' successfully established.
+Nov 23 19:03 : exception: Failed to access /home/admin/.config/mpd/music: No such file or directory
+WARNING: Unhandled message: interface=org.freedesktop.DBus, path=/org/freedesktop/DBus, member=ActivatableServicesChanged
+WARNING: Unhandled message: interface=org.freedesktop.DBus, path=/org/freedesktop/DBus, member=ActivatableServicesChanged
+WARNING: Unhandled message: interface=org.freedesktop.DBus, path=/org/freedesktop/DBus, member=ActivatableServicesChanged
+WARNING: Unhandled message: interface=org.freedesktop.DBus, path=/org/freedesktop/DBus, member=ActivatableServicesChanged
+WARNING: Unhandled message: interface=org.freedesktop.DBus, path=/org/freedesktop/DBus, member=ActivatableServicesChanged
+WARNING: Unhandled message: interface=org.freedesktop.DBus, path=/org/freedesktop/DBus, member=ActivatableServicesChanged
+WARNING: Unhandled message: interface=org.freedesktop.DBus, path=/org/freedesktop/DBus, member=ActivatableServicesChanged
+WARNING: Unhandled message: interface=org.freedesktop.DBus, path=/org/freedesktop/DBus, member=ActivatableServicesChanged
+WARNING: Unhandled message: interface=org.freedesktop.DBus, path=/org/freedesktop/DBus, member=ActivatableServicesChanged
+WARNING: Unhandled message: interface=org.freedesktop.DBus, path=/org/freedesktop/DBus, member=ActivatableServicesChanged
+Nov 24 22:05 : mixer: Failed to read mixer for 'MPD Audio': no such mixer control: PCM
