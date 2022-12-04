@@ -11,7 +11,8 @@
 
 # Help
 ctrl + super + h
-	$HOME/.config/bspwm/bspwmfloat uxterm -name Float -e ~/.config/bspwm/show_keys
+      ~/.config/bspwm/scripts/keybindings_rofi.sh
+	#$HOME/.config/bspwm/bspwmfloat uxterm -name Float -e ~/.config/bspwm/show_keys
 
 # Terminal
 super + Return
@@ -19,7 +20,7 @@ super + Return
 
 # uxterm
 super + alt + Return
-	$HOME/.config/bspwm/bin/bspfloat xterm -name Float -e bash
+	$HOME/.config/bspwm/bin/bspfloat xterm -name Float
 
 # Terminal or Fullscreen Terminal
 super + {_,shift + } Return
@@ -31,7 +32,8 @@ super + o
 
 # Lockscreen
 super + alt + 0
-	i3lock
+	~/.config/bspwm/scripts/i3lock-fancy/i3lock-fancy.sh
+	#i3lock
 
 
 ##---------- Reload ----------##
@@ -74,8 +76,14 @@ super + Tab
 super + alt + Tab
 	sh ~/.config/bspwm/rofi/bin/themes
 
+# show ssh sesssions
+super + shift + Tab
+	rofi -modi drun -show ssh -line-padding 4 \
+                -columns 2 -padding 50 -hide-scrollbar -terminal xfce4-terminal \
+                -show-icons -drun-icon-theme "Qogir-dark" -font "Droid Sans Regular 10"
+
 # Rofi Menus/Applets
-super + {w,0,r,p,n,g}
+super + {w,0,r,p,n,t}
 	sh ~/.config/bspwm/rofi/bin/{windows,powermenu,asroot,mpd,network,apps}
 
 # Rofi Network Manager
@@ -156,6 +164,10 @@ super + F9
 super + shift + F9
 	simple-scan
 
+# Github Desktop
+super + g
+	github-desktop
+
 #.links2
 super + F11
 	uxterm -e 'links2 www.google.com'
@@ -166,9 +178,9 @@ super + Insert
 
 ##---------- Screenshot ----------##
 
-# Rofi Screenshot
+# Screenshot
 Print
-	sh ~/.config/bspwm/rofi/bin/screenshot
+  scrot ~/$(xdg-user-dir PICTURES)/Screenshot-$(date +%F_%T).png
 
 # Take a screenshot
 super + F12
@@ -189,9 +201,17 @@ super + ctrl + F12
 ##---------- System Keys ----------##
 
 # Brighness control
-XF86MonBrightness{Up,Down}
-	~/.config/bspwm/scripts/bin/brightness{ --inc, --dec}
+	##bright {-1,-10,min,+1,+10,max}
+	XF86MonBrightness{Down,Up}
+	~/.config/bspwm/scripts/bin/brightness{ --dec, --inc}
+
+	##XF86MonBrightnessDown
+	##	xbacklight -dec 5
 	
+	##XF86MonBrightnessUp
+	##	xbacklight -inc 5
+
+
 # Volume control
 XF86Audio{RaiseVolume,LowerVolume}
 	~/.config/bspwm/scripts/bin/volume{ --inc, --dec}

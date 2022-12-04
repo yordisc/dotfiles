@@ -61,7 +61,7 @@ content-padding = 0
 [module/backlight]
 type = internal/xbacklight
 
-card = intel_backlight
+card = ${system.graphics_card}
 
 format = <ramp> <label>
 
@@ -111,44 +111,32 @@ ramp-foreground = ${color.MAGENTA}
 [module/battery]
 type = internal/battery
 
-full-at = 99
+full-at = ${config.battery-full-at}
 
 battery = ${system.battery}
-adapter = ${system.adapter}
+adapter = AC
 
-poll-interval = 2
-time-format = %H:%M
-
-format-charging = <animation-charging> <label-charging>
-format-charging-prefix = 
-
-format-discharging = <ramp-capacity> <label-discharging>
-
-format-full = <label-full>
-format-full-prefix = " "
-format-full-prefix-font = 2
-format-full-prefix-foreground = ${color.RED}
-
-label-charging = %percentage%%
-label-discharging = %percentage%%
-label-full = %percentage%%
-
-ramp-capacity-0 = 
-ramp-capacity-1 = 
-ramp-capacity-2 = 
-ramp-capacity-3 = 
-ramp-capacity-4 = 
-ramp-capacity-font = 2
-ramp-capacity-foreground = ${color.YELLOW}
-
+format-charging = <label-charging> <animation-charging>
+format-charging-underline = ${colors.foreground}
 animation-charging-0 = 
 animation-charging-1 = 
 animation-charging-2 = 
 animation-charging-3 = 
 animation-charging-4 = 
-animation-charging-font = 2
-animation-charging-foreground = ${color.GREEN}
 animation-charging-framerate = 750
+
+format-discharging = <ramp-capacity> <label-discharging>
+format-discharging-underline = ${colors.notify}
+ramp-capacity-0 = 
+ramp-capacity-1 = 
+ramp-capacity-2 = 
+ramp-capacity-3 = 
+ramp-capacity-4 = 
+ramp-capacity-foreground = ${colors.notify}
+
+label-full = 
+label-full-foreground = ${colors.success}
+label-full-underline = ${colors.success}
 
 ;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 
@@ -238,7 +226,7 @@ interval = 1
 ;   <ramp-coreload>
 ;;format = <label> <ramp-coreload>
 format = <label>
-format-prefix = 
+format-prefix = 
 format-prefix-foreground = ${color.GREEN}
 
 ; Available tokens:
@@ -276,7 +264,7 @@ interval = 1
 ;   <ramp-swap-used>
 ;   <ramp-swap-free>
 format = <label>
-format-prefix = 
+format-prefix = 
 format-prefix-foreground = ${color.MAGENTA}
 
 ; Available tokens:
@@ -398,18 +386,24 @@ label-private = " | Private"
 [module/date]
 type = internal/date
 
+; Seconds to sleep between updates
 interval = 1.0
 
-time = %H:%M
-time-alt = %A, %d de %B %Y
+; See "http://en.cppreference.com/w/cpp/io/manip/put_time" for details on how to format the date string
+; NOTE: if you want to use syntax tags here you need to use %%{...}
+date = %{T1}%{T-}%{T2} %d/%a%{T-}
 
-format = <label>
-format-prefix = " "
-format-prefix-font = 1
-format-prefix-foreground = ${color.RED}
+; Optional time format
+time = %{T2} %H:%M%{T-}
 
-label = %time%
-label-font = 1
+; if `date-alt` or `time-alt` is defined, clicking
+; the module will toggle between formats
+date-alt = %{T1}%{T-}%{T2} %a, %d %b %y%{T-}
+time-alt = %{T2} %H:%M:%S%{T-}
+
+label = %date%%time%
+label-font = 0
+label-foreground = ${colors.green}
 
 ;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 
@@ -529,15 +523,29 @@ content-padding = 1
 
 [module/title]
 type = internal/xwindow
-
+; Available tags:
+;   <label> (default)
 format = <label>
-;format-prefix = " "
-format-prefix-foreground = ${color.BLUE}
-format-padding = 0
-format-foreground = ${color.foreground-alt}
+format-background = ${colors.bg}
+format-foreground = ${colors.green}
+format-padding = 4
 
-label = " %title%"
-label-maxlen = 30
+; Available tokens:
+;   %title%
+; Default: %title%
+label = "%{T1}%{T-}%{T2} %title%%{T-}"
+label-maxlen = 65
+
+; Used instead of label when there is no window title
+; Available tokens:
+;   None
+label-empty =%{T2}%{T-}
+label-empty-foreground = #707880
+
+[module/sps]
+type = custom/text
+content = " "
+content-padding = 0
 
 ;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 

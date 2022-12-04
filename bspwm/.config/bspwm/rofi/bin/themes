@@ -18,7 +18,7 @@ theme_7=" Forest"
 theme_8=" FLCL"
 theme_9=" Gruvbox"
 theme_10=" Hack"
-theme_11=" Keyboards"
+theme_11=" Ubuntu"
 theme_12=" Light"
 theme_13=" Manhattan"
 theme_14=" Nord"
@@ -57,16 +57,16 @@ case $chosen in
         bash ${BSP}/set-theme  'windows.jpg' 'beach' 'Windows-10-Dark' 'Win11-Dark' 'Fluent' 'beach.conf'
         ;;
     $theme_2)
-        bash ${BSP}/set-theme  'macos.jpg' 'rick' 'Rick' 'La-Sierra' 'Material-dark' 'himbeere.conf'
+        bash ${BSP}/set-theme  'macos.jpg' 'rick' 'WhiteSur-Dark' 'La-Sierra' 'Material-Dark' 'himbeere.conf'
         ;;
     $theme_3)
-        bash ${BSP}/set-theme  'extra-0.jpg' 'bouquet' 'Cyberpunk' 'Luna-Dark' 'Future-dark' 'bouquet.conf'
+        bash ${BSP}/set-theme  'dracula.jpg' 'bouquet' 'Cyberpunk' 'Luna-Dark' 'Future-dark' 'bouquet.conf'
         ;;
     $theme_4)
         bash ${BSP}/set-theme  'cyberpunk.jpg' 'blade' 'Blade' 'Infinity-Dark-Icons' 'LyraB' 'delt-dark.conf'
         ;;
     $theme_5)
-        bash ${BSP}/set-theme  'windowsxp.jpg' 'hack' 'Redmond' 'Windows-XP' 'Paper' 'inkpot.conf'
+        bash ${BSP}/set-theme  'windowsxp.jpg' 'hack' 'Windows-XP-Embedded' 'Windows-XP' 'Adwaita' 'inkpot.conf'
         ;;
     $theme_6)
         bash ${BSP}/set-theme  'Sweet.png' 'flowers' 'Sweet-Dark' 'Infinity-Dark-Icons' 'Sweet' 'spider-dark.conf'
@@ -81,13 +81,13 @@ case $chosen in
         bash ${BSP}/set-theme  'gruvbox.jpg' 'gruvbox' 'Gruvbox' 'Gruvbox-Material-Dark' 'Vimix-dark' 'monokai.conf'
         ;;
     $theme_10)
-        bash ${BSP}/set-theme  'hack.jpg' 'hack' 'Hack' 'Hack' 'LyraB' 'hack.conf'
+        bash ${BSP}/set-theme  'keyboards.jpg' 'hack' 'Hack' 'Hack' 'LyraB' 'hack.conf'
         ;;
     $theme_11)
-        bash ${BSP}/set-theme  'ubuntu.jpg' 'keyboards' 'Sweet-Dark' 'Zafiro-Red-Dark' 'Sweet' 'keyboards.conf'
+        bash ${BSP}/set-theme  'ubuntu.jpeg' 'keyboards' 'Sweet-Dark' 'Zafiro-Red-Dark' 'Sweet' 'keyboards.conf'
         ;;
     $theme_12)
-        bash ${BSP}/set-theme  'light.jpg' 'light' 'White' 'White-Folders' 'Paper' 'eleven.conf'
+        bash ${BSP}/set-theme  'light.jpg' 'light' 'White' 'White-Folders' 'Pear' 'eleven.conf'
         ;;
     $theme_13)
         bash ${BSP}/set-theme  'manhattan.jpg' 'manhattan' 'Manhattan' 'Luv-Folders-Dark' 'Vimix-dark' 'manhattan.conf'
@@ -96,19 +96,19 @@ case $chosen in
         bash ${BSP}/set-theme  'nord.jpg' 'nord' 'Arc-Dark' 'Arc-Circle' 'Vimix' 'nordic.conf'
         ;;
     $theme_15)
-        bash ${BSP}/set-theme  'nordic.jpg' 'nord' 'Nordic' 'Paper' 'Pear' 'nordic.conf'
+        bash ${BSP}/set-theme  'nordic.jpg' 'nord' 'Nordic' 'Papirus_dark' 'Pear' 'nordic.conf'
         ;;
     $theme_16)
-        bash ${BSP}/set-theme  'pastel.png' 'pastel' 'White' 'Dracula' 'LyraQ' 'fluffy.conf'
+        bash ${BSP}/set-theme  'pastel.png' 'pastel' 'White' 'Archcraft-Dark' 'LyraQ' 'fluffy.conf'
         ;;
     $theme_17)
-        bash ${BSP}/set-theme  'extra-18.jpg' 'rick' 'Rick' 'candy-icons' 'Sweet' 'sleepy-pastel.conf'
+        bash ${BSP}/set-theme  'bouquet.jpg' 'rick' 'Rick' 'candy-icons' 'Sweet' 'sleepy-pastel.conf'
         ;;
     $theme_18)
-        bash ${BSP}/set-theme  'spark.jpg' 'spark' 'Sweet-Dark' 'Luv-Folders' 'Vimix' 'spark.conf'
+        bash ${BSP}/set-theme  'spark.jpg' 'spark' 'Sweet-Dark' 'Lyra-orange' 'Vimix' 'spark.conf'
         ;;
     $theme_19)
-        bash ${BSP}/set-theme  'tealize.png' 'tealize' 'Juno-palenight' 'Luv-Folders-Dark' 'Vimix' 'tealize.conf'
+        bash ${BSP}/set-theme  'debian.jpg' 'tealize' 'Juno-palenight' 'Luv-Folders-Dark' 'Vimix' 'tealize.conf'
         ;;
     $theme_20)
         bash ${BSP}/set-theme  'wave.jpg' 'wave' 'Wave' 'Luv-Folders-Dark' 'Vimix' 'wave.conf'

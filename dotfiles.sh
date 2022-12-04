@@ -76,31 +76,28 @@ sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.m
 
 }
 
-vscodearch=""
-chromename=$chromenamedeb
 chromenamedeb="google-chrome-stable_current_amd64.deb"
 chromenamered="google-chrome-stable_current_x86_64.rpm"
-chromenamearch=""
+chromename=$chromenamedeb
 
 function chromedeb()
 
 {
-wget https://dl.google.com/linux/direct/$chromenamedeb
+wget https://dl.google.com/linux/direct/$chromename
 
 }
 
 function chromered()
 
 {
-wget https://dl.google.com/linux/direct/$chromenamered
+wget https://dl.google.com/linux/direct/$chromename
 
 }
 
-chromearch=""
-slackname=$slacknamedeb
 slacknamedeb="slack-desktop-latest.deb"
 slacknamered="slack-desktop-latest.rpm"
 #slacknamearch=
+slackname=$slacknamedeb
 
 function slackdeb()
 
@@ -126,22 +123,17 @@ wget -q https://slack.com/downloads/instructions/fedora -O - \
 
 }
 
-slackarch=""
-zoomname=$zoomdeb
 zoomnamedeb="zoom_amd64.deb"
 zoomnamered="zoom_x86_64.rpm"
-zoomdeb="https://zoom.us/client/latest/$zoomnamedeb"
-zoomred="https://zoom.us/client/latest/$zoomnamered"
-zoomarch=""
-whatsappdeb=$whatsappdeb
-whatsappred=""
-whatsapparch=""
-teamviewername=$teamviewernamedeb
+zoomname=$zoomdeb
+zoomdeb="https://zoom.us/client/latest/zoom_amd64.deb"
+zoomred="https://zoom.us/client/latest/zoom_x86_64.rpm"
+whatsappdeb=https://ftp5.gwdg.de/pub/linux/debian/mint/packages/pool/import/w/whatsapp-desktop/$whatsappname
 teamviewernamedeb="teamviewer_amd64.deb"
 teamviewernamered="teamviewer_15.36.8.x86_64.rpm"
+teamviewername=$teamviewernamedeb
 teamviewerdeb="https://download.teamviewer.com/download/linux/$teamviewernamedeb"
 teamviewerred="https://dl.teamviewer.com/download/linux/version_15x/$teamviewernamered"
-teamviewerarch=""
 
 function githubdesktopdeb()
 
@@ -162,15 +154,33 @@ sudo rpm --import https://packagecloud.io/shiftkey/desktop/gpgkey
 sudo sh -c 'echo -e "[shiftkey]\nname=GitHub Desktop\nbaseurl=https://packagecloud.io/shiftkey/desktop/el/7/\$basearch\nenabled=1\ngpgcheck=0\nrepo_gpgcheck=1\ngpgkey=https://packagecloud.io/shiftkey/desktop/gpgkey" > /etc/yum.repos.d/shiftkey-desktop.repo'
 
 }
-githubdesktoparch=""
+
+function teamsdeb()
+
+{
+curl https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
+sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/ms-teams stable main" > /etc/apt/sources.list.d/teams.list'
+
+}
 
 
+function teamsred()
+
+{
+sudo sh -c 'echo -e "[teams]\nname=teams\nbaseurl=https://packages.microsoft.com/yumrepos/ms-teams\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/teams.repo'
+sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
+
+}
+
+teamsarch=""
+
+
+#whatsapparch=""
 
 ###########################################################
 ##  Variables DEFINIBLES del sistema nombre + (deb,feb,arch)
 ############################################################
 #User=$(getent passwd 1000 | awk -F: '{ print $1}')
-usuario=/home/$nombre
 user=$USER
 install=$installdeb
 desinstall=$desinstalldeb
@@ -187,6 +197,7 @@ zoom=$zoomdeb
 whatsapp=$whatsappdeb
 teamviewer=$teamviewerdeb
 githubdesktop=githubdesktopdeb
+teams=teamsdeb
 
 
 ########################################################
@@ -235,6 +246,7 @@ githubdesktop=githubdesktopdeb
 			7_web "	TeamViewer" off
 			8_web "	JDownloader" off
 			9_web "	GitHub Desktop" off
+			10_web "	Microsoft Teams" off
 		#G "<----Category: Networking---->" on
 			1_network "	SAMBA" off
 			2_network "	ZFS" off
@@ -261,11 +273,12 @@ githubdesktop=githubdesktopdeb
 			2_gaming "	Lutris" off
 			3_gaming "	Wine" off
 		#N "<----Category: File Explorer---->" on
-			1_files "	Pcmanfm" off
+			#1_files "	Pcmanfm" off
 			2_files "	LibreOfficce" off
 			3_files_U "	Espanso" off
 			4_files_U "	PCloud" off
 			5_files "	Paquete Hogar" off
+			6_files "	BalenaEtcher" off
 		#Ñ "<----Category: Desktop Customization---->" on
 			1_desktop_U "	QT matches GTK" off
 			2_desktop "	Picom" off
@@ -277,7 +290,7 @@ githubdesktop=githubdesktopdeb
 			3_themes "	Ubuntu Themes" off
 			4_themes_U "	Windows Themes" off
 			5_themes_U "	MacOS Themes" off
-			6_theme_U "	Infinity/Candy/Gruvbox Themes" off
+			6_themes_U "	Infinity/Candy/Gruvbox Themes" off
 		#P "<----Category: System---->" on
 			1_system_U "	Swappiness=10" off
 			V "Post Install Auto Clean Up & Update" off)
@@ -289,7 +302,7 @@ githubdesktop=githubdesktopdeb
 		#B "<----Category: Alternate Installers---->" on
 			1_installer_rpm "	Snap Packages" off
 			2_installer_rpm "	Flatpak" off
-			3_installer_rpm "	Synaptic" off
+			3_installer_rpm "	Yumux" off
 			4_installer_rpm "	PIP" off
 		#C "<----Category: Text Editors---->" on
 			1_editor_rpm "	Nano" off
@@ -315,6 +328,7 @@ githubdesktop=githubdesktopdeb
 			7_web_rpm "	TeamViewer" off
 			8_web_rpm "	JDownloader" off
 			9_web_rpm "	GitHub Desktop" off
+			10_web_rpm "	Microsoft Teams" off
 		#G "<----Category: Networking---->" on
 			1_network_rpm "	SAMBA" off
 			2_network_rpm "	ZFS" off
@@ -341,11 +355,12 @@ githubdesktop=githubdesktopdeb
 			2_gaming_rpm "	Lutris" off
 			3_gaming_rpm "	Wine" off
 		#N "<----Category: File Explorer---->" on
-			1_files_rpm "	Pcmanfm" off
+			#1_files_rpm "	Pcmanfm" off
 			2_files_rpm "	LibreOfficce" off
 			3_files_U "	Espanso" off
 			4_files_U "	PCloud" off
 			5_files_rpm "	Paquete Hogar" off
+			6_files_rpm "	BalenaEtcher" off
 		#Ñ "<----Category: Desktop Customization---->" on
 			1_desktop_U "	QT matches GTK" off
 			2_desktop_rpm "	Picom" off
@@ -357,7 +372,7 @@ githubdesktop=githubdesktopdeb
 			3_themes_rpm "	Ubuntu Themes" off
 			4_themes_U "	Windows Themes" off
 			5_themes_U "	MacOS Themes" off
-			6_theme_U "	Infinity/Candy/Gruvbox Themes" off
+			6_themes_U "	Infinity/Candy/Gruvbox Themes" off
 		#P "<----Category: System---->" on
 			1_system_U "	Swappiness=10" off
 			V "Post Install Auto Clean Up & Update" off)
@@ -365,6 +380,7 @@ githubdesktop=githubdesktopdeb
 
 	archlinux=(
 			0_basic_aur "	Basicos Obligatorios" off
+			1_repos_aur "	Chaotic Aur" off
 		#A "<----Category: Repositories---->" on
 		#B "<----Category: Alternate Installers---->" on
 			1_installer_aur "	Snap Packages" off
@@ -395,6 +411,7 @@ githubdesktop=githubdesktopdeb
 			7_web_aur "	TeamViewer" off
 			8_web_aur "	JDownloader" off
 			9_web_aur "	GitHub Desktop" off
+			10_web_aur "	Microsoft Teams" off
 		#G "<----Category: Networking---->" on
 			1_network_aur "	SAMBA" off
 			2_network_aur "	ZFS" off
@@ -421,11 +438,12 @@ githubdesktop=githubdesktopdeb
 			2_gaming_aur "	Lutris" off
 			3_gaming_aur "	Wine" off
 		#N "<----Category: File Explorer---->" on
-			1_files_aur "	Pcmanfm" off
+			#1_files_aur "	Pcmanfm" off
 			2_files_aur "	LibreOfficce" off
 			3_files_U "	Espanso" off
 			4_files_U "	PCloud" off
 			5_files_aur "	Paquete Hogar" off
+			6_files_aur "	BalenaEtcher" off
 		#Ñ "<----Category: Desktop Customization---->" on
 			1_desktop_U "	QT matches GTK" off
 			2_desktop_aur "	Picom" off
@@ -437,7 +455,7 @@ githubdesktop=githubdesktopdeb
 			3_themes_aur "	Ubuntu Themes" off
 			4_themes_U "	Windows Themes" off
 			5_themes_U "	MacOS Themes" off
-			6_theme_U "	Infinity/Candy/Gruvbox Themes" off
+			6_themes_U "	Infinity/Candy/Gruvbox Themes" off
 		#P "<----Category: System---->" on
 			1_system_U "	Swappiness=10" off
 			V "Post Install Auto Clean Up & Update" off)
@@ -479,6 +497,7 @@ githubdesktop=githubdesktopdeb
 # installteamviewer
 # installjdownloader
 # installgithub
+# installteams
 # installsamba
 # installzfs
 # installnvidia
@@ -545,7 +564,7 @@ function cambioarch()
 			autoremove=$autoremovearch
 			reparar=$reparararch
 			unpack=$unpackarch
-
+			su $nombre
 }
 
 function update()
@@ -560,8 +579,8 @@ function update()
 function installbasicos()
 
 {
-			sudo $install gpgv wget sudo dpkg pkgsync libnbcompat-dev makepkg gdebi curl ntfs-3g -yy
-			sudo $desinstall numlockx -yy
+			sudo $install wget sudo dpkg curl ntfs-3g -yy
+			# sudo $desinstall numlockx -yy
 			sleep 1s
 
 }
@@ -720,7 +739,7 @@ function installnvim()
 {
 			echo "#----------------------------Instalando NVim personalizado-----------------------------#"
 			sleep 1s
-			sudo $install curl xterm rxvt-unicode vim-tlib neovim neovim-runtime lua-nvim powerline powerline-gitstatus tmux -yy &&
+			sudo $install curl xterm rxvt-unicode neovim powerline tmux -yy &&
 			cd $usuario
 			sudo mkdir -m 777 $usuario/.nvm
 			sudo mkdir -m 777 $usuario/.local/share/nvim/site/autoload/
@@ -804,7 +823,7 @@ function installbash()
 {
 			echo "#----------------------------Instalando Bash----------------------------#"
 			sleep 1s
-			sudo $install bash-completion bash-doc bash-builtins fzf -yy
+			sudo $install bash-completion bash-doc fzf -yy
 			cd $usuario
 			cp -rf $usuario/dotfiles/.bashrc $usuario
 			sudo chmod -R 777 .bashrc
@@ -945,7 +964,7 @@ function installgooglechrome()
 			cd $tmp_dir
 			rm google-chrome*
 			$chrome
-			sudo $unpack google-chrome-stable_current_amd64.deb
+			sudo $unpack $chromename
 			rm google-chrome*
 			cd $usuario
 			echo "#----------------------------Instalado Gooogle Chrome----------------------------#"
@@ -959,7 +978,7 @@ function installslack()
 {
 			echo "#----------------------------Instalando Slack----------------------------#"
 			sleep 1s
-			sudo $install wget gconf2 gconf-service python3 gvfs-bin libappindicator1 -yy
+			sudo $install wget python3 gvfs-bin libappindicator1 -yy
 			cd $tmp_dir
 			rm slack-desktop*
 			$slack
@@ -977,7 +996,7 @@ function installzoom()
 {
 			echo "#----------------------------Instalando Zoom----------------------------#"
 			sleep 1s
-			sudo $install wget libgl1-mesa-glx libegl1-mesa -yy
+			sudo $install wget -yy
 			cd $tmp_dir
 			rm zoom*
 			$zoom
@@ -996,9 +1015,9 @@ function installwhatsapp()
 			sleep 1s
 			sudo $install wget git sudo -yy
 			rm $tmp_dir/whatsapp-d*
-			wget -P $tmp_dir https://ftp5.gwdg.de/pub/linux/debian/mint/packages/pool/import/w/whatsapp-desktop/whatsapp-desktop_0.6.1_amd64.deb
+			wget -P $tmp_dir $whatsapp
 			cd $tmp_dir
-			sudo $unpack whatsapp-desktop_0.6.1_amd64.deb
+			sudo $unpack $whatsappname
 			rm $tmp_dir/whatsapp-d*
 			cd $usuario
 			echo "#----------------------------Instalado WhatsApp Desktop----------------------------#"
@@ -1072,32 +1091,49 @@ function installgithub()
 
 }
 
+function installteams()
+
+{
+			echo "#----------------------------Instalando Microsoft Teams-----------------------------#"
+			sleep 1s
+			cd $tmp_dir
+			sudo $install wget gpg apt-transport-https
+			$teams
+			sudo $update
+			sudo $install teams -y
+			cd $usuario
+			echo "#----------------------------Instalado Microsoft Teams-----------------------------#"
+			sleep 2s
+
+}
+
+
 function installsamba()
 
 {
 			echo "#----------------------------Instalando Samba----------------------------#"
 			sleep 1s
-			sudo $install samba samba-common samba-libs cifs-utils libcups2 cups smbclient gvfs-backends net-tools network-manager network-manager-openvpn network-manager-openvpn-gnome -yy
+			sudo $install samba cifs-utils libcups2 cups smbclient gvfs-backends net-tools network-manager network-manager-openvpn network-manager-openvpn-gnome -yy
 			#backup smb.conf
 			sudo cp /etc/samba/smb.conf /etc/samba/smb.conf.bak
+			cd /etc/samba/
+			sudo rm smb.conf
+			sudo cp -rf $usuario/dotfiles/smb.conf /etc/samba/smb.conf
 			sudo chmod 755 /etc/samba/smb.conf.bak
 			sudo chmod 755 /etc/samba/smb.conf
-			sudo grep -v -E "^#|^;" /etc/samba/smb.conf.bak | grep . > /etc/samba/smb.conf
-			sudo systemctl enable smbd
-			sudo systemctl start smbd
-			sudo systemctl enable nmbd
-			sudo systemctl start nmbd
-			sudo cp -rf $usuario/dotfiles/smb.conf /etc/samba/
-			sudo chmod 755 /etc/samba/smb.conf
-			sudo chown -R $nombre:$nombre $usuario/Public
-			sudo chown -R 777 $usuario/Public
-			sudo chgrp -R sambashare $usuario/Public
+			# sudo grep -v -E "^#|^;" /etc/samba/smb.conf.bak | grep . > /etc/samba/smb.conf
+            sudo useradd $nombre
+            sudo pdbedit -a -u $nombre
+            sudo smbpasswd $nombre
+            sudo systemctl restart smbd nmbd
+            sudo systemctl start smbd nmbd
+            sudo systemctl enable smbd nmbd
+            sudo chown -R $nombre:$nombre $usuario/Public
+			sudo chmod -R 777 $usuario/Public
 			sudo chown -R $nombre:$nombre $usuario/Downloads
-			sudo chown -R 777 $usuario/Downloads
-			sudo chgrp -R sambashare $usuario/Downloads
+			sudo chmod -R 777 $usuario/Downloads
 			sudo chown -R $nombre:$nombre $usuario/Desktop
-			sudo chown -R 777 $usuario/Desktop
-			sudo chgrp -R sambashare $usuario/Desktop
+			sudo chmod -R 777 $usuario/Desktop
 			echo "
 Samba: 
 sudo chown -R $nombre:$nombre $usuario/Public
@@ -1168,7 +1204,7 @@ function installpulseaudio()
 {
 			echo "#----------------------------Instalando PulseAudio----------------------------#"
 			sleep 1s
-			sudo $install pulseaudio pulseaudio-utils pavucontrol pavucontrol-qt pulseaudio-equalizer pulseaudio-module-gsettings pulseaudio-module-jack pulseaudio-utils pulsemixer gstreamer1.0-pulseaudio -yy
+			sudo $install pulseaudio pulseaudio-utils pavucontrol pavucontrol-qt pulseaudio-module-gsettings pulseaudio-module-jack pulseaudio-utils -yy
 			echo "#----------------------------Instalado PulseAudio----------------------------#"
 			sleep 2s
 
@@ -1299,6 +1335,10 @@ function installnerdfonts()
 			rm readme*
 			cd $tmp_dir
 			wget -P $tmp_dir https://github.com/ryanoasis/nerd-fonts/releases/download/$nerdfontsversion/Meslo.zip
+			wget -P $tmp_dir https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf
+			wget -P $tmp_dir https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf
+			wget -P $tmp_dir https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf
+			wget -P $tmp_dir https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf
 			unzip Meslo.zip
 			rm Meslo.zip
 			sudo mkdir -p /usr/share/fonts/nerd-fonts/Meslo
@@ -1431,6 +1471,15 @@ echo "#------------------------Instalar fuentes Sistema-------------------------
 			unzip comfortaa
 			sudo mkdir -p /usr/share/fonts/normal-fonts/Comfortaa
 			sudo mv Comfortaa* /usr/share/fonts/normal-fonts/Comfortaa/
+#https://github.com/oblador/react-native-vector-icons/tree/master/Fonts
+						#FontAwesome
+			wget https://github.com/oblador/react-native-vector-icons/blob/master/Fonts/FontAwesome.ttf
+			sudo mkdir -p /usr/share/fonts/normal-fonts/
+			sudo mv FontAwesome.ttf /usr/share/fonts/normal-fonts/
+									#Feather
+			wget https://github.com/oblador/react-native-vector-icons/blob/master/Fonts/Feather.ttf
+			sudo mkdir -p /usr/share/fonts/normal-fonts/
+			sudo mv Feather.ttf /usr/share/fonts/normal-fonts/
 			rm Comfortaa*
 			rm sharefonts*
 			cd $usuario
@@ -1445,7 +1494,7 @@ function installvlc()
 {
 			echo "#--------------------------------Instalando VLC--------------------------------#"
 			sleep 1s
-			sudo $install vlc vlc-plugin-access-extra vlc-plugin-base vlc-plugin-bittorrent vlc-plugin-fluidsynth vlc-plugin-jack vlc-plugin-pipewire vlc-plugin-qt vlc-plugin-samba vlc-plugin-skins2 vlc-plugin-svg -yy
+			sudo $install vlc vlc-plugin-bittorrent vlc-plugin-jack -yy
 			echo "#--------------------------------Instalado VLC--------------------------------#"
 			sleep 2s
 
@@ -1457,7 +1506,7 @@ function installaudacity()
 {
 			echo "#--------------------------------Instalando Audacity--------------------------------#"
 			sleep 1s
-			sudo $install audacity silan -yy
+			sudo $install audacity -yy
 			echo "#--------------------------------Instalado Audacity--------------------------------#"
 			sleep 2s
 
@@ -1469,7 +1518,7 @@ function installobs()
 {
 			echo "#--------------------------------Instalando OBS-Studio--------------------------------#"
 			sleep 1s
-			sudo $install obs-studio obs-plugins obs-utils obs-websocket -yy
+			sudo $install obs-studio -yy
 			echo "#--------------------------------Instalado OBS-Studio--------------------------------#"
 			sleep 2s
 
@@ -1604,20 +1653,25 @@ function installespanso()
 			echo "#--------------------------------Instalando Espanso--------------------------------#"
 			sleep 1s
 			# Create the $HOME/opt destination folder
-			mkdir -p /opt/
+			sudo mkdir -p /opt
+			cd /opt
 			# Download the AppImage inside it
-			cd $usuario
-			wget -O /opt/Espanso.AppImage 'https://github.com/federico-terzi/espanso/releases/download/v2.1.8/Espanso-X11.AppImage'
+			sudo wget -O /opt/Espanso.AppImage 'https://github.com/espanso/espanso/releases/download/v2.1.8/Espanso-X11.AppImage'
 			# Make it executable
-			sudo chmod -R 777 /opt/Espanso.AppImage
-			sudo chown -R $nombre:$nombre /opt/Espanso.AppImage
+			sudo chmod 777 /opt/Espanso.AppImage
 			# Create the "espanso" command alias
 			sudo /opt/Espanso.AppImage env-path register
 			# Register espanso as a systemd service (required only once)
-			espanso service register
+			sudo mkdir $usuario/.config/espanso
+			sudo cp -rf $usuario/dotfiles/espanso/* $usuario/.config/espanso
+			sudo chown -R 777 $usuario/.config
+			sudo chown -R $nombre:$nombre $usuario/.config
+			sudo espanso service register
 			# Start espanso
 			espanso start
 			espanso
+			cd /opt
+			./Espanso.AppImage
 			echo "#--------------------------------Instalado Espanso--------------------------------#"
 			sleep 2s
 
@@ -1629,7 +1683,9 @@ function installpcloud()
 {
 			echo "#--------------------------------Instalando PCloud--------------------------------#"
 			sleep 1s
-			sudo wget -P /usr/bin/ https://p-lux2.pcloud.com/cBZu1eKrMZqDbfTqZZZdS7Tc7Z2ZZZkZPF7pVZrHZZBpZpRZc5Z6pZopZ9pZApZGFZUJZkJZPpZkzZnA0kVZhFwtGeYAQK70WlRr9Ucau83mW29V/pcloud
+			cd $tmp_dir
+			sudo wget -P $tmp_dir https://p-def4.pcloud.com/cBZnrXB1wZijGdL3ZZZHrUlc7Z2ZZg0LZkZvP5pVZ9zZNFZ8RZTFZqzZpRZJHZIHZvFZaHZgLZlRZt7ZQ5ZCy4sVZPBbv9xnzaVjDnFdKvFA31VNxtQeV/pcloud
+			sudo mv pcloud /usr/bin/
 			sudo chmod 777 /usr/bin/pcloud 
 			pcloud
 			echo "#--------------------------------Instalado PCloud--------------------------------#"
@@ -1643,7 +1699,7 @@ function installpackhome()
 {
 			echo "#--------------------------------Instalando Paquete Hogar--------------------------------#"
 			sleep 1s
-			sudo $install bleachbit apt-getitude perl aspell catfish galculator gnome-multi-writer gparted hplip-gui hunspell-es lightdm lightdm-gtk-greeter-settings locales midori mousepad mpv feh openvpn putty putty-tools ristretto simple-scan smartmontools telegram-desktop tlp viewnior wodim plymouth yad zeal exfat-utils -yy
+			sudo $install bleachbit perl aspell catfish galculator gnome-multi-writer gparted lightdm lightdm-gtk-greeter-settings midori mousepad feh putty ristretto simple-scan smartmontools telegram-desktop tlp viewnior yad firewalld exfat-utils -yy
 			echo "#--------------------------------Instalado Paquete Hogar--------------------------------#"
 			sleep 2s
 
@@ -1705,7 +1761,7 @@ function installbspwm()
 {
 echo "#----------------------------Instalando base BSPWM-----------------------------#"
 			sleep 1s
-			sudo $install xterm terminator rxvt-unicode inxi bspwm sxhkd rofi dunst cava parcellite maim bmon mpd nitrogen xbacklight gpick nm-tray light xsettingsd polybar suckless-tools dmenu network-manager network-manager network-manager-openvpn pcmanfm pcmanfm-qt ffmpegthumbnailer lxappearance fzf viewnior zenity policykit-1-gnome arandr pulseaudio pulseaudio-utils pavucontrol pulseaudio-equalizer gstreamer1.0-pulseaudio -yy
+			sudo $install xterm terminator rxvt-unicode inxi bspwm sxhkd rofi dunst cava xfce4-clipman maim bmon mpd nitrogen xbacklight gpick nm-tray light xsettingsd polybar suckless-tools dmenu network-manager network-manager network-manager-openvpn pcmanfm pcmanfm-qt ffmpegthumbnailer lxappearance fzf feh viewnior zenity policykit-1-gnome arandr pulseaudio pulseaudio-utils pavucontrol pulseaudio-equalizer gstreamer1.0-pulseaudio toilet -yy
 			cp -rf $usuario/dotfiles/bspwm/.Xresources.d $usuario
 			sudo chown -R 777 $usuario/Xresources.d
 			sudo chown -R $nombre:$nombre $usuario/Xresources.d
@@ -1738,6 +1794,11 @@ echo "#----------------------------Instalando base BSPWM------------------------
 			sudo systemctl disable bluetooth
 			sudo systemctl enable NetworkManager
 			sudo systemctl start NetworkManager
+			cd $tmp_dir
+			wget https://github.com/archcraft-os/packages/raw/main/x86_64/archcraft-fonts-1.0-3-any.pkg.tar.zst
+			tar -xf archcraft-fonts-1.0-3-any.pkg.tar.zst
+			sudo cp -r usr /
+			cd $tmp_dir
 			echo "#----------------------------Base BSPWM instalada------------------------------#"
 			sleep 2s
 
@@ -1812,8 +1873,12 @@ function installwindowsthemes()
 			cd $tmp_dir
 			rm Win*
 #Windows XP Icons
+			cd $tmp_dir
 			sudo git clone https://github.com/B00merang-Artwork/Windows-XP
-			sudo mv Windows* /usr/share/icons
+			cd Windows-XP/
+			sudo mkdir /usr/share/icons/Windows-XP
+			sudo mv * /usr/share/icons/Windows-XP
+			cd $tmp_dir
 #Windows 11 Icons themes
 			wget -P $tmp_dir https://codeload.github.com/yeyushengfan258/Win11-icon-theme/zip/refs/heads/main
 			cd $tmp_dir
@@ -1934,22 +1999,7 @@ function swappiness10()
 ########################################################
 
 
-cp /etc/apt/sources.list /etc/apt/sources.list.original
-
-if [[ $EUID -ne 0 ]]; then
-	echo "Este script funciona tipeando: sudo bash ./dotfiles.sh"
-	1s
-else
-	#Update and Upgrade
-	echo "Updating"
-	sudo $update
-	sudo $reparar
-	sudo $autoremove
-
-	echo "Creating temporary folder"
-	rm -rf /tmp/dis
-	sudo mkdir -m 777 $tmp_dir
-
+# cp /etc/apt/sources.list /etc/apt/sources.list.original
 
 dialog --title "https://github.com/yordisc/dotfiles" \
        --msgbox "En este dotfiles se encuentra mi configuración personal." 0 0 
@@ -1961,34 +2011,89 @@ nombre=$(dialog --title "Escribe el nombre del usuario" \
 		--stdout \
 		--inputbox "Nombre" 0 0)
 
+usuario=/home/$nombre
+
+if [[ $EUID -ne 0 ]]; then
+	echo "Este script funciona tipeando: sudo bash ./dotfiles.sh"
+	1s
+else
+
+
+	echo "Creating temporary folder"
+	rm -rf /tmp/dis
+	mkdir -m 777 $tmp_dir
+
+
+diestro=$(dialog --title "Elige el tipo de paquete: deb / rpm / aur" \
+		--stdout \
+		--inputbox "Diestro" 0 0)
 
 	deb=$("${cmddeb[@]}" "${debian[@]}" 2>&1 >/dev/tty)
 	rpm=$("${cmdred[@]}" "${redhat[@]}" 2>&1 >/dev/tty)
 	aur=$("${cmdarch[@]}" "${archlinux[@]}" 2>&1 >/dev/tty)
 
 
+function deb()
+
+{
+choices=$deb
+
+}
+
+function rpm()
+
+{
+choices=$rpm
+
+}
+
+
+function aur()
+
+{
+choices=$aur
+
+}
+
+
 	inicio dialog
-		choices=$deb
+		$diestro
 		clear
 		for choice in $choices
 		do
 			case $choice in
 
 
+
 # Section A -----------------------INSTALADORES----------------------------
 
 		0_basic)
+		#Update and Upgrade
+		echo "Updating"
+		sudo $update
+		sudo $reparar
+		sudo $autoremove
 			installbasicos
 			;;
 
 
 		0_basic_rpm)
 			cambiored
+			#Update and Upgrade
+		echo "Updating"
+		sudo $update
+		sudo $reparar
+		sudo $autoremove
 			installbasicos
 			;;
 
 		0_basic_aur)
 			cambioarch
+			#Update and Upgrade
+		echo "Updating"
+		sudo $update
+		sudo $reparar
+		sudo $autoremove
 			installbasicos
 			;;
 
@@ -1996,6 +2101,17 @@ nombre=$(dialog --title "Escribe el nombre del usuario" \
 
 		1_repos)
 			installrootaccess
+			;;
+			
+		1_repos_aur)
+		    cambioarch
+			pacman-key --recv-key 3056513887B78AEB --keyserver keyserver.ubuntu.com
+            pacman-key --lsign-key 3056513887B78AEB
+            pacman -U 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-keyring.pkg.tar.zst' 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-mirrorlist.pkg.tar.zst'
+            sudo pacman-key --init
+            sudo pacman -Syyu
+            sudo $install yay
+            yaourt -S pamac-aur
 			;;
 			
 		2_repos)
@@ -2023,7 +2139,13 @@ nombre=$(dialog --title "Escribe el nombre del usuario" \
 
 		1_installer_aur)
 			cambioarch
-			installsnap
+			git clone https://aur.archlinux.org/snapd.git $tmp_dir
+            cd $tmp_dir/snapd
+            $install
+            sudo systemctl enable --now snapd.socket
+            sudo ln -s /var/lib/snapd/snap /snap
+            sudo snap install hello-world
+            hello-world
 			;;
 
 		2_installer)
@@ -2046,12 +2168,26 @@ nombre=$(dialog --title "Escribe el nombre del usuario" \
 
 		3_installer_rpm)
 			cambiored
-			installsynaptic
+			echo "#--------------------------------Instalando Yumex (Sinaptic para Fedora)--------------------------------#"
+			sleep 1s
+			sudo dnf copr enable timlau/yumex-dnf
+			sudo dnf install yumex-dnf -yy
+			echo "#--------------------------------Instalado  Yumex (Sinaptic para Fedora)--------------------------------#"
+			sleep 2s
 			;;
 
 		3_installer_aur)
 			cambioarch
-			installsynaptic
+			sudo $install --needed base-devel git wget yajl
+			cd $tmp_dir
+            git clone https://aur.archlinux.org/package-query.git
+            cd package-query/
+            $unpack
+            cd $tmp_dir
+            git clone https://aur.archlinux.org/yaourt.git
+            cd yaourt/
+            $unpack
+            yaourt -S pamac-aur
 			;;
 
 		4_installer)
@@ -2065,7 +2201,8 @@ nombre=$(dialog --title "Escribe el nombre del usuario" \
 
 		4_installer_aur)
 			cambioarch
-			installpip
+			sudo pacman -S python2-pip
+			sudo pacman -S python-pip
 			;;
 
 # Section C ------------------------Text Editors------------------------------
@@ -2127,7 +2264,15 @@ nombre=$(dialog --title "Escribe el nombre del usuario" \
 		4_editor_aur)
 			cambioarch
 			vscode=vscodearch
-			installvscode
+			pacman -S
+            pacman -S git
+            cd $tmp_dir
+            git clone https://AUR.archlinux.org/visual-studio-code-bin.git $tmp_dir
+            cd visual-studio-code-bin/
+            $unpack
+            sudo pacman -U visual-studio-code-bin-*.pkg.tar.xz
+            cd $tmp_dir
+            sudo rm -rfv visual-studio-code-bin/
 			;;
 
 # Section D ---------------------------Phone------------------------------------
@@ -2143,7 +2288,12 @@ nombre=$(dialog --title "Escribe el nombre del usuario" \
 
 		1_phone_aur)
 			cambioarch
-			installandroidsdk
+			yaourt android-sdk-platform-tools
+            yaourt android-udev
+            yaourt android-sdk
+            export ANDROID_HOME=/opt/android-sdk
+            export PATH=$PATH:$ANDROID_HOME/tools
+            export PATH=$PATH:$ANDROID_HOME/platform-tools
 			;;
 
 		2_phone)
@@ -2157,7 +2307,11 @@ nombre=$(dialog --title "Escribe el nombre del usuario" \
 
 		2_phone_aur)
 			cambioarch
-			installiphone
+			git clone https://github.com/libimobiledevice/libimobiledevice.git $tmp_dir
+            cd $tmp_dir/libimobiledevice
+            ./autogen.sh
+            make
+            sudo make install
 			;;
 
 # Section E -------------------------Terminal Customization--------------------------
@@ -2182,12 +2336,20 @@ nombre=$(dialog --title "Escribe el nombre del usuario" \
 
 		2_customize_rpm)
 			cambiored
-			installzsh
+			echo "#----------------------------Instalando Zsh----------------------------#"
+			sleep 1s
+			sudo $install zsh fzf zsh-autosuggestions thefuck -yy
+			sudo usermod -s /usr/bin/zsh $(whoami)
+			echo "#----------------------------Instalado Zsh----------------------------#"
+			sleep 2s
 			;;
 
 		2_customize_aur)
 			cambioarch
-			installzsh
+			echo "#----------------------------Instalando Zsh----------------------------#"
+			sleep 1s
+			sudo $install zsh zsh-completions
+			chsh -s /bin/zsh
 			;;
 
 		3_customize_U)
@@ -2238,6 +2400,7 @@ nombre=$(dialog --title "Escribe el nombre del usuario" \
 			cambiored
 			chromename=$chromenamered
 			chrome=chromered
+			sudo $install liberation-fonts
 			installgooglechrome
 			;;
 
@@ -2245,7 +2408,10 @@ nombre=$(dialog --title "Escribe el nombre del usuario" \
 			cambioarch
 			chromename=$chromenamearch
 			chrome=chromearch
-			installgooglechrome
+			cd $tmp_dir
+            git clone https://aur.archlinux.org/google-chrome.git $tmp_dir
+            cd $tmp_dir/google-chrome/
+            $unpack  
 			;;
 
 		3_web)
@@ -2263,7 +2429,13 @@ nombre=$(dialog --title "Escribe el nombre del usuario" \
 			cambioarch
 			slackname=$slacknamearch
 			slack=$slackarch
-			installslack
+			sudo pacman -Syu
+            sudo pacman -S git base-devel
+            cd $tmp_dir
+            git clone https://aur.archlinux.org/slack-desktop.git $tmp_dir
+            cd $tmp_dir/slack-desktop/
+            $unpack
+            yay -S slack-desktop
 			;;
 
 		4_web)
@@ -2273,7 +2445,7 @@ nombre=$(dialog --title "Escribe el nombre del usuario" \
 		4_web_rpm)
 			cambiored
 			zoomname=$zoomnamered
-			zoom=zoomred
+			zoom=$zoomred
 			installzoom
 			;;
 
@@ -2281,7 +2453,12 @@ nombre=$(dialog --title "Escribe el nombre del usuario" \
 			cambioarch
 			zoomname=$zoomnamearch
 			zoom=zoomarch
-			installzoom
+			sudo pacman -Syu
+            sudo pacman -S git base-devel
+            cd $tmp_dir
+            git clone https://aur.archlinux.org/zoom.git $tmp_dir
+            cd $tmp_dir/zoom/
+            $install
 			;;
 
 		5_web)
@@ -2290,14 +2467,30 @@ nombre=$(dialog --title "Escribe el nombre del usuario" \
 
 		5_web_rpm)
 			cambiored
+			whatsappname=$whatsappnamered
 			whatsapp=$whatsappred
-			installwhatsapp
+			sudo dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
+			sudo dnf upgrade
+			sudo rpm -ivh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+			sudo subscription-manager repos --enable "rhel-*-optional-rpms" --enable "rhel-*-extras-rpms"
+			sudo yum update
+			sudo yum install snapd
+			sudo systemctl enable --now snapd.socket
+			sudo ln -s /var/lib/snapd/snap /snap
+			sudo snap install whatsapp-for-linux
 			;;
 
 		5_web_aur)
 			cambioarch
+			whatsappname=$whatsappnamearch
 			whatsapp=$whatsapparch
-			installwhatsapp
+			cd $tmp_dir
+            git clone https://aur.archlinux.org/snapd.git $tmp_dir
+            cd $tmp_dir/snapd
+            $install
+            sudo systemctl enable --now snapd.socket
+            sudo ln -s /var/lib/snapd/snap /snap
+            sudo snap install whatsapp-for-linux
 			;;
 
 		6_web)
@@ -2329,7 +2522,15 @@ nombre=$(dialog --title "Escribe el nombre del usuario" \
 			cambioarch
 			teamviewername=$teamviewernamearch
 			teamviewer=$teamviewerarch
-			installteamviewer
+			sudo pacman -Sy
+            sudo pacman -S git
+            cd $tmp_dir
+            git clone https://aur.archlinux.org/teamviewer12.git $tmp_dir
+            cd teamviewer12
+            $unpack
+            sudo pacman -Sy
+            $unpack
+            sudo pacman -U teamviewer*.pkg.tar.xz
 			;;
 
 		8_web)
@@ -2359,7 +2560,30 @@ nombre=$(dialog --title "Escribe el nombre del usuario" \
 		9_web_aur)
 			cambioarch
 			githubdesktop=$githubdesktoparch
-			installgithub
+			git clone https://aur.archlinux.org/github-desktop-bin.git $tmp_dir
+            cd $tmp_dir/github-desktop-bin/
+            $install
+            #with aur helper yay
+           sudo yay -S github-desktop
+			;;
+
+		10_web)
+			installteams
+			;;
+
+		10_web_rpm)
+			cambiored
+			$team=teamred
+			installteams
+			;;
+
+		10_web_aur)
+			cambioarch
+			$team=teamarch
+			git clone https://aur.archlinux.org/yay.git $tmp_dir
+            cd $tmp_dir/yay
+           $install
+           sudo yay -S teams
 			;;
 # Section G ----------------------------------Networking----------------------------------------------
 
@@ -2369,7 +2593,35 @@ nombre=$(dialog --title "Escribe el nombre del usuario" \
 
 		1_network_rpm)
 			cambiored
-			installsamba
+						echo "#----------------------------Instalando Samba----------------------------#"
+			sleep 1s
+			sudo $install samba cifs-utils cups net-tools -yy
+			#backup smb.conf
+			sudo cp /etc/samba/smb.conf /etc/samba/smb.conf.bak
+			cd /etc/samba/
+			sudo rm smb.conf
+			sudo cp -rf $usuario/dotfiles/smb.conf /etc/samba/smb.conf
+			sudo chmod 755 /etc/samba/smb.conf.bak
+			sudo chmod 755 /etc/samba/smb.conf
+			# sudo grep -v -E "^#|^;" /etc/samba/smb.conf.bak | grep . > /etc/samba/smb.conf
+            sudo useradd $nombre
+            sudo pdbedit -a -u $nombre
+            sudo smbpasswd $nombre
+            sudo systemctl restart smbd nmbd
+            sudo systemctl start smbd nmbd
+            sudo systemctl enable smbd nmbd
+            sudo chown -R $nombre:$nombre $usuario/Public
+			sudo chmod -R 777 $usuario/Public
+			sudo chown -R $nombre:$nombre $usuario/Downloads
+			sudo chmod -R 777 $usuario/Downloads
+			sudo chown -R $nombre:$nombre $usuario/Desktop
+			sudo chmod -R 777 $usuario/Desktop
+			echo "
+Samba: 
+sudo chown -R $nombre:$nombre $usuario/Public
+sudo chown -R 777 $usuario/Public
+sudo chgrp -R sambashare $usuario/Public
+" >> $usuario/Abrir
 			;;
 
 		1_network_aur)
@@ -2504,7 +2756,7 @@ nombre=$(dialog --title "Escribe el nombre del usuario" \
 
 		1_media_aur)
 			cambioarch
-			installvlc
+			pacman -S vlc
 			;;
 
 
@@ -2572,7 +2824,11 @@ nombre=$(dialog --title "Escribe el nombre del usuario" \
 
 		1_gaming_rpm)
 			cambiored
-			installsteam
+			su -c 'dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm'
+			su -c 'dnf -y install xorg-x11-drv-nouveau mesa-libGL.i686 mesa-dri-drivers.i686'
+			su -c 'dnf -y install xorg-x11-drv-intel mesa-libGL.i686 mesa-dri-drivers.i686'
+			su -c 'dnf -y update'
+			su -c 'dnf -y install steam'
 			;;
 
 		1_gaming_aur)
@@ -2616,12 +2872,27 @@ nombre=$(dialog --title "Escribe el nombre del usuario" \
 
 		2_files_rpm)
 			cambiored
-			installlibreoffice
+			echo "#--------------------------------Instalando LibreOffice--------------------------------#"
+			sleep 1s
+			sudo $install libreoffice hyphen-es hunspell-es mythes-es libreoffice-help-es libreoffice-voikko -yy
+			echo "#--------------------------------Instalado LibreOffice--------------------------------#"
+			sleep 2s
 			;;
 
 		2_files_aur)
 			cambioarch
-			installlibreoffice
+			echo "#--------------------------------Instalando LibreOffice--------------------------------#"
+			sudo pacman -Syyu
+			sudo pacman -S --needed ttf-caladea ttf-carlito ttf-dejavu ttf-liberation ttf-linux-libertine-g noto-fonts adobe-source-code-pro-fonts adobe-source-sans-pro-fonts adobe-source-serif-pro-fonts
+			paru ttf-gentium-basic
+			paru hsqldb2-java
+			sudo pacman -S --needed jre-openjdk
+			sudo pacman -S libreoffice-fresh
+			sudo pacman -S libreoffice-extension-texmaths libreoffice-extension-writer2latex
+			sudo pacman -S hunspell-en_us hunspell-es_es
+			paru libreoffice-extension-languagetool
+			echo "#--------------------------------Instalado LibreOffice--------------------------------#"
+			sleep 2s
 			;;
 
 		3_files_U)
@@ -2644,6 +2915,38 @@ nombre=$(dialog --title "Escribe el nombre del usuario" \
 		5_files_aur)
 			cambioarch
 			installpackhome
+			;;
+
+		6_files)
+			sudo apt-get install gnome-multi-writer
+			curl -1sLf \
+   'https://dl.cloudsmith.io/public/balena/etcher/setup.deb.sh' \
+   | sudo -E bash
+            sudo $update
+            sudo $install balena-etcher-electron
+            sudo $install git p7zip-full python3-pip python3-wxgtk4.0
+sudo pip3 install WoeUSB-ng
+			;;
+
+		6_files_rpm)
+			cambiored
+			sudo dnf install gnome-multi-writer
+			curl -1sLf \
+   'https://dl.cloudsmith.io/public/balena/etcher/setup.rpm.sh' \
+   | sudo -E bash
+            sudo $update
+            sudo $install balena-etcher-electron
+            sudo dnf makecache --refresh
+			sudo dnf install git p7zip p7zip-plugins python3-pip python3-wxpython4
+			sudo dnf -y install WoeUSB
+			;;
+
+		6_files_aur)
+			cambioarch
+			sudo pacman -S gnome-multi-writer
+			sudo yay -S balena-etcher
+			sudo pacman -Suy p7zip python-pip python-wxpython
+			yay -S woeusb-ng
 			;;
 
 
@@ -2688,7 +2991,48 @@ nombre=$(dialog --title "Escribe el nombre del usuario" \
 
 		4_desktop_rpm)
 			cambiored
-			installbspwm
+			echo "#----------------------------Instalando base BSPWM-----------------------------#"
+			sleep 1s
+			sudo $install xterm terminator rxvt-unicode inxi bspwm sxhkd rofi dunst cava maim bmon nitrogen xbacklight gpick light xsettingsd polybar dmenu pcmanfm pcmanfm-qt lxappearance fzf viewnior zenity arandr pavucontrol -yy
+			cp -rf $usuario/dotfiles/bspwm/.Xresources.d $usuario
+			sudo chown -R 777 $usuario/Xresources.d
+			sudo chown -R $nombre:$nombre $usuario/Xresources.d
+			cp -rf $usuario/dotfiles/bspwm/.Xresources $usuario
+			sudo chmod -R 777 $usuario/Xresources
+			sudo chown -R $nombre:$nombre $usuario/Xresources
+			cp -rf $usuario/dotfiles/bspwm/.xsettingsd $usuario
+			sudo chmod -R 777 $usuario/.xsettingsd
+			sudo chown -R $nombre:$nombre $usuario/.xsettingsd
+			cp -rf $usuario/dotfiles/bspwm/.gtkrc-2.0 $usuario
+			sudo chmod -R 777 $usuario/.gtkrc-2.0
+			sudo chown -R $nombre:$nombre $usuario/.gtkrc-2.0
+			cp -rf $usuario/dotfiles/bspwm/.hidden $usuario
+			sudo chmod -R 777 $usuario/.hidden
+			sudo chown -R $nombre:$nombre $usuario/.hidden
+			cp -rf $usuario/dotfiles/bspwm/.dmrc $usuario
+			sudo chmod -R 777 $usuario/.dmrc
+			sudo chown -R $nombre:$nombre $usuario/.dmrc
+			cp -rf $usuario/dotfiles/bspwm/.fehbg $usuario
+			sudo chmod -R 777 $usuario/.fehbg
+			sudo chown -R $nombre:$nombre $usuario/.fehbg
+			sudo mkdir -m 777 $usuario/.config/polybar
+			sudo chown -R 777 $usuario/.config/polybar
+			sudo chown -R $nombre:$nombre $usuario/.config/polybar
+			cp -rf $usuario/dotfiles/polybar/* $usuario/.config/polybar
+			cp -rf $usuario/dotfiles/bspwm/.config/* $usuario/.config
+			sudo chown -R 777 $usuario/.config
+			sudo chown -R $nombre:$nombre $usuario/.config
+			sudo systemctl disable mpd
+			sudo systemctl disable bluetooth
+			sudo systemctl enable NetworkManager
+			sudo systemctl start NetworkManager
+			cd $tmp_dir
+			wget https://github.com/archcraft-os/packages/raw/main/x86_64/archcraft-fonts-1.0-3-any.pkg.tar.zst
+			tar -xf archcraft-fonts-1.0-3-any.pkg.tar.zst
+			sudo cp -r usr /
+			cd $tmp_dir
+			echo "#----------------------------Base BSPWM instalada------------------------------#"
+			sleep 2s
 			;;
 
 		4_desktop_aur)

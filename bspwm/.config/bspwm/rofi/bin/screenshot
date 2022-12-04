@@ -26,7 +26,7 @@ notify_user () {
 # countdown
 countdown () {
 	for sec in `seq $1 -1 1`; do
-		dunstify -t 1000 --replace=699 -i /usr/share/icons/dunst/timer.png "Tomando caputra en: $sec"
+		dunstify -t 1000 --replace=699 -i /usr/share/icons/dunst/timer.png "Tomando captura en: $sec"
 		sleep 1
 	done
 }

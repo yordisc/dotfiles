@@ -55,7 +55,7 @@ bspbar () {
 }
 
 bspterm () {
-	cat > "$DIR"/uxterm/colors.yml <<- _EOF_
+	cat > "$DIR"/alacritty/colors.yml <<- _EOF_
 		## Colors configuration
 		colors:
 		  # Default colors

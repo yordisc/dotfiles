@@ -8,7 +8,6 @@ DIR="$HOME/.config/bspwm/polybar"
 SFILE="$DIR/system"
 RFILE="$DIR/.system"
 MFILE="$DIR/.module"
-# DIR="$HOME/.config/polybar/launch.sh"
 
 ## Get system variable values for various modules
 get_values() {

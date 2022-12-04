@@ -8,12 +8,12 @@ DIR="$HOME/.config/bspwm"
 rofi_command="rofi -theme $DIR/rofi/themes/asroot.rasi"
 
 # Apps
-terminal=" Terminal"
+terminal=" UXterm"
 files=" PcManFM"
-editor=" Code"
+editor=" Geany"
 clifm=" Ranger"
 mpad=" Mousepad"
-nvim=" NVim"
+vim=" NVim"
 
 # Variable passed to rofi
 options="$terminal
@@ -21,29 +21,29 @@ $files
 $editor
 $clifm
 $mpad
-$nvim"
+$vim"
 
 # Functions
 
 chosen="$(echo "$options" | $rofi_command -p "Ejecuta aplicaciones root" -dmenu -selected-row 0)"
 case $chosen in
     $terminal)
-        apps_as_root 'xterm --class xterm-float,xterm-float
+        apps_as_root 'uxterm -e googler'
         ;;
     $files)
         apps_as_root 'pcmanfm'
         ;;
     $editor)
-        apps_as_root 'code'
+        apps_as_root 'geany'
         ;;
     $clifm)
-        apps_as_root 'uxterm --class uxterm-float,uxterm-float -e ranger'
+        apps_as_root 'uxterm -e ranger'
         ;;
     $mpad)
         apps_as_root 'mousepad'
         ;;
-    $nvim)
-        apps_as_root 'uxterm --class uxterm-float,uxterm-float -e nvim'
+    $vim)
+        apps_as_root 'uxterm -e nvim'
         ;;
 esac
 

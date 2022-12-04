@@ -30,7 +30,8 @@ if [[ ! `pidof xfce-polkit` ]]; then
 	/usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &
 fi
 
-parcellite &
+#parcellite &
+xfce4-clipman &
 sleep 1
 
 nitrogen --restore; sleep 1; picom -b &
@@ -46,9 +47,13 @@ wmname LG3D &
 pcloud &
 sleep 1
 
-dunst &
-sleep 1
+#nm-applet --indicator &
 
+# Cursor
+xsetroot -cursor_name left_ptr &
+
+# Notifications
+/usr/bin/dunst &
 #nm-tray &
 #sleep 0.3
 
