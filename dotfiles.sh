@@ -1299,6 +1299,10 @@ function installnerdfonts()
 			rm readme*
 			cd $tmp_dir
 			wget -P $tmp_dir https://github.com/ryanoasis/nerd-fonts/releases/download/$nerdfontsversion/Meslo.zip
+			wget -P $tmp_dir https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf
+			wget -P $tmp_dir https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf
+			wget -P $tmp_dir https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf
+			wget -P $tmp_dir https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf
 			unzip Meslo.zip
 			rm Meslo.zip
 			sudo mkdir -p /usr/share/fonts/nerd-fonts/Meslo
