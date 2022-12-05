@@ -1104,7 +1104,7 @@ function installteams()
 			sudo $install wget gpg apt-transport-https
 			$team
 			sudo $update
-			sudo $install team -y
+			sudo $install teams -y
 			cd $usuario
 			# or code-insiders
 			echo "#----------------------------Instalado Microsoft Teams-----------------------------#"
@@ -1132,13 +1132,10 @@ function installsamba()
 			sudo chmod 755 /etc/samba/smb.conf
 			sudo chown -R $nombre:$nombre $usuario/Public
 			sudo chown -R 777 $usuario/Public
-			sudo chgrp -R sambashare $usuario/Public
 			sudo chown -R $nombre:$nombre $usuario/Downloads
 			sudo chown -R 777 $usuario/Downloads
-			sudo chgrp -R sambashare $usuario/Downloads
 			sudo chown -R $nombre:$nombre $usuario/Desktop
 			sudo chown -R 777 $usuario/Desktop
-			sudo chgrp -R sambashare $usuario/Desktop
 			echo "
 Samba: 
 sudo chown -R $nombre:$nombre $usuario/Public
