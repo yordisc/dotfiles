@@ -170,7 +170,6 @@ githubdesktoparch=""
 ##  Variables DEFINIBLES del sistema nombre + (deb,feb,arch)
 ############################################################
 #User=$(getent passwd 1000 | awk -F: '{ print $1}')
-usuario=/home/$nombre
 user=$USER
 install=$installdeb
 desinstall=$desinstalldeb
@@ -560,8 +559,8 @@ function update()
 function installbasicos()
 
 {
-			sudo $install gpgv wget sudo dpkg pkgsync libnbcompat-dev makepkg gdebi curl ntfs-3g -yy
-			sudo $desinstall numlockx -yy
+			sudo $install wget sudo dpkg curl ntfs-3g -yy
+			# sudo $desinstall numlockx -yy
 			sleep 1s
 
 }
@@ -720,7 +719,7 @@ function installnvim()
 {
 			echo "#----------------------------Instalando NVim personalizado-----------------------------#"
 			sleep 1s
-			sudo $install curl xterm rxvt-unicode vim-tlib neovim neovim-runtime lua-nvim powerline powerline-gitstatus tmux -yy &&
+			sudo $install curl xterm rxvt-unicode neovim powerline tmux -yy &&
 			cd $usuario
 			sudo mkdir -m 777 $usuario/.nvm
 			sudo mkdir -m 777 $usuario/.local/share/nvim/site/autoload/
@@ -804,7 +803,7 @@ function installbash()
 {
 			echo "#----------------------------Instalando Bash----------------------------#"
 			sleep 1s
-			sudo $install bash-completion bash-doc bash-builtins fzf -yy
+			sudo $install bash-completion bash-doc fzf -yy
 			cd $usuario
 			cp -rf $usuario/dotfiles/.bashrc $usuario
 			sudo chmod -R 777 .bashrc
@@ -1168,7 +1167,7 @@ function installpulseaudio()
 {
 			echo "#----------------------------Instalando PulseAudio----------------------------#"
 			sleep 1s
-			sudo $install pulseaudio pulseaudio-utils pavucontrol pavucontrol-qt pulseaudio-equalizer pulseaudio-module-gsettings pulseaudio-module-jack pulseaudio-utils pulsemixer gstreamer1.0-pulseaudio -yy
+			sudo $install pulseaudio pulseaudio-utils pavucontrol pavucontrol-qt pulseaudio-module-gsettings pulseaudio-module-jack pulseaudio-utils -yy
 			echo "#----------------------------Instalado PulseAudio----------------------------#"
 			sleep 2s
 
@@ -1938,22 +1937,7 @@ function swappiness10()
 ########################################################
 
 
-cp /etc/apt/sources.list /etc/apt/sources.list.original
-
-if [[ $EUID -ne 0 ]]; then
-	echo "Este script funciona tipeando: sudo bash ./dotfiles.sh"
-	1s
-else
-	#Update and Upgrade
-	echo "Updating"
-	sudo $update
-	sudo $reparar
-	sudo $autoremove
-
-	echo "Creating temporary folder"
-	rm -rf /tmp/dis
-	sudo mkdir -m 777 $tmp_dir
-
+# cp /etc/apt/sources.list /etc/apt/sources.list.original
 
 dialog --title "https://github.com/yordisc/dotfiles" \
        --msgbox "En este dotfiles se encuentra mi configuración personal." 0 0 
@@ -1965,34 +1949,89 @@ nombre=$(dialog --title "Escribe el nombre del usuario" \
 		--stdout \
 		--inputbox "Nombre" 0 0)
 
+usuario=/home/$nombre
+
+if [[ $EUID -ne 0 ]]; then
+	echo "Este script funciona tipeando: sudo bash ./dotfiles.sh"
+	1s
+else
+
+
+	echo "Creating temporary folder"
+	rm -rf /tmp/dis
+	sudo mkdir -m 777 $tmp_dir
+
+
+diestro=$(dialog --title "Elige el tipo de paquete: deb / rpm / aur" \
+		--stdout \
+		--inputbox "Diestro" 0 0)
 
 	deb=$("${cmddeb[@]}" "${debian[@]}" 2>&1 >/dev/tty)
 	rpm=$("${cmdred[@]}" "${redhat[@]}" 2>&1 >/dev/tty)
 	aur=$("${cmdarch[@]}" "${archlinux[@]}" 2>&1 >/dev/tty)
 
 
+function deb()
+
+{
+choices=$deb
+
+}
+
+function rpm()
+
+{
+choices=$rpm
+
+}
+
+
+function aur()
+
+{
+choices=$aur
+
+}
+
+
 	inicio dialog
-		choices=$deb
+		$diestro
 		clear
 		for choice in $choices
 		do
 			case $choice in
 
 
+
 # Section A -----------------------INSTALADORES----------------------------
 
 		0_basic)
+		#Update and Upgrade
+		echo "Updating"
+		sudo $update
+		sudo $reparar
+		sudo $autoremove
 			installbasicos
 			;;
 
 
 		0_basic_rpm)
 			cambiored
+			#Update and Upgrade
+		echo "Updating"
+		sudo $update
+		sudo $reparar
+		sudo $autoremove
 			installbasicos
 			;;
 
 		0_basic_aur)
 			cambioarch
+			#Update and Upgrade
+		echo "Updating"
+		sudo $update
+		sudo $reparar
+		sudo $autoremove
 			installbasicos
 			;;
 
