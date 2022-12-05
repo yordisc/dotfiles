@@ -165,6 +165,25 @@ sudo sh -c 'echo -e "[shiftkey]\nname=GitHub Desktop\nbaseurl=https://packageclo
 githubdesktoparch=""
 
 
+function teamsdeb()
+
+{
+curl https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
+sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/ms-teams stable main" > /etc/apt/sources.list.d/teams.list'
+
+}
+
+
+function teamsred()
+
+{
+sudo sh -c 'echo -e "[teams]\nname=teams\nbaseurl=https://packages.microsoft.com/yumrepos/ms-teams\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/teams.repo'
+sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
+
+}
+
+$teamarch=""
+
 
 ###########################################################
 ##  Variables DEFINIBLES del sistema nombre + (deb,feb,arch)
@@ -186,6 +205,7 @@ zoom=$zoomdeb
 whatsapp=$whatsappdeb
 teamviewer=$teamviewerdeb
 githubdesktop=githubdesktopdeb
+teams=teamsdeb
 
 
 ########################################################
@@ -234,6 +254,7 @@ githubdesktop=githubdesktopdeb
 			7_web "	TeamViewer" off
 			8_web "	JDownloader" off
 			9_web "	GitHub Desktop" off
+			10_web "	Microsoft Teams" off
 		#G "<----Category: Networking---->" on
 			1_network "	SAMBA" off
 			2_network "	ZFS" off
@@ -314,6 +335,7 @@ githubdesktop=githubdesktopdeb
 			7_web_rpm "	TeamViewer" off
 			8_web_rpm "	JDownloader" off
 			9_web_rpm "	GitHub Desktop" off
+			10_web_rpm "	Microsoft Teams" off
 		#G "<----Category: Networking---->" on
 			1_network_rpm "	SAMBA" off
 			2_network_rpm "	ZFS" off
@@ -394,6 +416,7 @@ githubdesktop=githubdesktopdeb
 			7_web_aur "	TeamViewer" off
 			8_web_aur "	JDownloader" off
 			9_web_aur "	GitHub Desktop" off
+			10_web_aur "	Microsoft Teams" off
 		#G "<----Category: Networking---->" on
 			1_network_aur "	SAMBA" off
 			2_network_aur "	ZFS" off
@@ -478,6 +501,7 @@ githubdesktop=githubdesktopdeb
 # installteamviewer
 # installjdownloader
 # installgithub
+# installteams
 # installsamba
 # installzfs
 # installnvidia
@@ -1070,6 +1094,24 @@ function installgithub()
 			sleep 2s
 
 }
+
+function installteams()
+
+{
+			echo "#----------------------------Instalando Microsoft Teams-----------------------------#"
+			sleep 1s
+			cd $tmp_dir
+			sudo $install wget gpg apt-transport-https
+			$team
+			sudo $update
+			sudo $install team -y
+			cd $usuario
+			# or code-insiders
+			echo "#----------------------------Instalado Microsoft Teams-----------------------------#"
+			sleep 2s
+
+}
+
 
 function installsamba()
 
@@ -2089,7 +2131,12 @@ choices=$aur
 
 		3_installer_rpm)
 			cambiored
-			installsynaptic
+			echo "#--------------------------------Instalando Yumex (Sinaptic para Fedora)--------------------------------#"
+			sleep 1s
+			sudo dnf copr enable timlau/yumex-dnf
+			sudo dnf install yumex-dnf -yy
+			echo "#--------------------------------Instalado  Yumex (Sinaptic para Fedora)--------------------------------#"
+			sleep 2s
 			;;
 
 		3_installer_aur)
@@ -2403,6 +2450,21 @@ choices=$aur
 			cambioarch
 			githubdesktop=$githubdesktoparch
 			installgithub
+			;;
+		10_web)
+			installteams
+			;;
+
+		10_web_rpm)
+			cambiored
+			team=teamred
+			installteams
+			;;
+
+		10_web_aur)
+			cambioarch
+			team=$teamarch
+			installteams
 			;;
 # Section G ----------------------------------Networking----------------------------------------------
 
