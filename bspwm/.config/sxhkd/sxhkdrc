@@ -156,6 +156,10 @@ super + F9
 super + shift + F9
 	simple-scan
 
+# Github Desktop
+super + F10
+	github-desktop
+
 #.links2
 super + F11
 	uxterm -e 'links2 www.google.com'

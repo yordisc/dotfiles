@@ -1121,6 +1121,8 @@ function installsamba()
 			sudo $install samba samba-common samba-libs cifs-utils libcups2 cups smbclient gvfs-backends net-tools network-manager network-manager-openvpn network-manager-openvpn-gnome -yy
 			#backup smb.conf
 			sudo cp /etc/samba/smb.conf /etc/samba/smb.conf.bak
+			sudo rm /etc/samba/smb.conf
+			sudo cp -rf $usuario/dotfiles/smb.conf /etc/samba/smb.conf
 			sudo chmod 755 /etc/samba/smb.conf.bak
 			sudo chmod 755 /etc/samba/smb.conf
 			sudo grep -v -E "^#|^;" /etc/samba/smb.conf.bak | grep . > /etc/samba/smb.conf
@@ -1128,14 +1130,12 @@ function installsamba()
 			sudo systemctl start smbd
 			sudo systemctl enable nmbd
 			sudo systemctl start nmbd
-			sudo cp -rf $usuario/dotfiles/smb.conf /etc/samba/
-			sudo chmod 755 /etc/samba/smb.conf
 			sudo chown -R $nombre:$nombre $usuario/Public
-			sudo chown -R 777 $usuario/Public
+			sudo chmod -R 777 $usuario/Public
 			sudo chown -R $nombre:$nombre $usuario/Downloads
-			sudo chown -R 777 $usuario/Downloads
+			sudo chmod -R 777 $usuario/Downloads
 			sudo chown -R $nombre:$nombre $usuario/Desktop
-			sudo chown -R 777 $usuario/Desktop
+			sudo chmod -R 777 $usuario/Desktop
 			echo "
 Samba: 
 sudo chown -R $nombre:$nombre $usuario/Public
