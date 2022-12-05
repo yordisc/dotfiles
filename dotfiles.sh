@@ -77,10 +77,10 @@ sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.m
 }
 
 vscodearch=""
-chromename=$chromenamedeb
 chromenamedeb="google-chrome-stable_current_amd64.deb"
 chromenamered="google-chrome-stable_current_x86_64.rpm"
 chromenamearch=""
+chromename=$chromenamedeb
 
 function chromedeb()
 
@@ -97,10 +97,10 @@ wget https://dl.google.com/linux/direct/$chromename
 }
 
 chromearch=""
-slackname=$slacknamedeb
 slacknamedeb="slack-desktop-latest.deb"
 slacknamered="slack-desktop-latest.rpm"
 #slacknamearch=
+slackname=$slacknamedeb
 
 function slackdeb()
 
@@ -127,18 +127,18 @@ wget -q https://slack.com/downloads/instructions/fedora -O - \
 }
 
 slackarch=""
-zoomname=$zoomdeb
 zoomnamedeb="zoom_amd64.deb"
 zoomnamered="zoom_x86_64.rpm"
+zoomname=$zoomdeb
 zoomdeb="https://zoom.us/client/latest/$zoomname"
 zoomred="https://zoom.us/client/latest/$zoomname"
 zoomarch=""
 whatsappdeb=https://ftp5.gwdg.de/pub/linux/debian/mint/packages/pool/import/w/whatsapp-desktop/$whatsappname
 whatsappred=https://distrib-coffee.ipsl.jussieu.fr/pub/linux/altlinux/p10/branch/x86_64/RPMS.classic/$whatsappname
 whatsapparch=""
-teamviewername=$teamviewernamedeb
 teamviewernamedeb="teamviewer_amd64.deb"
 teamviewernamered="teamviewer_15.36.8.x86_64.rpm"
+teamviewername=$teamviewernamedeb
 teamviewerdeb="https://download.teamviewer.com/download/linux/$teamviewernamedeb"
 teamviewerred="https://dl.teamviewer.com/download/linux/version_15x/$teamviewernamered"
 teamviewerarch=""
@@ -182,7 +182,7 @@ sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
 
 }
 
-$teamarch=""
+$teamsarch=""
 
 
 #whatsapparch=""
@@ -966,7 +966,7 @@ function installgooglechrome()
 {
 			echo "#----------------------------Instalando Gooogle Chrome----------------------------#"
 			sleep 1s
-			sudo $install wget -yy
+			sudo $install wget fonts-liberation -yy
 			cd $tmp_dir
 			rm google-chrome*
 			$chrome
@@ -1104,7 +1104,7 @@ function installteams()
 			sleep 1s
 			cd $tmp_dir
 			sudo $install wget gpg apt-transport-https
-			$team
+			$teams
 			sudo $update
 			sudo $install teams -y
 			cd $usuario
@@ -2361,7 +2361,7 @@ choices=$aur
 		4_web_rpm)
 			cambiored
 			zoomname=$zoomnamered
-			zoom=zoomred
+			zoom=$zoomred
 			installzoom
 			;;
 
@@ -2380,7 +2380,15 @@ choices=$aur
 			cambiored
 			whatsappname=$whatsappnamered
 			whatsapp=$whatsappred
-			installwhatsapp
+			sudo dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
+			sudo dnf upgrade
+			sudo rpm -ivh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+			sudo subscription-manager repos --enable "rhel-*-optional-rpms" --enable "rhel-*-extras-rpms"
+			sudo yum update
+			sudo yum install snapd
+			sudo systemctl enable --now snapd.socket
+			sudo ln -s /var/lib/snapd/snap /snap
+			sudo snap install whatsapp-for-linux
 			;;
 
 		5_web_aur)
