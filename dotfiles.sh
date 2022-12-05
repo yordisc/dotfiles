@@ -130,11 +130,10 @@ slackarch=""
 zoomnamedeb="zoom_amd64.deb"
 zoomnamered="zoom_x86_64.rpm"
 zoomname=$zoomdeb
-zoomdeb="https://zoom.us/client/latest/$zoomname"
-zoomred="https://zoom.us/client/latest/$zoomname"
+zoomdeb="https://zoom.us/client/latest/zoom_amd64.deb"
+zoomred="https://zoom.us/client/latest/zoom_x86_64.rpm"
 zoomarch=""
 whatsappdeb=https://ftp5.gwdg.de/pub/linux/debian/mint/packages/pool/import/w/whatsapp-desktop/$whatsappname
-whatsappred=https://distrib-coffee.ipsl.jussieu.fr/pub/linux/altlinux/p10/branch/x86_64/RPMS.classic/$whatsappname
 whatsapparch=""
 teamviewernamedeb="teamviewer_amd64.deb"
 teamviewernamered="teamviewer_15.36.8.x86_64.rpm"
@@ -177,7 +176,7 @@ sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/ms-teams
 function teamsred()
 
 {
-sh -c 'echo -e "[teams]\nname=teams\nbaseurl=https://packages.microsoft.com/yumrepos/ms-teams\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/teams.repo'
+sudo sh -c 'echo -e "[teams]\nname=teams\nbaseurl=https://packages.microsoft.com/yumrepos/ms-teams\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/teams.repo'
 sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
 
 }
@@ -966,7 +965,7 @@ function installgooglechrome()
 {
 			echo "#----------------------------Instalando Gooogle Chrome----------------------------#"
 			sleep 1s
-			sudo $install wget fonts-liberation -yy
+			sudo $install wget -yy
 			cd $tmp_dir
 			rm google-chrome*
 			$chrome
@@ -1686,7 +1685,7 @@ function installpackhome()
 {
 			echo "#--------------------------------Instalando Paquete Hogar--------------------------------#"
 			sleep 1s
-			sudo $install bleachbit apt-getitude perl aspell catfish galculator gnome-multi-writer gparted hplip-gui hunspell-es lightdm lightdm-gtk-greeter-settings locales midori mousepad mpv feh openvpn putty putty-tools ristretto simple-scan smartmontools telegram-desktop tlp viewnior wodim plymouth yad zeal exfat-utils -yy
+			sudo $install bleachbit perl aspell catfish galculator gnome-multi-writer gparted hplip-gui hunspell-es lightdm lightdm-gtk-greeter-settings midori mousepad mpv feh openvpn putty ristretto simple-scan smartmontools telegram-desktop tlp viewnior wodim plymouth yad zeal exfat-utils -yy
 			echo "#--------------------------------Instalado Paquete Hogar--------------------------------#"
 			sleep 2s
 
@@ -2326,6 +2325,7 @@ choices=$aur
 			cambiored
 			chromename=$chromenamered
 			chrome=chromered
+			sudo $install liberation-fonts
 			installgooglechrome
 			;;
 
@@ -2465,13 +2465,13 @@ choices=$aur
 
 		10_web_rpm)
 			cambiored
-			team=teamred
+			$team=teamred
 			installteams
 			;;
 
 		10_web_aur)
 			cambioarch
-			team=$teamarch
+			$team=teamarch
 			installteams
 			;;
 # Section G ----------------------------------Networking----------------------------------------------
@@ -2729,7 +2729,11 @@ choices=$aur
 
 		2_files_rpm)
 			cambiored
-			installlibreoffice
+			echo "#--------------------------------Instalando LibreOffice--------------------------------#"
+			sleep 1s
+			sudo $install libreoffice hyphen-es hunspell-es mythes-es libreoffice-help-es libreoffice-voikko -yy
+			echo "#--------------------------------Instalado LibreOffice--------------------------------#"
+			sleep 2s
 			;;
 
 		2_files_aur)
@@ -2801,7 +2805,43 @@ choices=$aur
 
 		4_desktop_rpm)
 			cambiored
-			installbspwm
+			echo "#----------------------------Instalando base BSPWM-----------------------------#"
+			sleep 1s
+			sudo $install xterm terminator rxvt-unicode inxi bspwm sxhkd rofi dunst cava parcellite maim bmon mpd nitrogen xbacklight gpick light xsettingsd polybar suckless-tools dmenu pcmanfm pcmanfm-qt ffmpegthumbnailer lxappearance fzf viewnior zenity arandr pulseaudio pulseaudio-utils pavucontrol -yy
+			cp -rf $usuario/dotfiles/bspwm/.Xresources.d $usuario
+			sudo chown -R 777 $usuario/Xresources.d
+			sudo chown -R $nombre:$nombre $usuario/Xresources.d
+			cp -rf $usuario/dotfiles/bspwm/.Xresources $usuario
+			sudo chmod -R 777 $usuario/Xresources
+			sudo chown -R $nombre:$nombre $usuario/Xresources
+			cp -rf $usuario/dotfiles/bspwm/.xsettingsd $usuario
+			sudo chmod -R 777 $usuario/.xsettingsd
+			sudo chown -R $nombre:$nombre $usuario/.xsettingsd
+			cp -rf $usuario/dotfiles/bspwm/.gtkrc-2.0 $usuario
+			sudo chmod -R 777 $usuario/.gtkrc-2.0
+			sudo chown -R $nombre:$nombre $usuario/.gtkrc-2.0
+			cp -rf $usuario/dotfiles/bspwm/.hidden $usuario
+			sudo chmod -R 777 $usuario/.hidden
+			sudo chown -R $nombre:$nombre $usuario/.hidden
+			cp -rf $usuario/dotfiles/bspwm/.dmrc $usuario
+			sudo chmod -R 777 $usuario/.dmrc
+			sudo chown -R $nombre:$nombre $usuario/.dmrc
+			cp -rf $usuario/dotfiles/bspwm/.fehbg $usuario
+			sudo chmod -R 777 $usuario/.fehbg
+			sudo chown -R $nombre:$nombre $usuario/.fehbg
+			sudo mkdir -m 777 $usuario/.config/polybar
+			sudo chown -R 777 $usuario/.config/polybar
+			sudo chown -R $nombre:$nombre $usuario/.config/polybar
+			cp -rf $usuario/dotfiles/polybar/* $usuario/.config/polybar
+			cp -rf $usuario/dotfiles/bspwm/.config/* $usuario/.config
+			sudo chown -R 777 $usuario/.config
+			sudo chown -R $nombre:$nombre $usuario/.config
+			sudo systemctl disable mpd
+			sudo systemctl disable bluetooth
+			sudo systemctl enable NetworkManager
+			sudo systemctl start NetworkManager
+			echo "#----------------------------Base BSPWM instalada------------------------------#"
+			sleep 2s
 			;;
 
 		4_desktop_aur)
