@@ -133,8 +133,8 @@ zoomnamered="zoom_x86_64.rpm"
 zoomdeb="https://zoom.us/client/latest/$zoomname"
 zoomred="https://zoom.us/client/latest/$zoomname"
 zoomarch=""
-whatsappdeb=$whatsappdeb
-whatsappred=""
+whatsappdeb=https://ftp5.gwdg.de/pub/linux/debian/mint/packages/pool/import/w/whatsapp-desktop/$whatsappname
+whatsappred=https://distrib-coffee.ipsl.jussieu.fr/pub/linux/altlinux/p10/branch/x86_64/RPMS.classic/$whatsappname
 whatsapparch=""
 teamviewername=$teamviewernamedeb
 teamviewernamedeb="teamviewer_amd64.deb"
@@ -177,13 +177,15 @@ sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/ms-teams
 function teamsred()
 
 {
-sudo sh -c 'echo -e "[teams]\nname=teams\nbaseurl=https://packages.microsoft.com/yumrepos/ms-teams\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/teams.repo'
+sh -c 'echo -e "[teams]\nname=teams\nbaseurl=https://packages.microsoft.com/yumrepos/ms-teams\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/teams.repo'
 sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
 
 }
 
 $teamarch=""
 
+
+#whatsapparch=""
 
 ###########################################################
 ##  Variables DEFINIBLES del sistema nombre + (deb,feb,arch)
@@ -1019,9 +1021,9 @@ function installwhatsapp()
 			sleep 1s
 			sudo $install wget git sudo -yy
 			rm $tmp_dir/whatsapp-d*
-			wget -P $tmp_dir https://ftp5.gwdg.de/pub/linux/debian/mint/packages/pool/import/w/whatsapp-desktop/whatsapp-desktop_0.6.1_amd64.deb
+			wget -P $tmp_dir $whatsapp
 			cd $tmp_dir
-			sudo $unpack whatsapp-desktop_0.6.1_amd64.deb
+			sudo $unpack $whatsappname
 			rm $tmp_dir/whatsapp-d*
 			cd $usuario
 			echo "#----------------------------Instalado WhatsApp Desktop----------------------------#"
@@ -1106,7 +1108,6 @@ function installteams()
 			sudo $update
 			sudo $install teams -y
 			cd $usuario
-			# or code-insiders
 			echo "#----------------------------Instalado Microsoft Teams-----------------------------#"
 			sleep 2s
 
@@ -1487,7 +1488,7 @@ function installvlc()
 {
 			echo "#--------------------------------Instalando VLC--------------------------------#"
 			sleep 1s
-			sudo $install vlc vlc-plugin-access-extra vlc-plugin-base vlc-plugin-bittorrent vlc-plugin-fluidsynth vlc-plugin-jack vlc-plugin-pipewire vlc-plugin-qt vlc-plugin-samba vlc-plugin-skins2 vlc-plugin-svg -yy
+			sudo $install vlc vlc-plugin-bittorrent vlc-plugin-jack -yy
 			echo "#--------------------------------Instalado VLC--------------------------------#"
 			sleep 2s
 
@@ -1499,7 +1500,7 @@ function installaudacity()
 {
 			echo "#--------------------------------Instalando Audacity--------------------------------#"
 			sleep 1s
-			sudo $install audacity silan -yy
+			sudo $install audacity -yy
 			echo "#--------------------------------Instalado Audacity--------------------------------#"
 			sleep 2s
 
@@ -1511,7 +1512,7 @@ function installobs()
 {
 			echo "#--------------------------------Instalando OBS-Studio--------------------------------#"
 			sleep 1s
-			sudo $install obs-studio obs-plugins obs-utils obs-websocket -yy
+			sudo $install obs-studio -yy
 			echo "#--------------------------------Instalado OBS-Studio--------------------------------#"
 			sleep 2s
 
@@ -2377,12 +2378,14 @@ choices=$aur
 
 		5_web_rpm)
 			cambiored
+			whatsappname=$whatsappnamered
 			whatsapp=$whatsappred
 			installwhatsapp
 			;;
 
 		5_web_aur)
 			cambioarch
+			whatsappname=$whatsappnamearch
 			whatsapp=$whatsapparch
 			installwhatsapp
 			;;
