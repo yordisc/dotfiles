@@ -85,14 +85,14 @@ chromenamearch=""
 function chromedeb()
 
 {
-wget https://dl.google.com/linux/direct/$chromenamedeb
+wget https://dl.google.com/linux/direct/$chromename
 
 }
 
 function chromered()
 
 {
-wget https://dl.google.com/linux/direct/$chromenamered
+wget https://dl.google.com/linux/direct/$chromename
 
 }
 
@@ -130,8 +130,8 @@ slackarch=""
 zoomname=$zoomdeb
 zoomnamedeb="zoom_amd64.deb"
 zoomnamered="zoom_x86_64.rpm"
-zoomdeb="https://zoom.us/client/latest/$zoomnamedeb"
-zoomred="https://zoom.us/client/latest/$zoomnamered"
+zoomdeb="https://zoom.us/client/latest/$zoomname"
+zoomred="https://zoom.us/client/latest/$zoomname"
 zoomarch=""
 whatsappdeb=$whatsappdeb
 whatsappred=""
@@ -968,7 +968,7 @@ function installgooglechrome()
 			cd $tmp_dir
 			rm google-chrome*
 			$chrome
-			sudo $unpack google-chrome-stable_current_amd64.deb
+			sudo $unpack $chromename
 			rm google-chrome*
 			cd $usuario
 			echo "#----------------------------Instalado Gooogle Chrome----------------------------#"
@@ -982,7 +982,7 @@ function installslack()
 {
 			echo "#----------------------------Instalando Slack----------------------------#"
 			sleep 1s
-			sudo $install wget gconf2 gconf-service python3 gvfs-bin libappindicator1 -yy
+			sudo $install wget python3 gvfs-bin libappindicator1 -yy
 			cd $tmp_dir
 			rm slack-desktop*
 			$slack
@@ -1000,7 +1000,7 @@ function installzoom()
 {
 			echo "#----------------------------Instalando Zoom----------------------------#"
 			sleep 1s
-			sudo $install wget libgl1-mesa-glx libegl1-mesa -yy
+			sudo $install wget -yy
 			cd $tmp_dir
 			rm zoom*
 			$zoom
