@@ -76,10 +76,8 @@ sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.m
 
 }
 
-vscodearch=""
 chromenamedeb="google-chrome-stable_current_amd64.deb"
 chromenamered="google-chrome-stable_current_x86_64.rpm"
-chromenamearch=""
 chromename=$chromenamedeb
 
 function chromedeb()
@@ -96,7 +94,6 @@ wget https://dl.google.com/linux/direct/$chromename
 
 }
 
-chromearch=""
 slacknamedeb="slack-desktop-latest.deb"
 slacknamered="slack-desktop-latest.rpm"
 #slacknamearch=
@@ -126,21 +123,17 @@ wget -q https://slack.com/downloads/instructions/fedora -O - \
 
 }
 
-slackarch=""
 zoomnamedeb="zoom_amd64.deb"
 zoomnamered="zoom_x86_64.rpm"
 zoomname=$zoomdeb
 zoomdeb="https://zoom.us/client/latest/zoom_amd64.deb"
 zoomred="https://zoom.us/client/latest/zoom_x86_64.rpm"
-zoomarch=""
 whatsappdeb=https://ftp5.gwdg.de/pub/linux/debian/mint/packages/pool/import/w/whatsapp-desktop/$whatsappname
-whatsapparch=""
 teamviewernamedeb="teamviewer_amd64.deb"
 teamviewernamered="teamviewer_15.36.8.x86_64.rpm"
 teamviewername=$teamviewernamedeb
 teamviewerdeb="https://download.teamviewer.com/download/linux/$teamviewernamedeb"
 teamviewerred="https://dl.teamviewer.com/download/linux/version_15x/$teamviewernamered"
-teamviewerarch=""
 
 function githubdesktopdeb()
 
@@ -161,8 +154,6 @@ sudo rpm --import https://packagecloud.io/shiftkey/desktop/gpgkey
 sudo sh -c 'echo -e "[shiftkey]\nname=GitHub Desktop\nbaseurl=https://packagecloud.io/shiftkey/desktop/el/7/\$basearch\nenabled=1\ngpgcheck=0\nrepo_gpgcheck=1\ngpgkey=https://packagecloud.io/shiftkey/desktop/gpgkey" > /etc/yum.repos.d/shiftkey-desktop.repo'
 
 }
-githubdesktoparch=""
-
 
 function teamsdeb()
 
@@ -287,6 +278,7 @@ teams=teamsdeb
 			3_files_U "	Espanso" off
 			4_files_U "	PCloud" off
 			5_files "	Paquete Hogar" off
+			6_files "	BalenaEtcher" off
 		#Ñ "<----Category: Desktop Customization---->" on
 			1_desktop_U "	QT matches GTK" off
 			2_desktop "	Picom" off
@@ -310,7 +302,7 @@ teams=teamsdeb
 		#B "<----Category: Alternate Installers---->" on
 			1_installer_rpm "	Snap Packages" off
 			2_installer_rpm "	Flatpak" off
-			3_installer_rpm "	Synaptic" off
+			3_installer_rpm "	Yumux" off
 			4_installer_rpm "	PIP" off
 		#C "<----Category: Text Editors---->" on
 			1_editor_rpm "	Nano" off
@@ -368,6 +360,7 @@ teams=teamsdeb
 			3_files_U "	Espanso" off
 			4_files_U "	PCloud" off
 			5_files_rpm "	Paquete Hogar" off
+			6_files_rpm "	BalenaEtcher" off
 		#Ñ "<----Category: Desktop Customization---->" on
 			1_desktop_U "	QT matches GTK" off
 			2_desktop_rpm "	Picom" off
@@ -387,6 +380,7 @@ teams=teamsdeb
 
 	archlinux=(
 			0_basic_aur "	Basicos Obligatorios" off
+			1_repos_aur "	Chaotic Aur" off
 		#A "<----Category: Repositories---->" on
 		#B "<----Category: Alternate Installers---->" on
 			1_installer_aur "	Snap Packages" off
@@ -449,6 +443,7 @@ teams=teamsdeb
 			3_files_U "	Espanso" off
 			4_files_U "	PCloud" off
 			5_files_aur "	Paquete Hogar" off
+			6_files_aur "	BalenaEtcher" off
 		#Ñ "<----Category: Desktop Customization---->" on
 			1_desktop_U "	QT matches GTK" off
 			2_desktop_aur "	Picom" off
@@ -569,7 +564,7 @@ function cambioarch()
 			autoremove=$autoremovearch
 			reparar=$reparararch
 			unpack=$unpackarch
-
+			#su - $nombre
 }
 
 function update()
@@ -1118,19 +1113,21 @@ function installsamba()
 {
 			echo "#----------------------------Instalando Samba----------------------------#"
 			sleep 1s
-			sudo $install samba samba-common samba-libs cifs-utils libcups2 cups smbclient gvfs-backends net-tools network-manager network-manager-openvpn network-manager-openvpn-gnome -yy
+			sudo $install samba cifs-utils libcups2 cups smbclient gvfs-backends net-tools network-manager network-manager-openvpn network-manager-openvpn-gnome -yy
 			#backup smb.conf
-			sudo cp /etc/samba/smb.conf /etc/samba/smb.conf.bak
+sudo cp /etc/samba/smb.conf /etc/samba/smb.conf.bak
 			sudo rm /etc/samba/smb.conf
 			sudo cp -rf $usuario/dotfiles/smb.conf /etc/samba/smb.conf
 			sudo chmod 755 /etc/samba/smb.conf.bak
 			sudo chmod 755 /etc/samba/smb.conf
 			sudo grep -v -E "^#|^;" /etc/samba/smb.conf.bak | grep . > /etc/samba/smb.conf
-			sudo systemctl enable smbd
-			sudo systemctl start smbd
-			sudo systemctl enable nmbd
-			sudo systemctl start nmbd
-			sudo chown -R $nombre:$nombre $usuario/Public
+            sudo useradd $nombre
+            sudo pdbedit -a -u $nombre
+            sudo smbpasswd $nombre
+            sudo systemctl restart smbd nmbd
+            sudo systemctl start smbd nmbd
+            sudo systemctl enable smbd nmbd
+            sudo chown -R $nombre:$nombre $usuario/Public
 			sudo chmod -R 777 $usuario/Public
 			sudo chown -R $nombre:$nombre $usuario/Downloads
 			sudo chmod -R 777 $usuario/Downloads
@@ -1473,6 +1470,15 @@ echo "#------------------------Instalar fuentes Sistema-------------------------
 			unzip comfortaa
 			sudo mkdir -p /usr/share/fonts/normal-fonts/Comfortaa
 			sudo mv Comfortaa* /usr/share/fonts/normal-fonts/Comfortaa/
+#https://github.com/oblador/react-native-vector-icons/tree/master/Fonts
+						#FontAwesome
+			wget https://github.com/oblador/react-native-vector-icons/blob/master/Fonts/FontAwesome.ttf
+			sudo mkdir -p /usr/share/fonts/normal-fonts/
+			sudo mv FontAwesome.ttf /usr/share/fonts/normal-fonts/
+									#Feather
+			wget https://github.com/oblador/react-native-vector-icons/blob/master/Fonts/Feather.ttf
+			sudo mkdir -p /usr/share/fonts/normal-fonts/
+			sudo mv Feather.ttf /usr/share/fonts/normal-fonts/
 			rm Comfortaa*
 			rm sharefonts*
 			cd $usuario
@@ -1656,6 +1662,10 @@ function installespanso()
 			# Create the "espanso" command alias
 			sudo /opt/Espanso.AppImage env-path register
 			# Register espanso as a systemd service (required only once)
+			mkdir $usuario/.config/espanso
+						cp -rf $usuario/dotfiles/espanso/* $usuario/.config/espanso
+			sudo chown -R 777 $usuario/.config
+			sudo chown -R $nombre:$nombre $usuario/.config
 			espanso service register
 			# Start espanso
 			espanso start
@@ -1685,7 +1695,7 @@ function installpackhome()
 {
 			echo "#--------------------------------Instalando Paquete Hogar--------------------------------#"
 			sleep 1s
-			sudo $install bleachbit perl aspell catfish galculator gnome-multi-writer gparted hplip-gui hunspell-es lightdm lightdm-gtk-greeter-settings midori mousepad mpv feh openvpn putty ristretto simple-scan smartmontools telegram-desktop tlp viewnior wodim plymouth yad zeal exfat-utils -yy
+			sudo $install bleachbit perl aspell catfish galculator gnome-multi-writer gparted lightdm lightdm-gtk-greeter-settings midori mousepad feh networkmanager-openvpn putty ristretto simple-scan smartmontools telegram-desktop tlp viewnior yad firewalld exfat-utils -yy
 			echo "#--------------------------------Instalado Paquete Hogar--------------------------------#"
 			sleep 2s
 
@@ -1998,7 +2008,7 @@ else
 
 	echo "Creating temporary folder"
 	rm -rf /tmp/dis
-	sudo mkdir -m 777 $tmp_dir
+	mkdir -m 777 $tmp_dir
 
 
 diestro=$(dialog --title "Elige el tipo de paquete: deb / rpm / aur" \
@@ -2080,6 +2090,17 @@ choices=$aur
 			installrootaccess
 			;;
 			
+		1_repos_aur)
+		    cambioarch
+			pacman-key --recv-key 3056513887B78AEB --keyserver keyserver.ubuntu.com
+            pacman-key --lsign-key 3056513887B78AEB
+            pacman -U 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-keyring.pkg.tar.zst' 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-mirrorlist.pkg.tar.zst'
+            sudo pacman-key --init
+            sudo pacman -Syyu
+            sudo $install yay
+            yaourt -S pamac-aur
+			;;
+			
 		2_repos)
 			installrepositoriodebiannonfree
 			;;
@@ -2105,7 +2126,13 @@ choices=$aur
 
 		1_installer_aur)
 			cambioarch
-			installsnap
+			git clone https://aur.archlinux.org/snapd.git $tmp_dir
+            cd $tmp_dir/snapd
+            $install
+            sudo systemctl enable --now snapd.socket
+            sudo ln -s /var/lib/snapd/snap /snap
+            sudo snap install hello-world
+            hello-world
 			;;
 
 		2_installer)
@@ -2138,7 +2165,16 @@ choices=$aur
 
 		3_installer_aur)
 			cambioarch
-			installsynaptic
+			sudo $install --needed base-devel git wget yajl
+			cd $tmp_dir
+            git clone https://aur.archlinux.org/package-query.git
+            cd package-query/
+            $unpack
+            cd $tmp_dir
+            git clone https://aur.archlinux.org/yaourt.git
+            cd yaourt/
+            $unpack
+            yaourt -S pamac-aur
 			;;
 
 		4_installer)
@@ -2152,7 +2188,8 @@ choices=$aur
 
 		4_installer_aur)
 			cambioarch
-			installpip
+			sudo pacman -S python2-pip
+			sudo pacman -S python-pip
 			;;
 
 # Section C ------------------------Text Editors------------------------------
@@ -2214,7 +2251,15 @@ choices=$aur
 		4_editor_aur)
 			cambioarch
 			vscode=vscodearch
-			installvscode
+			pacman -S
+            pacman -S git
+            cd $tmp_dir
+            git clone https://AUR.archlinux.org/visual-studio-code-bin.git $tmp_dir
+            cd visual-studio-code-bin/
+            $unpack
+            sudo pacman -U visual-studio-code-bin-*.pkg.tar.xz
+            cd $tmp_dir
+            sudo rm -rfv visual-studio-code-bin/
 			;;
 
 # Section D ---------------------------Phone------------------------------------
@@ -2230,7 +2275,12 @@ choices=$aur
 
 		1_phone_aur)
 			cambioarch
-			installandroidsdk
+			yaourt android-sdk-platform-tools
+            yaourt android-udev
+            yaourt android-sdk
+            export ANDROID_HOME=/opt/android-sdk
+            export PATH=$PATH:$ANDROID_HOME/tools
+            export PATH=$PATH:$ANDROID_HOME/platform-tools
 			;;
 
 		2_phone)
@@ -2244,7 +2294,11 @@ choices=$aur
 
 		2_phone_aur)
 			cambioarch
-			installiphone
+			git clone https://github.com/libimobiledevice/libimobiledevice.git $tmp_dir
+            cd $tmp_dir/libimobiledevice
+            ./autogen.sh
+            make
+            sudo make install
 			;;
 
 # Section E -------------------------Terminal Customization--------------------------
@@ -2274,7 +2328,10 @@ choices=$aur
 
 		2_customize_aur)
 			cambioarch
-			installzsh
+			echo "#----------------------------Instalando Zsh----------------------------#"
+			sleep 1s
+			sudo $install zsh zsh-completions
+			chsh -s /bin/zsh
 			;;
 
 		3_customize_U)
@@ -2333,7 +2390,10 @@ choices=$aur
 			cambioarch
 			chromename=$chromenamearch
 			chrome=chromearch
-			installgooglechrome
+			cd $tmp_dir
+            git clone https://aur.archlinux.org/google-chrome.git $tmp_dir
+            cd $tmp_dir/google-chrome/
+            $unpack  
 			;;
 
 		3_web)
@@ -2351,7 +2411,13 @@ choices=$aur
 			cambioarch
 			slackname=$slacknamearch
 			slack=$slackarch
-			installslack
+			sudo pacman -Syu
+            sudo pacman -S git base-devel
+            cd $tmp_dir
+            git clone https://aur.archlinux.org/slack-desktop.git $tmp_dir
+            cd $tmp_dir/slack-desktop/
+            $unpack
+            yay -S slack-desktop
 			;;
 
 		4_web)
@@ -2369,7 +2435,12 @@ choices=$aur
 			cambioarch
 			zoomname=$zoomnamearch
 			zoom=zoomarch
-			installzoom
+			sudo pacman -Syu
+            sudo pacman -S git base-devel
+            cd $tmp_dir
+            git clone https://aur.archlinux.org/zoom.git $tmp_dir
+            cd $tmp_dir/zoom/
+            $install
 			;;
 
 		5_web)
@@ -2395,7 +2466,13 @@ choices=$aur
 			cambioarch
 			whatsappname=$whatsappnamearch
 			whatsapp=$whatsapparch
-			installwhatsapp
+			cd $tmp_dir
+            git clone https://aur.archlinux.org/snapd.git $tmp_dir
+            cd $tmp_dir/snapd
+            $install
+            sudo systemctl enable --now snapd.socket
+            sudo ln -s /var/lib/snapd/snap /snap
+            sudo snap install whatsapp-for-linux
 			;;
 
 		6_web)
@@ -2427,7 +2504,15 @@ choices=$aur
 			cambioarch
 			teamviewername=$teamviewernamearch
 			teamviewer=$teamviewerarch
-			installteamviewer
+			sudo pacman -Sy
+            sudo pacman -S git
+            cd $tmp_dir
+            git clone https://aur.archlinux.org/teamviewer12.git $tmp_dir
+            cd teamviewer12
+            $unpack
+            sudo pacman -Sy
+            $unpack
+            sudo pacman -U teamviewer*.pkg.tar.xz
 			;;
 
 		8_web)
@@ -2457,8 +2542,15 @@ choices=$aur
 		9_web_aur)
 			cambioarch
 			githubdesktop=$githubdesktoparch
-			installgithub
+			git clone https://aur.archlinux.org/github-desktop-bin.git $tmp_dir
+            cd $tmp_dir/github-desktop-bin/
+            $install
+            #with aur helper yay
+           sudo yay -S github-desktop
 			;;
+			
+						
+			
 		10_web)
 			installteams
 			;;
@@ -2472,7 +2564,10 @@ choices=$aur
 		10_web_aur)
 			cambioarch
 			$team=teamarch
-			installteams
+			git clone https://aur.archlinux.org/yay.git $tmp_dir
+            cd $tmp_dir/yay
+           $install
+           sudo yay -S teams
 			;;
 # Section G ----------------------------------Networking----------------------------------------------
 
@@ -2617,7 +2712,7 @@ choices=$aur
 
 		1_media_aur)
 			cambioarch
-			installvlc
+			pacman -S vlc
 			;;
 
 
@@ -2738,7 +2833,18 @@ choices=$aur
 
 		2_files_aur)
 			cambioarch
-			installlibreoffice
+			echo "#--------------------------------Instalando LibreOffice--------------------------------#"
+			sudo pacman -Syyu
+			sudo pacman -S --needed ttf-caladea ttf-carlito ttf-dejavu ttf-liberation ttf-linux-libertine-g noto-fonts adobe-source-code-pro-fonts adobe-source-sans-pro-fonts adobe-source-serif-pro-fonts
+			paru ttf-gentium-basic
+			paru hsqldb2-java
+			sudo pacman -S --needed jre-openjdk
+			sudo pacman -S libreoffice-fresh
+			sudo pacman -S libreoffice-extension-texmaths libreoffice-extension-writer2latex
+			sudo pacman -S hunspell-en_us hunspell-es_es
+			paru libreoffice-extension-languagetool
+			echo "#--------------------------------Instalado LibreOffice--------------------------------#"
+			sleep 2s
 			;;
 
 		3_files_U)
@@ -2761,6 +2867,28 @@ choices=$aur
 		5_files_aur)
 			cambioarch
 			installpackhome
+			;;
+			
+		6_files)
+			curl -1sLf \
+   'https://dl.cloudsmith.io/public/balena/etcher/setup.deb.sh' \
+   | sudo -E bash
+            sudo $update
+            sudo $install balena-etcher-electron
+			;;
+			
+		6_files_rpm)
+			cambiored
+			curl -1sLf \
+   'https://dl.cloudsmith.io/public/balena/etcher/setup.rpm.sh' \
+   | sudo -E bash
+            sudo $update
+            sudo $install balena-etcher-electron
+			;;
+			
+		6_files_aur)
+			cambioarch
+			sudo yay -S balena-etcher
 			;;
 
 

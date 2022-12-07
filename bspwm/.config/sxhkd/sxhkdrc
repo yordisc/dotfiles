@@ -11,7 +11,8 @@
 
 # Help
 ctrl + super + h
-	$HOME/.config/bspwm/bspwmfloat uxterm -name Float -e ~/.config/bspwm/show_keys
+      ~/.config/bspwm/scripts/keybindings_rofi.sh
+	#$HOME/.config/bspwm/bspwmfloat uxterm -name Float -e ~/.config/bspwm/show_keys
 
 # Terminal
 super + Return
@@ -73,6 +74,12 @@ super + Tab
 # Rofi Themes
 super + alt + Tab
 	sh ~/.config/bspwm/rofi/bin/themes
+
+# show ssh sesssions
+super + shift + Tab
+	rofi -modi drun -show ssh -line-padding 4 \
+                -columns 2 -padding 50 -hide-scrollbar -terminal xfce4-terminal \
+                -show-icons -drun-icon-theme "Qogir-dark" -font "Droid Sans Regular 10"
 
 # Rofi Menus/Applets
 super + {w,0,r,p,n,g}
@@ -170,9 +177,9 @@ super + Insert
 
 ##---------- Screenshot ----------##
 
-# Rofi Screenshot
+# Screenshot
 Print
-	sh ~/.config/bspwm/rofi/bin/screenshot
+  scrot ~/$(xdg-user-dir PICTURES)/Screenshot-$(date +%F_%T).png
 
 # Take a screenshot
 super + F12
@@ -192,16 +199,25 @@ super + ctrl + F12
 
 ##---------- System Keys ----------##
 
-# Brighness control
-XF86MonBrightness{Up,Down}
-	~/.config/bspwm/scripts/bin/brightness{ --inc, --dec}
-	
-# Volume control
-XF86Audio{RaiseVolume,LowerVolume}
-	~/.config/bspwm/scripts/bin/volume{ --inc, --dec}
+# Brightness up
+XF86MonBrightnessUp
+  xbacklight -inc 5
 
+# And brightness down
+XF86MonBrightnessDown
+  xbacklight -dec 5
+	
+# Multimedia keys
+XF86AudioRaiseVolume
+  amixer -q set Master 5%+ unmute
+
+# Still multimedia
+XF86AudioLowerVolume
+  amixer -q set Master 5%- unmute
+
+# still
 XF86AudioMute
-	~/.config/bspwm/scripts/bin/volume --toggle
+  amixer -D pulse sset Master toggle-mute
 	
 # Music control
 XF86Audio{Next,Prev,Play,Stop}

@@ -46,9 +46,13 @@ wmname LG3D &
 pcloud &
 sleep 1
 
-dunst &
-sleep 1
+#nm-applet --indicator &
 
+# Cursor
+xsetroot -cursor_name left_ptr &
+
+# Notifications
+/usr/bin/dunst &
 #nm-tray &
 #sleep 0.3
 
