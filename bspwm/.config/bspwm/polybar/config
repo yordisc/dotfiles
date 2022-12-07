@@ -46,9 +46,9 @@ module-margin-left = 0
 module-margin-right = 0
 
 ; Text Fonts
-font-0 = Iosevka Nerd Font:style=Medium:size=10;4
+font-0 = "Iosevka Term:pixelsize=13;4"
 ; Icons Fonts
-font-1 = feather:style=Medium:size=12;3
+font-1 = "Iosevka Term:pixelsize=6;1"
 ; Powerline Glyphs
 font-2 = Iosevka Nerd Font:style=Medium:size=19;3
 ; Larger font size for bar fill icons
@@ -56,9 +56,9 @@ font-3 = Iosevka Nerd Font:style=Medium:size=12;4
 ; Smaller font size for shorter spaces
 font-4 = Iosevka Nerd Font:style=Medium:size=7;4
 
-modules-left = bspwm sep cpu sep memory sep volume
+modules-left = bspwm sps cpu sps memory sps volume
 modules-center = title
-modules-right = networksep vpn-openvpn-isrunning checknet sep battery sep date
+modules-right = networksep vpn-openvpn-isrunning checknet sps battery sps date
 
 separator =
 spacing = 0

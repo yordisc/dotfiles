@@ -8,10 +8,10 @@
  */
 
 configuration {
-	font:							"Iosevka Nerd Font 10";
+	font:							"Sourcecode Pro Regular 10";
     show-icons:                     true;
 	icon-theme: 					"Papirus";
-    display-drun: 					"";
+    display-drun: 					"Apps";
     drun-display-format:            "{name}";
     disable-history:                false;
     fullscreen:                     false;
@@ -39,7 +39,6 @@ prompt {
 	padding: 						0px;
 	background-color: 				@al;
 	text-color: 					@ac;
-	font:							"feather 12";
 }
 
 entry {
