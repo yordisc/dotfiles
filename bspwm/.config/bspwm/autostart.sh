@@ -30,7 +30,8 @@ if [[ ! `pidof xfce-polkit` ]]; then
 	/usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &
 fi
 
-parcellite &
+#parcellite &
+xfce4-clipman &
 sleep 1
 
 nitrogen --restore; sleep 1; picom -b &

@@ -534,7 +534,7 @@ content-padding = 1
 ;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 
 [module/title]
-ype = internal/xwindow
+type = internal/xwindow
 ; Available tags:
 ;   <label> (default)
 format = <label>

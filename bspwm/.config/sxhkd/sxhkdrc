@@ -199,25 +199,16 @@ super + ctrl + F12
 
 ##---------- System Keys ----------##
 
-# Brightness up
-XF86MonBrightnessUp
-  xbacklight -inc 5
-
-# And brightness down
-XF86MonBrightnessDown
-  xbacklight -dec 5
+# Brighness control
+XF86MonBrightness{Up,Down}
+	~/.config/bspwm/scripts/bin/brightness{ --inc, --dec}
 	
-# Multimedia keys
-XF86AudioRaiseVolume
-  amixer -q set Master 5%+ unmute
+# Volume control
+XF86Audio{RaiseVolume,LowerVolume}
+	~/.config/bspwm/scripts/bin/volume{ --inc, --dec}
 
-# Still multimedia
-XF86AudioLowerVolume
-  amixer -q set Master 5%- unmute
-
-# still
 XF86AudioMute
-  amixer -D pulse sset Master toggle-mute
+	~/.config/bspwm/scripts/bin/volume --toggle
 	
 # Music control
 XF86Audio{Next,Prev,Play,Stop}
@@ -225,7 +216,6 @@ XF86Audio{Next,Prev,Play,Stop}
 # Music control
 super + F10
 	pavucontrol
-
 ##---------- Bspwm ----------##
 
 # Close App

@@ -273,7 +273,7 @@ teams=teamsdeb
 			2_gaming "	Lutris" off
 			3_gaming "	Wine" off
 		#N "<----Category: File Explorer---->" on
-			1_files "	Pcmanfm" off
+			#1_files "	Pcmanfm" off
 			2_files "	LibreOfficce" off
 			3_files_U "	Espanso" off
 			4_files_U "	PCloud" off
@@ -290,7 +290,7 @@ teams=teamsdeb
 			3_themes "	Ubuntu Themes" off
 			4_themes_U "	Windows Themes" off
 			5_themes_U "	MacOS Themes" off
-			6_theme_U "	Infinity/Candy/Gruvbox Themes" off
+			6_themes_U "	Infinity/Candy/Gruvbox Themes" off
 		#P "<----Category: System---->" on
 			1_system_U "	Swappiness=10" off
 			V "Post Install Auto Clean Up & Update" off)
@@ -355,7 +355,7 @@ teams=teamsdeb
 			2_gaming_rpm "	Lutris" off
 			3_gaming_rpm "	Wine" off
 		#N "<----Category: File Explorer---->" on
-			1_files_rpm "	Pcmanfm" off
+			#1_files_rpm "	Pcmanfm" off
 			2_files_rpm "	LibreOfficce" off
 			3_files_U "	Espanso" off
 			4_files_U "	PCloud" off
@@ -438,7 +438,7 @@ teams=teamsdeb
 			2_gaming_aur "	Lutris" off
 			3_gaming_aur "	Wine" off
 		#N "<----Category: File Explorer---->" on
-			1_files_aur "	Pcmanfm" off
+			#1_files_aur "	Pcmanfm" off
 			2_files_aur "	LibreOfficce" off
 			3_files_U "	Espanso" off
 			4_files_U "	PCloud" off
@@ -455,7 +455,7 @@ teams=teamsdeb
 			3_themes_aur "	Ubuntu Themes" off
 			4_themes_U "	Windows Themes" off
 			5_themes_U "	MacOS Themes" off
-			6_theme_U "	Infinity/Candy/Gruvbox Themes" off
+			6_themes_U "	Infinity/Candy/Gruvbox Themes" off
 		#P "<----Category: System---->" on
 			1_system_U "	Swappiness=10" off
 			V "Post Install Auto Clean Up & Update" off)
@@ -1654,11 +1654,9 @@ function installespanso()
 			# Create the $HOME/opt destination folder
 			mkdir -p /opt/
 			# Download the AppImage inside it
-			cd $usuario
 			wget -O /opt/Espanso.AppImage 'https://github.com/federico-terzi/espanso/releases/download/v2.1.8/Espanso-X11.AppImage'
 			# Make it executable
-			sudo chmod -R 777 /opt/Espanso.AppImage
-			sudo chown -R $nombre:$nombre /opt/Espanso.AppImage
+			chmod u+x ~/opt/Espanso.AppImage
 			# Create the "espanso" command alias
 			sudo /opt/Espanso.AppImage env-path register
 			# Register espanso as a systemd service (required only once)
@@ -1681,7 +1679,9 @@ function installpcloud()
 {
 			echo "#--------------------------------Instalando PCloud--------------------------------#"
 			sleep 1s
-			sudo wget -P /usr/bin/ https://p-lux2.pcloud.com/cBZu1eKrMZqDbfTqZZZdS7Tc7Z2ZZZkZPF7pVZrHZZBpZpRZc5Z6pZopZ9pZApZGFZUJZkJZPpZkzZnA0kVZhFwtGeYAQK70WlRr9Ucau83mW29V/pcloud
+			cd $tmp_dir
+			sudo wget -P $tmp_dir https://p-def4.pcloud.com/cBZnrXB1wZijGdL3ZZZoQ1xc7Z2ZZM0LZkZvP5pVZ9zZNFZ8RZTFZqzZpRZJHZIHZvFZaHZgLZlRZt7ZQ5ZCy4sVZ23myJ3VGQFRhM7YVpd1Iupk5BLUk/pcloud
+			sudo mv pcloud /usr/bin/
 			sudo chmod 777 /usr/bin/pcloud 
 			pcloud
 			echo "#--------------------------------Instalado PCloud--------------------------------#"
@@ -1695,7 +1695,7 @@ function installpackhome()
 {
 			echo "#--------------------------------Instalando Paquete Hogar--------------------------------#"
 			sleep 1s
-			sudo $install bleachbit perl aspell catfish galculator gnome-multi-writer gparted lightdm lightdm-gtk-greeter-settings midori mousepad feh networkmanager-openvpn putty ristretto simple-scan smartmontools telegram-desktop tlp viewnior yad firewalld exfat-utils -yy
+			sudo $install bleachbit perl aspell catfish galculator gnome-multi-writer gparted lightdm lightdm-gtk-greeter-settings midori mousepad feh putty ristretto simple-scan smartmontools telegram-desktop tlp viewnior yad firewalld exfat-utils -yy
 			echo "#--------------------------------Instalado Paquete Hogar--------------------------------#"
 			sleep 2s
 
@@ -1757,7 +1757,25 @@ function installbspwm()
 {
 echo "#----------------------------Instalando base BSPWM-----------------------------#"
 			sleep 1s
-			sudo $install xterm terminator rxvt-unicode inxi bspwm sxhkd rofi dunst cava parcellite maim bmon mpd nitrogen xbacklight gpick nm-tray light xsettingsd polybar suckless-tools dmenu network-manager network-manager network-manager-openvpn pcmanfm pcmanfm-qt ffmpegthumbnailer lxappearance fzf viewnior zenity policykit-1-gnome arandr pulseaudio pulseaudio-utils pavucontrol pulseaudio-equalizer gstreamer1.0-pulseaudio -yy
+			sudo $install xterm terminator rxvt-unicode inxi bspwm sxhkd rofi dunst cava xfce4-clipman maim bmon mpd nitrogen xbacklight gpick nm-tray light xsettingsd polybar suckless-tools dmenu network-manager network-manager network-manager-openvpn pcmanfm pcmanfm-qt ffmpegthumbnailer lxappearance fzf viewnior zenity policykit-1-gnome arandr pulseaudio pulseaudio-utils pavucontrol pulseaudio-equalizer gstreamer1.0-pulseaudio -yy
+			cd $tmp_dir
+			#Source Code Pro
+			wget -P $tmp_dir https://github.com/ryanoasis/nerd-fonts/releases/download/$nerdfontsversion/SourceCodePro.zip
+			unzip SourceCodePro.zip
+			rm SourceCodePro.zip
+			sudo mkdir -p /usr/share/fonts/nerd-fonts/Source-Code-Pro
+			sudo mv Source* /usr/share/fonts/nerd-fonts/Source-Code-Pro
+			rm LICENSE*
+			rm readme*
+			
+			#NerdFontsSymbols
+			wget -P $tmp_dir https://github.com/ryanoasis/nerd-fonts/releases/download/$nerdfontsversion/NerdFontsSymbolsOnly.zip
+			unzip NerdFontsSymbols*
+			rm NerdFontsSymbols*
+			sudo mkdir -p /usr/share/fonts/nerd-fonts/NerdFonts-Symbols-Only
+			sudo mv Nerd* /usr/share/fonts/nerd-fonts/NerdFonts-Symbols-Only
+			rm LICENSE*
+			rm readme*
 			cp -rf $usuario/dotfiles/bspwm/.Xresources.d $usuario
 			sudo chown -R 777 $usuario/Xresources.d
 			sudo chown -R $nombre:$nombre $usuario/Xresources.d
@@ -2548,9 +2566,7 @@ choices=$aur
             #with aur helper yay
            sudo yay -S github-desktop
 			;;
-			
-						
-			
+
 		10_web)
 			installteams
 			;;
@@ -2870,6 +2886,7 @@ choices=$aur
 			;;
 			
 		6_files)
+			sudo apt-get install gnome-multi-writer
 			curl -1sLf \
    'https://dl.cloudsmith.io/public/balena/etcher/setup.deb.sh' \
    | sudo -E bash
@@ -2879,6 +2896,7 @@ choices=$aur
 			
 		6_files_rpm)
 			cambiored
+			sudo dnf install gnome-multi-writer
 			curl -1sLf \
    'https://dl.cloudsmith.io/public/balena/etcher/setup.rpm.sh' \
    | sudo -E bash
@@ -2888,6 +2906,7 @@ choices=$aur
 			
 		6_files_aur)
 			cambioarch
+			sudo pacman -S gnome-multi-writer
 			sudo yay -S balena-etcher
 			;;
 
