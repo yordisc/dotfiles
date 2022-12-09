@@ -564,7 +564,7 @@ function cambioarch()
 			autoremove=$autoremovearch
 			reparar=$reparararch
 			unpack=$unpackarch
-			#su - $nombre
+			su $nombre
 }
 
 function update()
@@ -1758,24 +1758,6 @@ function installbspwm()
 echo "#----------------------------Instalando base BSPWM-----------------------------#"
 			sleep 1s
 			sudo $install xterm terminator rxvt-unicode inxi bspwm sxhkd rofi dunst cava xfce4-clipman maim bmon mpd nitrogen xbacklight gpick nm-tray light xsettingsd polybar suckless-tools dmenu network-manager network-manager network-manager-openvpn pcmanfm pcmanfm-qt ffmpegthumbnailer lxappearance fzf viewnior zenity policykit-1-gnome arandr pulseaudio pulseaudio-utils pavucontrol pulseaudio-equalizer gstreamer1.0-pulseaudio -yy
-			cd $tmp_dir
-			#Source Code Pro
-			wget -P $tmp_dir https://github.com/ryanoasis/nerd-fonts/releases/download/$nerdfontsversion/SourceCodePro.zip
-			unzip SourceCodePro.zip
-			rm SourceCodePro.zip
-			sudo mkdir -p /usr/share/fonts/nerd-fonts/Source-Code-Pro
-			sudo mv Source* /usr/share/fonts/nerd-fonts/Source-Code-Pro
-			rm LICENSE*
-			rm readme*
-			
-			#NerdFontsSymbols
-			wget -P $tmp_dir https://github.com/ryanoasis/nerd-fonts/releases/download/$nerdfontsversion/NerdFontsSymbolsOnly.zip
-			unzip NerdFontsSymbols*
-			rm NerdFontsSymbols*
-			sudo mkdir -p /usr/share/fonts/nerd-fonts/NerdFonts-Symbols-Only
-			sudo mv Nerd* /usr/share/fonts/nerd-fonts/NerdFonts-Symbols-Only
-			rm LICENSE*
-			rm readme*
 			cp -rf $usuario/dotfiles/bspwm/.Xresources.d $usuario
 			sudo chown -R 777 $usuario/Xresources.d
 			sudo chown -R $nombre:$nombre $usuario/Xresources.d

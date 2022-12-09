@@ -216,6 +216,7 @@ XF86Audio{Next,Prev,Play,Stop}
 # Music control
 super + F10
 	pavucontrol
+
 ##---------- Bspwm ----------##
 
 # Close App
