@@ -2943,7 +2943,7 @@ sudo pip3 install WoeUSB-ng
 			cambiored
 			echo "#----------------------------Instalando base BSPWM-----------------------------#"
 			sleep 1s
-			sudo $install xterm terminator rxvt-unicode inxi bspwm sxhkd rofi dunst cava parcellite maim bmon mpd nitrogen xbacklight gpick light xsettingsd polybar suckless-tools dmenu pcmanfm pcmanfm-qt ffmpegthumbnailer lxappearance fzf viewnior zenity arandr pulseaudio pulseaudio-utils pavucontrol -yy
+			sudo $install xterm terminator rxvt-unicode inxi bspwm sxhkd rofi dunst cava maim bmon nitrogen xbacklight gpick light xsettingsd polybar dmenu pcmanfm pcmanfm-qt lxappearance fzf viewnior zenity arandr pulseaudio pulseaudio-utils pavucontrol -yy
 			cp -rf $usuario/dotfiles/bspwm/.Xresources.d $usuario
 			sudo chown -R 777 $usuario/Xresources.d
 			sudo chown -R $nombre:$nombre $usuario/Xresources.d
