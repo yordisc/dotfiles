@@ -372,7 +372,7 @@ teams=teamsdeb
 			3_themes_rpm "	Ubuntu Themes" off
 			4_themes_U "	Windows Themes" off
 			5_themes_U "	MacOS Themes" off
-			6_theme_U "	Infinity/Candy/Gruvbox Themes" off
+			6_themes_U "	Infinity/Candy/Gruvbox Themes" off
 		#P "<----Category: System---->" on
 			1_system_U "	Swappiness=10" off
 			V "Post Install Auto Clean Up & Update" off)
@@ -1115,7 +1115,7 @@ function installsamba()
 			sleep 1s
 			sudo $install samba cifs-utils libcups2 cups smbclient gvfs-backends net-tools network-manager network-manager-openvpn network-manager-openvpn-gnome -yy
 			#backup smb.conf
-sudo cp /etc/samba/smb.conf /etc/samba/smb.conf.bak
+			sudo cp /etc/samba/smb.conf /etc/samba/smb.conf.bak
 			sudo rm /etc/samba/smb.conf
 			sudo cp -rf $usuario/dotfiles/smb.conf /etc/samba/smb.conf
 			sudo chmod 755 /etc/samba/smb.conf.bak
@@ -2866,7 +2866,7 @@ choices=$aur
 			cambioarch
 			installpackhome
 			;;
-			
+
 		6_files)
 			sudo apt-get install gnome-multi-writer
 			curl -1sLf \
@@ -2874,8 +2874,10 @@ choices=$aur
    | sudo -E bash
             sudo $update
             sudo $install balena-etcher-electron
+            sudo $install git p7zip-full python3-pip python3-wxgtk4.0
+sudo pip3 install WoeUSB-ng
 			;;
-			
+
 		6_files_rpm)
 			cambiored
 			sudo dnf install gnome-multi-writer
@@ -2884,12 +2886,17 @@ choices=$aur
    | sudo -E bash
             sudo $update
             sudo $install balena-etcher-electron
+            sudo dnf makecache --refresh
+			sudo dnf install git p7zip p7zip-plugins python3-pip python3-wxpython4
+			sudo dnf -y install WoeUSB
 			;;
-			
+
 		6_files_aur)
 			cambioarch
 			sudo pacman -S gnome-multi-writer
 			sudo yay -S balena-etcher
+			sudo pacman -Suy p7zip python-pip python-wxpython
+			yay -S woeusb-ng
 			;;
 
 
