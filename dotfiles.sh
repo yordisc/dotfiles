@@ -1116,11 +1116,12 @@ function installsamba()
 			sudo $install samba cifs-utils libcups2 cups smbclient gvfs-backends net-tools network-manager network-manager-openvpn network-manager-openvpn-gnome -yy
 			#backup smb.conf
 			sudo cp /etc/samba/smb.conf /etc/samba/smb.conf.bak
-			sudo rm /etc/samba/smb.conf
+			cd /etc/samba/
+			sudo rm smb.conf
 			sudo cp -rf $usuario/dotfiles/smb.conf /etc/samba/smb.conf
 			sudo chmod 755 /etc/samba/smb.conf.bak
 			sudo chmod 755 /etc/samba/smb.conf
-			sudo grep -v -E "^#|^;" /etc/samba/smb.conf.bak | grep . > /etc/samba/smb.conf
+			# sudo grep -v -E "^#|^;" /etc/samba/smb.conf.bak | grep . > /etc/samba/smb.conf
             sudo useradd $nombre
             sudo pdbedit -a -u $nombre
             sudo smbpasswd $nombre
@@ -2588,11 +2589,12 @@ choices=$aur
 			sudo $install samba cifs-utils cups net-tools -yy
 			#backup smb.conf
 			sudo cp /etc/samba/smb.conf /etc/samba/smb.conf.bak
-			sudo rm /etc/samba/smb.conf
+			cd /etc/samba/
+			sudo rm smb.conf
 			sudo cp -rf $usuario/dotfiles/smb.conf /etc/samba/smb.conf
 			sudo chmod 755 /etc/samba/smb.conf.bak
 			sudo chmod 755 /etc/samba/smb.conf
-			sudo grep -v -E "^#|^;" /etc/samba/smb.conf.bak | grep . > /etc/samba/smb.conf
+			# sudo grep -v -E "^#|^;" /etc/samba/smb.conf.bak | grep . > /etc/samba/smb.conf
             sudo useradd $nombre
             sudo pdbedit -a -u $nombre
             sudo smbpasswd $nombre
