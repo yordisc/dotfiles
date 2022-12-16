@@ -2815,7 +2815,11 @@ sudo chgrp -R sambashare $usuario/Public
 
 		1_gaming_rpm)
 			cambiored
-			installsteam
+			su -c 'dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm'
+			su -c 'dnf -y install xorg-x11-drv-nouveau mesa-libGL.i686 mesa-dri-drivers.i686'
+			su -c 'dnf -y install xorg-x11-drv-intel mesa-libGL.i686 mesa-dri-drivers.i686'
+			su -c 'dnf -y update'
+			su -c 'dnf -y install steam'
 			;;
 
 		1_gaming_aur)
