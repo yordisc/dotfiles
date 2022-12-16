@@ -1652,22 +1652,25 @@ function installespanso()
 			echo "#--------------------------------Instalando Espanso--------------------------------#"
 			sleep 1s
 			# Create the $HOME/opt destination folder
-			mkdir -p /opt/
+			sudo mkdir -p /opt
+			cd /opt
 			# Download the AppImage inside it
-			wget -O /opt/Espanso.AppImage 'https://github.com/federico-terzi/espanso/releases/download/v2.1.8/Espanso-X11.AppImage'
+			sudo wget -O /opt/Espanso.AppImage 'https://github.com/espanso/espanso/releases/download/v2.1.8/Espanso-X11.AppImage'
 			# Make it executable
-			chmod u+x ~/opt/Espanso.AppImage
+			sudo chmod 777 /opt/Espanso.AppImage
 			# Create the "espanso" command alias
 			sudo /opt/Espanso.AppImage env-path register
 			# Register espanso as a systemd service (required only once)
-			mkdir $usuario/.config/espanso
-						cp -rf $usuario/dotfiles/espanso/* $usuario/.config/espanso
+			sudo mkdir $usuario/.config/espanso
+			sudo cp -rf $usuario/dotfiles/espanso/* $usuario/.config/espanso
 			sudo chown -R 777 $usuario/.config
 			sudo chown -R $nombre:$nombre $usuario/.config
-			espanso service register
+			sudo espanso service register
 			# Start espanso
 			espanso start
 			espanso
+			cd /opt
+			./Espanso.AppImage
 			echo "#--------------------------------Instalado Espanso--------------------------------#"
 			sleep 2s
 
@@ -1680,7 +1683,7 @@ function installpcloud()
 			echo "#--------------------------------Instalando PCloud--------------------------------#"
 			sleep 1s
 			cd $tmp_dir
-			sudo wget -P $tmp_dir https://p-def4.pcloud.com/cBZnrXB1wZijGdL3ZZZoQ1xc7Z2ZZM0LZkZvP5pVZ9zZNFZ8RZTFZqzZpRZJHZIHZvFZaHZgLZlRZt7ZQ5ZCy4sVZ23myJ3VGQFRhM7YVpd1Iupk5BLUk/pcloud
+			sudo wget -P $tmp_dir https://p-def4.pcloud.com/cBZnrXB1wZijGdL3ZZZHrUlc7Z2ZZg0LZkZvP5pVZ9zZNFZ8RZTFZqzZpRZJHZIHZvFZaHZgLZlRZt7ZQ5ZCy4sVZPBbv9xnzaVjDnFdKvFA31VNxtQeV/pcloud
 			sudo mv pcloud /usr/bin/
 			sudo chmod 777 /usr/bin/pcloud 
 			pcloud
@@ -2323,7 +2326,12 @@ choices=$aur
 
 		2_customize_rpm)
 			cambiored
-			installzsh
+			echo "#----------------------------Instalando Zsh----------------------------#"
+			sleep 1s
+			sudo $install zsh fzf zsh-autosuggestions thefuck -yy
+			sudo usermod -s /usr/bin/zsh $(whoami)
+			echo "#----------------------------Instalado Zsh----------------------------#"
+			sleep 2s
 			;;
 
 		2_customize_aur)
@@ -2575,7 +2583,34 @@ choices=$aur
 
 		1_network_rpm)
 			cambiored
-			installsamba
+						echo "#----------------------------Instalando Samba----------------------------#"
+			sleep 1s
+			sudo $install samba cifs-utils cups net-tools -yy
+			#backup smb.conf
+			sudo cp /etc/samba/smb.conf /etc/samba/smb.conf.bak
+			sudo rm /etc/samba/smb.conf
+			sudo cp -rf $usuario/dotfiles/smb.conf /etc/samba/smb.conf
+			sudo chmod 755 /etc/samba/smb.conf.bak
+			sudo chmod 755 /etc/samba/smb.conf
+			sudo grep -v -E "^#|^;" /etc/samba/smb.conf.bak | grep . > /etc/samba/smb.conf
+            sudo useradd $nombre
+            sudo pdbedit -a -u $nombre
+            sudo smbpasswd $nombre
+            sudo systemctl restart smbd nmbd
+            sudo systemctl start smbd nmbd
+            sudo systemctl enable smbd nmbd
+            sudo chown -R $nombre:$nombre $usuario/Public
+			sudo chmod -R 777 $usuario/Public
+			sudo chown -R $nombre:$nombre $usuario/Downloads
+			sudo chmod -R 777 $usuario/Downloads
+			sudo chown -R $nombre:$nombre $usuario/Desktop
+			sudo chmod -R 777 $usuario/Desktop
+			echo "
+Samba: 
+sudo chown -R $nombre:$nombre $usuario/Public
+sudo chown -R 777 $usuario/Public
+sudo chgrp -R sambashare $usuario/Public
+" >> $usuario/Abrir
 			;;
 
 		1_network_aur)
@@ -2943,7 +2978,7 @@ sudo pip3 install WoeUSB-ng
 			cambiored
 			echo "#----------------------------Instalando base BSPWM-----------------------------#"
 			sleep 1s
-			sudo $install xterm terminator rxvt-unicode inxi bspwm sxhkd rofi dunst cava maim bmon nitrogen xbacklight gpick light xsettingsd polybar dmenu pcmanfm pcmanfm-qt lxappearance fzf viewnior zenity arandr pulseaudio pulseaudio-utils pavucontrol -yy
+			sudo $install xterm terminator rxvt-unicode inxi bspwm sxhkd rofi dunst cava maim bmon nitrogen xbacklight gpick light xsettingsd polybar dmenu pcmanfm pcmanfm-qt lxappearance fzf viewnior zenity arandr pavucontrol -yy
 			cp -rf $usuario/dotfiles/bspwm/.Xresources.d $usuario
 			sudo chown -R 777 $usuario/Xresources.d
 			sudo chown -R $nombre:$nombre $usuario/Xresources.d
