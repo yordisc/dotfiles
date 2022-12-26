@@ -1761,7 +1761,7 @@ function installbspwm()
 {
 echo "#----------------------------Instalando base BSPWM-----------------------------#"
 			sleep 1s
-			sudo $install xterm terminator rxvt-unicode inxi bspwm sxhkd rofi dunst cava xfce4-clipman maim bmon mpd nitrogen xbacklight gpick nm-tray light xsettingsd polybar suckless-tools dmenu network-manager network-manager network-manager-openvpn pcmanfm pcmanfm-qt ffmpegthumbnailer lxappearance fzf viewnior zenity policykit-1-gnome arandr pulseaudio pulseaudio-utils pavucontrol pulseaudio-equalizer gstreamer1.0-pulseaudio -yy
+			sudo $install xterm terminator rxvt-unicode inxi bspwm sxhkd rofi dunst cava xfce4-clipman maim bmon mpd nitrogen xbacklight gpick nm-tray light xsettingsd polybar suckless-tools dmenu network-manager network-manager network-manager-openvpn pcmanfm pcmanfm-qt ffmpegthumbnailer lxappearance fzf feh viewnior zenity policykit-1-gnome arandr pulseaudio pulseaudio-utils pavucontrol pulseaudio-equalizer gstreamer1.0-pulseaudio toilet -yy
 			cp -rf $usuario/dotfiles/bspwm/.Xresources.d $usuario
 			sudo chown -R 777 $usuario/Xresources.d
 			sudo chown -R $nombre:$nombre $usuario/Xresources.d
@@ -1794,6 +1794,11 @@ echo "#----------------------------Instalando base BSPWM------------------------
 			sudo systemctl disable bluetooth
 			sudo systemctl enable NetworkManager
 			sudo systemctl start NetworkManager
+			cd $tmp_dir
+			wget https://github.com/archcraft-os/packages/raw/main/x86_64/archcraft-fonts-1.0-3-any.pkg.tar.zst
+			tar -xf archcraft-fonts-1.0-3-any.pkg.tar.zst
+			sudo cp -r usr /
+			cd $tmp_dir
 			echo "#----------------------------Base BSPWM instalada------------------------------#"
 			sleep 2s
 
@@ -1868,8 +1873,12 @@ function installwindowsthemes()
 			cd $tmp_dir
 			rm Win*
 #Windows XP Icons
+			cd $tmp_dir
 			sudo git clone https://github.com/B00merang-Artwork/Windows-XP
-			sudo mv Windows* /usr/share/icons
+			cd Windows-XP/
+			sudo mkdir /usr/share/icons/Windows-XP
+			sudo mv * /usr/share/icons/Windows-XP
+			cd $tmp_dir
 #Windows 11 Icons themes
 			wget -P $tmp_dir https://codeload.github.com/yeyushengfan258/Win11-icon-theme/zip/refs/heads/main
 			cd $tmp_dir
@@ -3017,6 +3026,11 @@ sudo pip3 install WoeUSB-ng
 			sudo systemctl disable bluetooth
 			sudo systemctl enable NetworkManager
 			sudo systemctl start NetworkManager
+			cd $tmp_dir
+			wget https://github.com/archcraft-os/packages/raw/main/x86_64/archcraft-fonts-1.0-3-any.pkg.tar.zst
+			tar -xf archcraft-fonts-1.0-3-any.pkg.tar.zst
+			sudo cp -r usr /
+			cd $tmp_dir
 			echo "#----------------------------Base BSPWM instalada------------------------------#"
 			sleep 2s
 			;;

@@ -56,10 +56,10 @@ case $chosen in
 		fi 
         ;;
     $bmon)
-        uxterm -e bmon
+        alacritty -e bmon
         ;;
     $launch_cli)
-        uxterm -e nmtui
+        alacritty -e nmtui
         ;;
     $launch)
         nm-connection-editor

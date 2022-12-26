@@ -13,6 +13,6 @@ rofi \
 	-drun-match-fields all \
 	-drun-display-format "{name}" \
 	-no-drun-show-actions \
-	-terminal $HOME/.config/bspwm/bin/bspfloat xterm -name Float \
+	-terminal alacritty \
 	-kb-cancel Alt-F1 \
 	-theme "$DIR"/rofi/themes/launcher.rasi

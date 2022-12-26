@@ -56,9 +56,9 @@ font-3 = "Iosevka Nerd Font:pixelsize=11;4"
 ; Smaller font size for shorter spaces
 font-4 = "Iosevka Nerd Font:pixelsize=11;4"
 
-modules-left = bspwm sep cpu sps memory sps volume sep 
+modules-left = bspwm sep cpu sps memory sep
 modules-center = title
-modules-right = networksep vpn-openvpn-isrunning checknet sep date sep battery sep
+modules-right = networksep vpn-openvpn-isrunning checknet  sep battery sps sep brightness sps volume sep date
 
 separator =
 spacing = 0

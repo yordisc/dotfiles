@@ -61,7 +61,7 @@ content-padding = 0
 [module/backlight]
 type = internal/xbacklight
 
-card = intel_backlight
+card = ${system.graphics_card}
 
 format = <ramp> <label>
 
@@ -116,7 +116,7 @@ full-at = ${config.battery-full-at}
 battery = ${system.battery}
 adapter = AC
 
-format-charging = <animation-charging> <label-charging>
+format-charging = <label-charging> <animation-charging>
 format-charging-underline = ${colors.foreground}
 animation-charging-0 = 
 animation-charging-1 = 

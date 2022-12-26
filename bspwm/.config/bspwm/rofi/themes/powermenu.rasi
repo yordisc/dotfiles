@@ -2,7 +2,7 @@
 /* Everyone is permitted to copy and distribute copies of this file under GNU-GPL3 */
 
 configuration {
-    font:                           "Iosevka Nerd Font 10"";
+    font:                           "Iosevka 10";
     show-icons:                     false;
     display-drun: 					"";
     drun-display-format:            "{icon} {name}";
@@ -118,7 +118,7 @@ element-icon {
 element-text {
     background-color: 				inherit;
     text-color:       				inherit;
-	font:							"feather 8";
+	font:							"feather 14";
     expand:                         true;
     horizontal-align:               0.5;
     vertical-align:                 0.5;

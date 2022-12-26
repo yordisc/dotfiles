@@ -72,88 +72,88 @@ $zwaves"
 chosen="$(echo "$options" | $rofi_command -p "Ejecuta ilustraciones en shell" -dmenu -selected-row 0)"
 case $chosen in
     $animals)
-        xterm --hold -e ~/.config/bspwm/scripts/terminal/animals
+        $HOME/.config/bspwm/bspwmfloat uxterm -name Float -e ~/.config/bspwm/scripts/terminal/animals && sleep 5s
         ;;
     $bonsai)
-        xterm --hold -e ~/.config/bspwm/scripts/terminal/bonsai
+        $HOME/.config/bspwm/bspwmfloat uxterm -name Float -e ~/.config/bspwm/scripts/terminal/bonsai
         ;;
     $colorbar)
-        xterm --hold -e ~/.config/bspwm/scripts/terminal/colorbar
+        $HOME/.config/bspwm/bspwmfloat uxterm -name Float -e ~/.config/bspwm/scripts/terminal/colorbar
         ;;                                                   
     $colorblocks)                                                 
-        xterm --hold -e ~/.config/bspwm/scripts/terminal/colorblocks
+        $HOME/.config/bspwm/bspwmfloat uxterm -name Float -e ~/.config/bspwm/scripts/terminal/colorblocks
         ;;                                                   
     $colortest)                                                 
-        xterm --hold -e ~/.config/bspwm/scripts/terminal/colortest
+        $HOME/.config/bspwm/bspwmfloat uxterm -name Float -e ~/.config/bspwm/scripts/terminal/colortest
         ;;                                                   
     $colorwheel)                                                 
-        xterm --hold -e ~/.config/bspwm/scripts/terminal/colorwheel
+        $HOME/.config/bspwm/bspwmfloat uxterm -name Float -e ~/.config/bspwm/scripts/terminal/colorwheel
         ;;                                                   
     $crunch)                                                 
-        xterm --hold -e ~/.config/bspwm/scripts/terminal/crunch
+        $HOME/.config/bspwm/bspwmfloat uxterm -name Float -e ~/.config/bspwm/scripts/terminal/crunch
         ;;                                                   
     $crunchbang)                                                 
-        xterm --hold -e ~/.config/bspwm/scripts/terminal/crunchbang
+        $HOME/.config/bspwm/bspwmfloat uxterm -name Float -e ~/.config/bspwm/scripts/terminal/crunchbang
         ;;                                                   
     $dna)                                                 
-        xterm --hold -e ~/.config/bspwm/scripts/terminal/dna
+        $HOME/.config/bspwm/bspwmfloat uxterm -name Float -e ~/.config/bspwm/scripts/terminal/dna
         ;;                                                   
     $emwave)                                                 
-        xterm --hold -e ~/.config/bspwm/scripts/terminal/emwave
+        $HOME/.config/bspwm/bspwmfloat uxterm -name Float -e ~/.config/bspwm/scripts/terminal/emwave
         ;;                                                   
     $faces)                                                 
-        xterm --hold -e ~/.config/bspwm/scripts/terminal/faces
+        $HOME/.config/bspwm/bspwmfloat uxterm -name Float -e ~/.config/bspwm/scripts/terminal/faces
         ;;                                                   
     $fade)                                                 
-        xterm --hold -e ~/.config/bspwm/scripts/terminal/fade
+        $HOME/.config/bspwm/bspwmfloat uxterm -name Float -e ~/.config/bspwm/scripts/terminal/fade
         ;;                                                   
     $ghosts)                                                 
-        xterm --hold -e ~/.config/bspwm/scripts/terminal/ghosts
+        $HOME/.config/bspwm/bspwmfloat uxterm -name Float -e ~/.config/bspwm/scripts/terminal/ghosts
         ;;                                                   
     $hedgehogs)                                                 
-        xterm --hold -e ~/.config/bspwm/scripts/terminal/hedgehogs
+        $HOME/.config/bspwm/bspwmfloat uxterm -name Float -e ~/.config/bspwm/scripts/terminal/hedgehogs
         ;;                                                   
     $illumina)                                                 
-        xterm --hold -e ~/.config/bspwm/scripts/terminal/illumina
+        $HOME/.config/bspwm/bspwmfloat uxterm -name Float -e ~/.config/bspwm/scripts/terminal/illumina
         ;;                                                   
     $invaders)                                                 
-        xterm --hold -e ~/.config/bspwm/scripts/terminal/invaders
+        $HOME/.config/bspwm/bspwmfloat uxterm -name Float -e ~/.config/bspwm/scripts/terminal/invaders
         ;;                                                   
     $mouseface)                                                 
-        xterm --hold -e ~/.config/bspwm/scripts/terminal/mouseface
+        $HOME/.config/bspwm/bspwmfloat uxterm -name Float -e ~/.config/bspwm/scripts/terminal/mouseface
         ;;                                                   
     $panes)                                                 
-        xterm --hold -e ~/.config/bspwm/scripts/terminal/panes
+        $HOME/.config/bspwm/bspwmfloat uxterm -name Float -e ~/.config/bspwm/scripts/terminal/panes
         ;;                                                   
     $pipes)                                                 
-        xterm --hold -e ~/.config/bspwm/scripts/terminal/pipes
+        $HOME/.config/bspwm/bspwmfloat uxterm -name Float -e ~/.config/bspwm/scripts/terminal/pipes
         ;;                                                   
     $pipes3d)                                                 
-        xterm --hold -e ~/.config/bspwm/scripts/terminal/pipes3d
+        $HOME/.config/bspwm/bspwmfloat uxterm -name Float -e ~/.config/bspwm/scripts/terminal/pipes3d
         ;;                                                   
     $railcars)                                                 
-        xterm --hold -e ~/.config/bspwm/scripts/terminal/railcars
+        $HOME/.config/bspwm/bspwmfloat uxterm -name Float -e ~/.config/bspwm/scripts/terminal/railcars
         ;;                                                   
     $rallyx)                                                 
-        xterm --hold -e ~/.config/bspwm/scripts/terminal/rally-x
+        $HOME/.config/bspwm/bspwmfloat uxterm -name Float -e ~/.config/bspwm/scripts/terminal/rally-x
         ;;                                                   
     $square)                                                 
-        xterm --hold -e ~/.config/bspwm/scripts/terminal/square
+        $HOME/.config/bspwm/bspwmfloat uxterm -name Float -e ~/.config/bspwm/scripts/terminal/square
         ;;                                                   
     $tanks)                                                 
-        xterm --hold -e ~/.config/bspwm/scripts/terminal/tanks
+        $HOME/.config/bspwm/bspwmfloat uxterm -name Float -e ~/.config/bspwm/scripts/terminal/tanks
         ;;                                                   
     $testfonts)                                                 
-        xterm --hold -e ~/.config/bspwm/scripts/terminal/testfonts
+        $HOME/.config/bspwm/bspwmfloat uxterm -name Float -e ~/.config/bspwm/scripts/terminal/testfonts
         ;;                                                   
     $tiefighter)                                                 
-        xterm --hold -e ~/.config/bspwm/scripts/terminal/tiefighter
+        $HOME/.config/bspwm/bspwmfloat uxterm -name Float -e ~/.config/bspwm/scripts/terminal/tiefighter
         ;;                                                   
     $unix)                                                 
-        xterm --hold -e ~/.config/bspwm/scripts/terminal/unix
+        $HOME/.config/bspwm/bspwmfloat uxterm -name Float -e ~/.config/bspwm/scripts/terminal/unix
         ;;                                                   
     $zwaves)                                                 
-        xterm --hold -e ~/.config/bspwm/scripts/terminal/zwaves
+        $HOME/.config/bspwm/bspwmfloat uxterm -name Float -e ~/.config/bspwm/scripts/terminal/zwaves
         ;;
 esac
 
