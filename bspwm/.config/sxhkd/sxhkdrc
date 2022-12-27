@@ -87,7 +87,7 @@ super + shift + Tab
                 -show-icons -drun-icon-theme "Qogir-dark" -font "Droid Sans Regular 10"
 
 # Rofi Menus/Applets
-super + {w,0,r,o,n,t}
+super + {w,0,r,v,n,t}
 	sh ~/.config/bspwm/rofi/bin/{windows,powermenu,asroot,mpd,network,apps}
 
 # Rofi Network Manager

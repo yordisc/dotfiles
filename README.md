@@ -14,7 +14,7 @@
 # Dotfiles
 Este Dotfiles esta hecho particularmente para ayudarme a instalar cosas que considero que se pueden hacer mas rapido, Igualmente espero que sea de utilidad para el que lo necesite.
 
-Mi diestro favorito es Debian por lo que mayormente esta pensado para que funcione bien en Debian.
+Mi diestro favorito es *Debian* por lo que mayormente esta pensado para que funcione bien en Debian.
 
 ## Dependencias 📋
 
@@ -46,16 +46,25 @@ sudo pacman -Syyu
 ```
 
 ## Instalador 🔧
-1) Se coloca el nombre del usuario al que se le quiera instalar los programas
-2) Se coloca el paquete que se quiera usar según la distribución: Deb , Rpm , Aur.
-3) Se selecciona lo que se quiera instalar (hay tres menus asi que si no vas a instalar nada de uno presiona ENTER y ve al siguiente menu)
+
+Este es un Script que escribi para facilitar la instalación en los tres diestros que suelo usar con mas frecuencia (Debian, Fedora y ArchLinux).
+Para usarlo solo hay que colocar esta linea de comando en el terminal
+
+
 ```bash
 cd ~/ && git clone https://github.com/yordisc/dotfiles && chmod 777 dotfiles/* -R && cd dotfiles/ && sudo bash dotfiles.sh
 ```
+Y seguir los siguientes pasos:
+1) Se coloca el nombre del usuario al que se le quiera instalar los programas
+2) Se coloca el paquete que se quiera usar según la distribución: Deb , Rpm , Aur.
+3) Se selecciona lo que se quiera instalar (hay tres menus asi que si no vas a instalar nada de uno presiona ENTER y ve al siguiente menu)
+
 ### Bspwm
 <kbd>Ctrl</kbd> + <kbd>Super</kbd> + <kbd>h</kbd> - Mostrara el menu de keybindings <br>
-## Nerdfons completas
+<kbd>Alt</kbd> + <kbd>Super</kbd> + <kbd>p</kbd> - Cambiar a polybar alternativa <br>
+<kbd>Alt</kbd> + <kbd>Super</kbd> + <kbd>Tab</kbd> - Cambiar de tema <br>
 
+## Nerdfons completas
 ```bash
 git clone https://github.com/ryanoasis/nerd-fonts
 unzip nerd-fonts-master.zip
@@ -74,12 +83,10 @@ sudo mousepad /etc/fstab
 * [Spiral Linux XFCE](https://spirallinux.github.io/#download)
 * [Fedora XFCE](https://spins.fedoraproject.org/xfce/download/index.html)
 * [Manjaro XFCE](https://manjaro.org/download/)
-
 ## Paginas de interes
 * [Montar particion automaticamente en linux](https://vivaelsoftwarelibre.com/montar-particiones-al-iniciar-linux-automaticamente/)
 * [Servicios](https://www.hostinger.es/tutoriales/administrar-y-listar-servicios-en-linux)
-## Recursos usados / Creditos ## Expresiones de Gratitud 🎁
-
+## Recursos usados / Creditos 🎁
 * [Archcraft](https://github.com/archcraft-os)
 * [Arcolinux](https://github.com/arcolinuxd)
 * [Killer-OS](https://killer-os-oficial.github.io/wiki/wm/bspwm/)
@@ -88,3 +95,7 @@ sudo mousepad /etc/fstab
 * [Gruvbox-Material](https://github.com/TheGreatMcPain/gruvbox-material-gtk)
 * [Villanuevand](https://github.com/Villanuevand)
 * [Alejandro Fermín](https://github.com/lostalejandro/)
+## Redes Sociales
+* [Stackoverflow](https://stackoverflow.com/users/19875787/yordisc)
+* [Reddit](https://www.reddit.com/user/yordiscujar)
+* [Linkedin](https://www.linkedin.com/in/yordiscujar/)
