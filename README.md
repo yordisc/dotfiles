@@ -17,29 +17,22 @@ Este Dotfiles esta hecho particularmente para ayudarme a instalar cosas que cons
 Mi diestro favorito es Debian por lo que mayormente esta pensado para que funcione bien en Debian.
 
 ## Dependencias 
-### (Debian)
+
 ```bash
 sudo apt install dialog git inxi -y
 ```
-### (Fedora)
+
 ```bash
 sudo dnf install dialog git inxi -y
 ```
-### (Arch)
+
 ```bash
 sudo pacman -S dialog git inxi -y
 ```
-
-## Instalador
-```bash
-git clone https://github.com/yordisc/dotfiles && chmod 777 dotfiles/* -R && cd dotfiles/ && sudo bash dotfiles.sh
-```
-
 ### Instalar RPM Fusion Fedora
 ```bash
 su -c 'dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm'
 ```
-
 ### Instalar Chaotic Aur
 ```bash
 pacman-key --recv-key FBA220DFC880C036 --keyserver keyserver.ubuntu.com
@@ -52,13 +45,28 @@ Include = /etc/pacman.d/chaotic-mirrorlist" >> -a /etc/pacman.conf
 sudo pacman -Syyu
 ```
 
-## Remover numlock
+## Instalador
+1) Se coloca el nombre del usuario al que se le quiera instalar los programas
+2) Se coloca el paquete que se quiera usar según la distribución: Deb , Rpm , Aur.
+3) Se selecciona lo que se quiera instalar (hay tres menus asi que si no vas a instalar nada de uno presiona ENTER y ve al siguiente menu)
+```bash
+git clone https://github.com/yordisc/dotfiles && chmod 777 dotfiles/* -R && cd dotfiles/ && sudo bash dotfiles.sh
+```
 ## Nerdfons completas
+```bash
+git clone https://github.com/ryanoasis/nerd-fonts
+unzip nerd-fonts-master.zip
+cd nerd-fonts
+sudo bash ./install.sh
+```
+
 ## Disco automatico
 
 ## Diestros recomendados
 * [Spiral Linux XFCE](https://spirallinux.github.io/#download)
 * [Fedora XFCE](https://spins.fedoraproject.org/xfce/download/index.html)
 * [Manjaro XFCE](https://manjaro.org/download/)
+
+## Paginas de interes
 
 ## Recursos usados / Creditos
