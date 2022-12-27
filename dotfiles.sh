@@ -1761,7 +1761,7 @@ function installbspwm()
 {
 echo "#----------------------------Instalando base BSPWM-----------------------------#"
 			sleep 1s
-			sudo $install xterm terminator rxvt-unicode inxi bspwm sxhkd rofi dunst cava xfce4-clipman maim bmon mpd nitrogen xbacklight gpick nm-tray light xsettingsd polybar suckless-tools dmenu network-manager network-manager network-manager-openvpn pcmanfm pcmanfm-qt ffmpegthumbnailer lxappearance fzf feh viewnior zenity policykit-1-gnome arandr pulseaudio pulseaudio-utils pavucontrol pulseaudio-equalizer gstreamer1.0-pulseaudio toilet -yy
+			sudo $install xterm terminator rxvt-unicode inxi bspwm sxhkd rofi dunst cava xfce4-clipman maim bmon mpd nitrogen xbacklight gpick nm-tray light xsettingsd polybar suckless-tools dmenu network-manager network-manager network-manager-openvpn pcmanfm pcmanfm-qt ffmpegthumbnailer lxappearance fzf feh viewnior zenity policykit-1-gnome arandr pulseaudio pulseaudio-utils pavucontrol gnome-screenshot pulseaudio-equalizer gstreamer1.0-pulseaudio toilet -yy
 			cp -rf $usuario/dotfiles/bspwm/.Xresources.d $usuario
 			sudo chown -R 777 $usuario/Xresources.d
 			sudo chown -R $nombre:$nombre $usuario/Xresources.d
@@ -2993,7 +2993,7 @@ sudo pip3 install WoeUSB-ng
 			cambiored
 			echo "#----------------------------Instalando base BSPWM-----------------------------#"
 			sleep 1s
-			sudo $install xterm terminator rxvt-unicode inxi bspwm sxhkd rofi dunst cava maim bmon nitrogen xbacklight gpick light xsettingsd polybar dmenu pcmanfm pcmanfm-qt lxappearance fzf viewnior zenity arandr pavucontrol -yy
+			sudo $install xterm terminator rxvt-unicode inxi bspwm sxhkd rofi dunst cava maim bmon nitrogen xbacklight gpick light xsettingsd polybar dmenu pcmanfm pcmanfm-qt lxappearance fzf viewnior zenity arandr gnome-screenshot pavucontrol -yy
 			cp -rf $usuario/dotfiles/bspwm/.Xresources.d $usuario
 			sudo chown -R 777 $usuario/Xresources.d
 			sudo chown -R $nombre:$nombre $usuario/Xresources.d

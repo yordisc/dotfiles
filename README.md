@@ -16,7 +16,7 @@ Este Dotfiles esta hecho particularmente para ayudarme a instalar cosas que cons
 
 Mi diestro favorito es Debian por lo que mayormente esta pensado para que funcione bien en Debian.
 
-## Dependencias 
+## Dependencias 📋
 
 ```bash
 sudo apt install dialog git inxi -y
@@ -45,28 +45,46 @@ Include = /etc/pacman.d/chaotic-mirrorlist" >> -a /etc/pacman.conf
 sudo pacman -Syyu
 ```
 
-## Instalador
+## Instalador 🔧
 1) Se coloca el nombre del usuario al que se le quiera instalar los programas
 2) Se coloca el paquete que se quiera usar según la distribución: Deb , Rpm , Aur.
 3) Se selecciona lo que se quiera instalar (hay tres menus asi que si no vas a instalar nada de uno presiona ENTER y ve al siguiente menu)
 ```bash
-git clone https://github.com/yordisc/dotfiles && chmod 777 dotfiles/* -R && cd dotfiles/ && sudo bash dotfiles.sh
+cd ~/ && git clone https://github.com/yordisc/dotfiles && chmod 777 dotfiles/* -R && cd dotfiles/ && sudo bash dotfiles.sh
 ```
+### Bspwm
+<kbd>Ctrl</kbd> + <kbd>Super</kbd> + <kbd>h</kbd> - Mostrara el menu de keybindings <br>
 ## Nerdfons completas
+
 ```bash
 git clone https://github.com/ryanoasis/nerd-fonts
 unzip nerd-fonts-master.zip
+rm nerd-fonts-master.zip
 cd nerd-fonts
 sudo bash ./install.sh
 ```
-
 ## Disco automatico
-
+```bash
+sudo blkid
+```
+```bash
+sudo mousepad /etc/fstab
+```
 ## Diestros recomendados
 * [Spiral Linux XFCE](https://spirallinux.github.io/#download)
 * [Fedora XFCE](https://spins.fedoraproject.org/xfce/download/index.html)
 * [Manjaro XFCE](https://manjaro.org/download/)
 
 ## Paginas de interes
+* [Montar particion automaticamente en linux](https://vivaelsoftwarelibre.com/montar-particiones-al-iniciar-linux-automaticamente/)
+* [Servicios](https://www.hostinger.es/tutoriales/administrar-y-listar-servicios-en-linux)
+## Recursos usados / Creditos ## Expresiones de Gratitud 🎁
 
-## Recursos usados / Creditos
+* [Archcraft](https://github.com/archcraft-os)
+* [Arcolinux](https://github.com/arcolinuxd)
+* [Killer-OS](https://killer-os-oficial.github.io/wiki/wm/bspwm/)
+* [Polybar Themes](https://github.com/adi1090x/polybar-themes)
+* [NerdFonts](https://www.nerdfonts.com/cheat-sheet)
+* [Gruvbox-Material](https://github.com/TheGreatMcPain/gruvbox-material-gtk)
+* [Villanuevand](https://github.com/Villanuevand)
+* [Alejandro Fermín](https://github.com/lostalejandro/)
