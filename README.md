@@ -9,7 +9,7 @@
 
 <hr>
 
-# :venezuela: Dotfiles :place_of_worship:
+#  :floppy_disk: Dotfiles :place_of_worship:
 This Dotfiles is made particularly to help me install things that I think can be done faster, I also hope it will be useful for whoever needs it.
 
 My favorite distro is *Debian* so it's mostly meant to work well on Debian, it also has functionality on *Fedora* (since I use it too) and *Archlinux* (because I might use it again in the future) ).
@@ -96,7 +96,7 @@ sudo mousepad /etc/fstab
 * [Fedora XFCE](https://spins.fedoraproject.org/xfce/download/index.html)
 * [Manjaro XFCE](https://manjaro.org/download/)
 
-## :floppy_disk: Pages of interest 
+## :loudspeaker: Pages of interest 
 * [Montar particion automaticamente en linux](https://vivaelsoftwarelibre.com/montar-particiones-al-iniciar-linux-automaticamente/)
 * [Servicios](https://www.hostinger.es/tutoriales/administrar-y-listar-servicios-en-linux)
 
@@ -110,7 +110,7 @@ sudo mousepad /etc/fstab
 * [Villanuevand](https://github.com/Villanuevand)
 * [Alejandro Fermín](https://github.com/lostalejandro/)
 
-## :mailbox_with_mail: Social Media 
+## :venezuela: Social Media 
 * [Stackoverflow](https://stackoverflow.com/users/19875787/yordisc)
 * [Reddit](https://www.reddit.com/user/yordiscujar)
 * [Linkedin](https://www.linkedin.com/in/yordiscujar/)
