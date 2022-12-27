@@ -1,3 +1,16 @@
+<p align="center">
+ 
+[//]: <> (site para ícones: https://shields.io/ )
+ 
+<img alt="Maintained" src="https://img.shields.io/badge/Maintained%3F-Yes-green">
+<img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/yordisc/dotfiles">
+<img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/yordisc/dotfiles">
+<img alt="Bitbucket open issues" src="https://img.shields.io/bitbucket/issues/yordisc/dotfiles">
+<img alt="GitHub commit activity (branch)" src="https://img.shields.io/github/commit-activity/y/yordisc/dotfiles">
+<a href="#"><img src="https://badges.pufler.dev/visits/yordisc/dotfiles">
+
+<hr>
+
 # Dotfiles
 Este Dotfiles esta hecho particularmente para ayudarme a instalar cosas que considero que se pueden hacer mas rapido, Igualmente espero que sea de utilidad para el que lo necesite.
 
