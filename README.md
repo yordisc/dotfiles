@@ -9,12 +9,12 @@
 
 <hr>
 
-# Dotfiles
+# :sunny: Dotfiles :goat: :shipit:
 This Dotfiles is made particularly to help me install things that I think can be done faster, I also hope it will be useful for whoever needs it.
 
 My favorite distro is *Debian* so it's mostly meant to work well on Debian, it also has functionality on *Fedora* (since I use it too) and *Archlinux* (because I might use it again in the future) ).
 
-## Dependencies 📋
+## :zap: Dependencies📋
 
 ```bash
 sudo apt install dialog git inxi -y
@@ -27,11 +27,11 @@ sudo dnf install dialog git inxi -y
 ```bash
 sudo pacman -S dialog git inxi -y
 ```
-### Install RPM Fusion Fedora
+### :pushpin: Install RPM Fusion Fedora
 ```bash
 su -c 'dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm'
 ```
-### Install Chaotic Aur (Opcional)
+### :pushpin: Install Chaotic Aur (Opcional)
 ```bash
 pacman-key --recv-key FBA220DFC880C036 --keyserver keyserver.ubuntu.com
 pacman-key --lsign-key FBA220DFC880C036
@@ -43,7 +43,7 @@ Include = /etc/pacman.d/chaotic-mirrorlist" >> -a /etc/pacman.conf
 sudo pacman -Syyu
 ```
 
-## Installer🔧
+## :wrench: Installer 
 
 This is a Script that I wrote to facilitate the installation in the three right-handed ones that I use most frequently (Debian, Fedora and ArchLinux).
 To use it, you just have to put this command line in the terminal.
@@ -64,10 +64,7 @@ And follow the next steps:
 ![dotfiles05](https://raw.githubusercontent.com/yordisc/dotfiles/master/dotfilesimages/dotfiles.sh05.png)
 ![dotfiles06](https://raw.githubusercontent.com/yordisc/dotfiles/master/dotfilesimages/dotfiles.sh06.png)
 
-
-
-
-### Bspwm
+### :pushpin: Bspwm
 The Bspwm installer is inside dotfiles.sh, just select it.
 
 ![bspwm01](https://raw.githubusercontent.com/yordisc/dotfiles/master/dotfilesimages/bspwm01.png)
@@ -79,7 +76,7 @@ The Bspwm installer is inside dotfiles.sh, just select it.
 <kbd>Alt</kbd> + <kbd>Super</kbd> + <kbd>p</kbd> - Switch to polybar alternative <br>
 <kbd>Alt</kbd> + <kbd>Super</kbd> + <kbd>Tab</kbd> - Change skin <br>
 
-## Complete Nerdfons (Optional)
+## :pencil2: Complete Nerdfons (Optional)
 ```bash
 git clone https://github.com/ryanoasis/nerd-fonts
 unzip nerd-fonts-master.zip
@@ -87,21 +84,23 @@ rm nerd-fonts-master.zip
 cd nerd-fonts
 sudo bash ./install.sh
 ```
-## Automatically mount the disk at startup
+## :computer: Automatically mount the disk at startup
 ```bash
 sudo blkid
 ```
 ```bash
 sudo mousepad /etc/fstab
 ```
-## Recommended distros
+## :dvd: Recommended distros
 * [Spiral Linux XFCE](https://spirallinux.github.io/#download)
 * [Fedora XFCE](https://spins.fedoraproject.org/xfce/download/index.html)
 * [Manjaro XFCE](https://manjaro.org/download/)
-## Pages of interest
+
+## :floppy_disk: Pages of interest 
 * [Montar particion automaticamente en linux](https://vivaelsoftwarelibre.com/montar-particiones-al-iniciar-linux-automaticamente/)
 * [Servicios](https://www.hostinger.es/tutoriales/administrar-y-listar-servicios-en-linux)
-## Resources used / Credits🎁
+
+## :100: Resources used / Credits 
 * [Archcraft](https://github.com/archcraft-os)
 * [Arcolinux](https://github.com/arcolinuxd)
 * [Killer-OS](https://killer-os-oficial.github.io/wiki/wm/bspwm/)
@@ -110,7 +109,8 @@ sudo mousepad /etc/fstab
 * [Gruvbox-Material](https://github.com/TheGreatMcPain/gruvbox-material-gtk)
 * [Villanuevand](https://github.com/Villanuevand)
 * [Alejandro Fermín](https://github.com/lostalejandro/)
-## Social Media
+
+## :mailbox_with_mail: Social Media 
 * [Stackoverflow](https://stackoverflow.com/users/19875787/yordisc)
 * [Reddit](https://www.reddit.com/user/yordiscujar)
 * [Linkedin](https://www.linkedin.com/in/yordiscujar/)
