@@ -57,7 +57,8 @@ sudo pacman -Syyu
 ## Disco automatico
 
 ## Diestros recomendados
-[Spiral Linux XFCE](https://spirallinux.github.io/#download)
-[Fedora XFCE](https://spins.fedoraproject.org/xfce/download/index.html)
-[Manjaro XFCE](https://manjaro.org/download/)
+* [Spiral Linux XFCE](https://spirallinux.github.io/#download)
+* [Fedora XFCE](https://spins.fedoraproject.org/xfce/download/index.html)
+* [Manjaro XFCE](https://manjaro.org/download/)
+
 ## Recursos usados / Creditos
