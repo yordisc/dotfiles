@@ -1,12 +1,9 @@
 [global_config]
   enabled_plugins = LaunchpadBugURLHandler, LaunchpadCodeURLHandler, APTURLHandler, TerminatorThemes
-  title_use_system_font = False
-  title_font = MesloLGS NF 9
 [keybindings]
 [profiles]
   [[default]]
     background_color = "#282828"
-    cursor_color = "#aaaaaa"
     font = MesloLGS NF 10
     foreground_color = "#ebdbb2"
     show_titlebar = False

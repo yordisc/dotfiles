@@ -6,6 +6,9 @@ export ZSH="$HOME/.oh-my-zsh"
 
 source $ZSH/oh-my-zsh.sh
 
+# Open - IA Key API
+source ~/.config/.open_ai
+
 # ZSH_THEME="agnoster" # (this is one of the fancy ones)
 # see https://github.com/ohmyzsh/ohmyzsh/wiki/Themes#agnoster
 
@@ -110,7 +113,8 @@ fi
 
 autoload -Uz promptinit
 promptinit
-prompt adam1
+#prompt adam1
+#POWERLEVEL9K_MODE="awesome-fontconfig"
 
 ###################################################################
 plugins=(
@@ -202,15 +206,17 @@ yarn
 z
 zsh-interactive-cd
 zsh-navigation-tools
+fast-syntax-highlighting
 )
 
   source $HOME/.oh-my-zsh/custom/themes/powerlevel10k/powerlevel10k.zsh-theme
 # source /usr/share/powerlevel9k/powerlevel9k.zsh-theme
 	source $HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 	#source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-	source $HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+	#source $HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 	#source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
+	#source ~/path/to/fsh/fast-syntax-highlighting.plugin.zsh
+	source $HOME/.oh-my-zsh/custom/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
@@ -281,26 +287,47 @@ alias la='lsd -a --group-dirs=first'
 alias l='lsd --group-dirs=first'
 alias lla='lsd -lha --group-dirs=first'
 alias ls='ls --color'
-alias cat='bat'
+alias ls='ls $LS_OPTIONS'
+#alias cat='bat'
 alias cp="cp -i"                                                # Confirm before overwriting something
 alias df='df -h'                                                # Human-readable sizes
 alias free='free -m'                                            # Show sizes in MB
+alias freeram='sudo sync && sudo sysctl -w vm.drop_caches=3'
+alias mkg='makepkg -src'
+alias actualizardeb='sudo apt-get update && upgrade'
+alias clock='tty-clock -C 6 -ct -f "%A, %B %d - %Y"'
 alias gitu='git add . && git commit && git push'
 alias :q='exit'
-alias mkg='makepkg -src'
-alias music='ncmpcpp'
-alias sourcesconfig='sudo nano /etc/apt/sources.list'
-alias polybarconfig='pcmanfm $HOME/.config/polybar'
-alias bspmvconfig='pcmanfm $HOME/.config/bspmw'
-alias hotkeysconfig='sudo nano $HOME/.config/sxhkd/sxhkdrc'
+alias r='ranger'
+alias v='nvim'
+alias sourcesconfig='sudo nano /etc/apt/sources.list > /dev/null'
+alias polybarconfig='pcmanfm $HOME/.config/polybar > /dev/null'
+alias bspmwconfig='pcmanfm $HOME/.config/bspmw > /dev/null'
+alias hotkeysconfig='sudo nano $HOME/.config/sxhkd/sxhkdrc > /dev/null'
+#Prog
+alias zshconfig='mousepad $HOME/.zshrc > /dev/null'
+alias mousepads='sudo mousepad > /dev/null'
+alias pcmanfms='sudo pcmanfm > /dev/null'
+alias mousepad='mousepad > /dev/null'
+alias pcmanfm='pcmanfm > /dev/null'
+alias zeal='zeal > /dev/null'
+alias code='code > /dev/null'
+alias firefox='firefox > /dev/null'
+alias lstart='live-server index* > /dev/null'
+#SAMBA
 alias sambaconfig='sudo nano /etc/samba/smb.conf'
 alias sambareboot='sudo systemctl restart smbd.service'
 alias sambastop='sudo systemctl stop smbd.service'
-alias pcmanfms='sudo pcmanfm > /dev/null'
-alias freeram='sudo sync && sudo sysctl -w vm.drop_caches=3'
-alias actualizardeb='sudo apt-get update && upgrade'
-alias clock='tty-clock -C 6 -ct -f "%A, %B %d - %Y"'
-alias ls='ls $LS_OPTIONS'
+#XAMPP
+alias xamppmanager='sudo /opt/lampp/manager-linux-x64.run > /dev/null'
+alias xamppstart='sudo /opt/lampp/lampp start'
+alias xamppstop='sudo /opt/lampp/lampp stop'
+alias xamppsrestart='sudo apachectl stop && sudo /opt/lampp/lampp restart'
+alias apachestop='sudo apachectl stop'
+alias wpconfig='mousepads /opt/lampp/htdocs/wordpress/wp-config.php'
+#Vim
+alias vimpluginsconfig='sudo nano $HOME/.vim/plugins.vim'
+alias vimapsconfig='sudo nano $HOME/.vim/maps.vim'
 
 # Enable Powerlevel10k instant prompt. Should stay at the top of ~/.zshrc.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then

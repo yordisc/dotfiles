@@ -76,8 +76,8 @@ sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.m
 
 }
 
-chromenamedeb="google-chrome-stable_current_amd64.deb"
-chromenamered="google-chrome-stable_current_x86_64.rpm"
+chromenamedeb="google-chrome-unstable_current_amd64.deb"
+chromenamered="google-chrome-unstable_current_x86_64.rpm"
 chromename=$chromenamedeb
 
 function chromedeb()
@@ -239,17 +239,22 @@ teams=teamsdeb
 		#F "<----Category: Web Browsers/Downloaders---->" on
 			1_web_U "	Firefox Developer Edition" off
 			2_web "	Google Chrome" off
-			3_web "	Slack" off
-			4_web "	Zoom" off
-			5_web "	WhatsApp Desktop" off
-			6_web "	Transmission/Deluge" off
-			7_web "	TeamViewer" off
-			8_web "	JDownloader" off
-			9_web "	GitHub Desktop" off
-			10_web "	Microsoft Teams" off
+			3_web "	Skype" off
+			4_web "	Slack" off
+			5_web "	Zoom" off
+			6_web "	WhatsApp Desktop" off
+			7_web "	Microsoft Teams" off
+			8_web "	Transmission/Deluge" off
+			9_web "	TeamViewer" off
+			10_web "	JDownloader" off
+			11_web "	GitHub Desktop" off
+			12_web "	GitKraken" off
+			13_web "	Docker Desktop" off
 		#G "<----Category: Networking---->" on
 			1_network "	SAMBA" off
 			2_network "	ZFS" off
+			3_network_U "	XAMPP" off
+			4_network "	ProtonVPN" off
 		#H "<----Category: Graphics---->" on
 			1_graphics "	Nvidia Driver" off
 			2_graphics "	AMD Driver" off
@@ -321,17 +326,22 @@ teams=teamsdeb
 		#F "<----Category: Web Browsers/Downloaders---->" on
 			1_web_U "	Firefox Developer Edition" off
 			2_web_rpm "	Google Chrome" off
-			3_web_rpm "	Slack" off
-			4_web_rpm "	Zoom" off
-			5_web_rpm "	WhatsApp Desktop" off
-			6_web_rpm "	Transmission/Deluge" off
-			7_web_rpm "	TeamViewer" off
-			8_web_rpm "	JDownloader" off
-			9_web_rpm "	GitHub Desktop" off
-			10_web_rpm "	Microsoft Teams" off
+			3_web_rpm "	Skype" off
+			4_web_rpm "	Slack" off
+			5_web_rpm "	Zoom" off
+			6_web_rpm "	WhatsApp Desktop" off
+			7_web_rpm "	Microsoft Teams" off
+			8_web_rpm "	Transmission/Deluge" off
+			9_web_rpm "	TeamViewer" off
+			10_web_rpm "	JDownloader" off
+			11_web_rpm "	GitHub Desktop" off
+			12_web_rpm "	GitKraken" off
+			13_web_rpm "	Docker Desktop" off
 		#G "<----Category: Networking---->" on
 			1_network_rpm "	SAMBA" off
 			2_network_rpm "	ZFS" off
+			3_network_U "	XAMPP" off
+			4_network_rpm "	ProtonVPN" off
 		#H "<----Category: Graphics---->" on
 			1_graphics_rpm "	Nvidia Driver" off
 			2_graphics_rpm "	AMD Driver" off
@@ -404,17 +414,22 @@ teams=teamsdeb
 		#F "<----Category: Web Browsers/Downloaders---->" on
 			1_web_U "	Firefox Developer Edition" off
 			2_web_aur "	Google Chrome" off
-			3_web_aur "	Slack" off
-			4_web_aur "	Zoom" off
-			5_web_aur "	WhatsApp Desktop" off
-			6_web_aur "	Transmission/Deluge" off
-			7_web_aur "	TeamViewer" off
-			8_web_aur "	JDownloader" off
-			9_web_aur "	GitHub Desktop" off
-			10_web_aur "	Microsoft Teams" off
+			3_web_aur "	Skype" off
+			4_web_aur "	Slack" off
+			5_web_aur "	Zoom" off
+			6_web_aur "	WhatsApp Desktop" off
+			7_web_aur "	Microsoft Teams" off
+			8_web_aur "	Transmission/Deluge" off
+			9_web_aur "	TeamViewer" off
+			10_web_aur "	JDownloader" off
+			11_web_aur "	GitHub Desktop" off
+			12_web_aur "	GitKraken" off
+			13_web_aur "	Docker Desktop" off
 		#G "<----Category: Networking---->" on
 			1_network_aur "	SAMBA" off
 			2_network_aur "	ZFS" off
+			3_network_U "	XAMPP" off
+			4_network_aur "	ProtonVPN" off
 		#H "<----Category: Graphics---->" on
 			1_graphics_aur "	Nvidia Driver" off
 			2_graphics_aur "	AMD Driver" off
@@ -490,6 +505,7 @@ teams=teamsdeb
 # installpackterminal
 # installfirefoxdev
 # installgooglechrome
+# installskype
 # installslack
 # installzoom
 # installwhatsapp
@@ -497,9 +513,11 @@ teams=teamsdeb
 # installteamviewer
 # installjdownloader
 # installgithub
+# installgitkraken
 # installteams
 # installsamba
 # installzfs
+# installxampp
 # installnvidia
 # installamd
 # installpulseaudio
@@ -664,7 +682,12 @@ function installsnap()
 {
 			echo "#----------------------------Instalando Snap----------------------------#"
 			sleep 1s
+			sudo $update
+			sudo $install dbus-user-session && systemctl --user start dbus.service
 			sudo $install snapd -yy
+			sudo snap install core
+#Agregar lanzadores snap
+			sudo cp /var/lib/snapd/desktop/applications/* /usr/share/applications/
 			echo "#----------------------------Instalado Snap----------------------------#"
 			sleep 2s
 
@@ -739,7 +762,8 @@ function installnvim()
 {
 			echo "#----------------------------Instalando NVim personalizado-----------------------------#"
 			sleep 1s
-			sudo $install curl xterm rxvt-unicode neovim powerline tmux -yy &&
+			sudo $install curl xterm ranger fzf rxvt-unicode neovim python3-pip powerline tmux python3-neovim -yy &&
+			pip3 install pipenv
 			cd $usuario
 			sudo mkdir -m 777 $usuario/.nvm
 			sudo mkdir -m 777 $usuario/.local/share/nvim/site/autoload/
@@ -750,6 +774,22 @@ function installnvim()
 			wget -P $usuario/.vim/autoload/ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 			sudo $install npm &&
 			sudo npm install --global yarn &&
+			sudo npm install -g n latest
+			sudo npm install -g npm@latest
+			# Locally in your project.
+			#sudo npm install -D typescript
+			#sudo npm install -D ts-node
+			#sudo npm install -D tslib @types/node
+			# Or globally with TypeScript.
+			sudo npm install -g live-server
+			sudo npm install -g typescript
+			sudo npm install -g ts-node
+			sudo npm install -g tslib @types/node
+			#Install Rust
+			curl https://sh.rustup.rs -sSf | sh
+			#Install jupyter (requiere PIP)
+			sudo pip install jupyter
+			#Copy Config
 			cp -rf $usuario/dotfiles/vim/.config/* $usuario/.config &&
 			cp -rf $usuario/dotfiles/vim/.vimrc $usuario &&
 			cp -rf $usuario/dotfiles/vim/.vim /$usuario &&
@@ -759,6 +799,7 @@ function installnvim()
 			sudo chown -R 777 $usuario/.config/github-copilot
 			sudo chmod -R 777 $usuario/.vim/maps.vim
 			sudo chmod -R 777 $usuario/.vim/plugins.vim
+			sudo chmod -R 777 $usuario/.vim/pluginsconfig.vim
 			sudo chmod -R 777 $usuario/.vimrc
 			sudo chown -R $nombre:$nombre $usuario/.vim
 			sudo chown -R $nombre:$nombre $usuario/.config/coc
@@ -767,6 +808,16 @@ function installnvim()
 			sudo chown -R $nombre:$nombre $usuario/.vim/maps.vim
 			sudo chown -R $nombre:$nombre $usuario/.vim/plugins.vim
 			sudo chown -R $nombre:$nombre $usuario/.vimrc
+			#Ranger
+			sudo mkdir -m 777 $usuario/.config/ranger
+			sudo chown -R 777 $usuario/.config/ranger
+			sudo chown -R $nombre:$nombre $usuario/.config/ranger
+			cp -rf $usuario/dotfiles/bspwm/ranger $usuario/.config/ranger
+			#Open IA key api
+			touch .open_ai
+			echo '### KEY API OPEN-IA
+### export OPENAI_API_KEY=""' >> example.sh
+			sudo chown -R 777 $usuario/.config/.open_ai
 			cd $usuario
 			echo "#----------------------------Instalado NVim personalizado-----------------------------#"
 			sleep 2s
@@ -841,6 +892,15 @@ function installzsh()
 			sleep 1s
 			sudo $install zsh zsh-common zsh-doc zsh-static fzf zplug zsh-autosuggestions thefuck -yy
 			sudo usermod -s /usr/bin/zsh $(whoami)
+			# clone
+			git clone https://github.com/powerline/fonts.git --depth=1
+			# install
+			cd fonts
+			./install.sh
+			# clean-up a bit
+			cd ..
+			rm -rf fonts
+			fc-cache -vf
 			echo "#----------------------------Instalado Zsh----------------------------#"
 			sleep 2s
 
@@ -856,6 +916,8 @@ echo "#----------------------------Instalando Oh my Zsh-------------------------
 			git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$usuario/.oh-my-zsh/custom}/themes/powerlevel10k &&
 			git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-$usuario/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting &&
 			git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-$usuario/.oh-my-zsh/custom}/plugins/zsh-autosuggestions &&
+			git clone https://github.com/kutsan/fast-syntax-highlighting.git \
+  ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/fast-syntax-highlighting &&
 			cp -rf $usuario/dotfiles/.zshrc $usuario
 			sudo chmod -R 777 .zshrc
 			sudo chown -R $nombre:$nombre .zshrc
@@ -912,10 +974,15 @@ function installpackterminal()
 {
 			echo "#----------------------------Instalando Pack Personal Terminal----------------------------#"
 			sleep 1s
-			sudo $install cmake terminator zsh zsh-common htop feh thefuck fake neofetch ncmpcpp cmatrix piu-piu lolcat bat caca-utils ncat nmap ranger googler youtube-dl pup links2 lynx powerline powerline-gitstatus calc calendar lr sl fzf zplug p7zip p7zip-full  unrar-free unzip zip -yy
+			sudo $install cmake terminator zsh zsh-common htop feh thefuck fake neofetch ncmpcpp cmatrix piu-piu bat caca-utils bat ncat nmap ranger mc googler youtube-dl pup links2 lynx powerline powerline-gitstatus calc w3m w3m-img calendar lolcat lsd lr sl fzf zplug p7zip p7zip-full unrar-free unzip zip -yy
 			curl -sS https://webi.sh/lsd | sh
 			chsh -s $(which zsh)
 			mkdir -p $usuario/.config/terminator/plugins
+			#Ranger
+			sudo mkdir -m 777 $usuario/.config/ranger
+			sudo chown -R 777 $usuario/.config/ranger
+			sudo chown -R $nombre:$nombre $usuario/.config/ranger
+			cp -rf $usuario/dotfiles/bspwm/ranger $usuario/.config/ranger
 			wget https://git.io/v5Zwz -O $usuario"/.config/terminator/plugins/terminator-themes.py"
 			echo "#----------------------------Instalado Pack Personal Terminal------------------------------#"
 			sleep 2s
@@ -1087,6 +1154,37 @@ function installgithub()
 			sudo $install git-all github-desktop
 			cd $usuario
 			echo "#----------------------------Instalado GitHub Desktop----------------------------#"
+			sleep 2s
+
+}
+
+function installgitkraken()
+
+{
+			echo "#----------------------------Instalando GitKraken----------------------------#"
+			sleep 1s
+			cd $tmp_dir
+			sudo rm -rf gitkraken*
+			wget https://release.gitkraken.com/linux/gitkraken-amd64.tar.gz
+			sudo tar -xvzf gitkraken-amd64.tar.gz -C /opt/
+			sudo rm -rf gitkraken*
+			sudo chown -R $USER /opt/gitkraken
+			sudo rm -rf /usr/share/applications/gitkraken.desktop
+			sudo touch /usr/share/applications/gitkraken.desktop
+			sudo chmod -R 777 /usr/share/applications/gitkraken.desktop
+			sudo chown -R $nombre:$nombre /usr/share/applications/gitkraken.desktop
+			echo "[Desktop Entry]
+Name=GitKraken
+GenericName=GitKraken
+Exec=/opt/gitkraken/gitkraken %u
+Terminal=false
+Icon=/opt/gitkraken/gitkraken.png
+Type=Application
+Categories=Application;X-Developer;
+Comment=Firefox GitKraken GUI Desktop on github.
+StartupWMClass=GitKraken">> /usr/share/applications/gitkraken.desktop
+			cd $usuario
+			echo "#----------------------------GitKraken----------------------------#"
 			sleep 2s
 
 }
@@ -1629,6 +1727,9 @@ function installwine()
 			sudo dpkg --add-architecture i386 && sudo $update
 			sudo $install wine wine32 wine64 libwine libwine:i386 fonts-wine winetricks q4wine -yy
 			winecfg
+			sudo cp wine.desktop /usr/share/applications/
+cd /usr/share/applications/
+sudo chmod -R 755 wine.desktop
 			echo "#--------------------------------Instalado Wine--------------------------------#"
 			sleep 2s
 
@@ -1699,7 +1800,7 @@ function installpackhome()
 {
 			echo "#--------------------------------Instalando Paquete Hogar--------------------------------#"
 			sleep 1s
-			sudo $install bleachbit perl aspell catfish galculator gnome-multi-writer gparted lightdm lightdm-gtk-greeter-settings midori mousepad feh putty ristretto simple-scan smartmontools telegram-desktop tlp viewnior yad firewalld exfat-utils -yy
+			sudo $install bleachbit perl aspell catfish galculator gnome-multi-writer gparted lightdm lightdm-gtk-greeter-settings midori mousepad feh putty ristretto simple-scan smartmontools abiword telegram-desktop tlp viewnior yad firewalld exfat-utils -yy
 			echo "#--------------------------------Instalado Paquete Hogar--------------------------------#"
 			sleep 2s
 
@@ -1761,7 +1862,7 @@ function installbspwm()
 {
 echo "#----------------------------Instalando base BSPWM-----------------------------#"
 			sleep 1s
-			sudo $install xterm terminator rxvt-unicode inxi bspwm sxhkd rofi dunst cava xfce4-clipman maim bmon mpd nitrogen xbacklight gpick nm-tray light xsettingsd polybar suckless-tools dmenu network-manager network-manager network-manager-openvpn pcmanfm pcmanfm-qt ffmpegthumbnailer lxappearance fzf feh viewnior zenity policykit-1-gnome arandr pulseaudio pulseaudio-utils pavucontrol pulseaudio-equalizer gstreamer1.0-pulseaudio toilet -yy
+			sudo $install xterm terminator rxvt-unicode inxi bspwm sxhkd rofi dunst cava xfce4-clipman maim bmon mpd nitrogen xbacklight gpick nm-tray light xsettingsd polybar suckless-tools dmenu network-manager network-manager network-manager-openvpn pcmanfm pcmanfm-qt ffmpegthumbnailer lxappearance fzf feh viewnior zenity policykit-1-gnome arandr pulseaudio pulseaudio-utils pavucontrol gnome-screenshot pulseaudio-equalizer gstreamer1.0-pulseaudio toilet -yy
 			cp -rf $usuario/dotfiles/bspwm/.Xresources.d $usuario
 			sudo chown -R 777 $usuario/Xresources.d
 			sudo chown -R $nombre:$nombre $usuario/Xresources.d
@@ -1969,6 +2070,44 @@ function installinfinitythemes()
 }
 
 
+function installxampp()
+
+{
+#Desistalar XAMPP
+			sudo /opt/lampp/lampp stop
+			sudo /opt/lampp/uninstall
+			sudo rm -rf /opt/lampp
+#Instalar XAMPP
+xamppversion='8.2.0'
+			cd $tmp_dir
+			echo "Installing XAMPP"
+			wget -O xampp.run https://sourceforge.net/projects/xampp/files/XAMPP%20Linux/$xamppversion/xampp-linux-x64-$xamppversion-0-installer.run
+			sudo chmod 777 $tmp_dir/xampp.run
+			sudo $tmp_dir/xampp.run  > /dev/null
+			sudo rm -rf /usr/share/applications/xampp-control-panel.desktop
+			sudo touch /usr/share/applications/xampp-control-panel.desktop
+			sudo chmod -R 777 /usr/share/applications/xampp-control-panel.desktop
+			sudo chown -R $nombre:$nombre /usr/share/applications/xampp-control-panel.desktop
+			echo "Name=XAMPP Control Panel
+GenericName=XAMPP Control Panel
+Comment=Start and Stop XAMPP
+Exec=sudo /opt/lampp/manager-linux-x64.run
+Encoding=UTF-8
+Terminal=true
+Icon=/opt/lampp/htdocs/favicon.ico
+Type=Application
+Categories=Development;
+Comment=Start and Stop XAMPP
+StartupNotify=true">> /usr/share/applications/xampp-control-panel.desktop
+			# Instalar wordpress
+			sudo rm -rf /opt/lampp/htdocs/wordpress
+			cd $tmp_dir
+			wget https://wordpress.org/latest.zip
+			sudo unzip -d /opt/lampp/htdocs ./latest.zip
+			cd $usuario
+			echo "#---------------------XAMPP Instalado-------------------#"
+}
+
 function limpiar()
 
 {
@@ -2000,6 +2139,43 @@ function swappiness10()
 
 
 # cp /etc/apt/sources.list /etc/apt/sources.list.original
+
+function chiguire()
+
+{
+			echo "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
+			echo "@@@@@@@%#++*###*=@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
+			echo "@@@@@#***++=-===+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
+			echo "@@@@=-=-+*++++*+#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
+			echo "@@@%*++-+*+**+**+*%@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
+			echo "@@@@#=++#*+++=+++**%@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
+			echo "@@@@@*====--:-=++*####%%@@@@@@@@@@@@@@@@@@@@@@@@@@"
+			echo "@@@@@@@@=   :=++*****+**####%%%%%@@@@@@@@@@@@@@@@@"
+			echo "@@@@@@@@#::-=++****+=+++*###########%@@@@@@@@@@@@@"
+			echo "@@@@@@@@*-==+++**++++++++*********#####%%@@@@@@@@@"
+			echo "@@@@@@@@*=++++++++++++++******************%@@@@@@@"
+			echo "@@@@@@@@@+++**+===++++=++****#***********++%@@@@@@"
+			echo "@@@@@@@@@#=++**=-+====+****************++*+=#@@@@@"
+			echo "@@@@@@@@@@#=+++==---:-=+++***+*++*++***+**+==@@@@@"
+			echo "@@@@@@@@@@@*--.-==: .-=-==++++++++**+*****+==%@@@@"
+			echo "@@@@@@@@@@@@+:.:-==:..:--======*++**+**++*+==%@@@@"
+			echo "@@@@@@@@@@@@@=.:-=-%%-...::::-+**++*+++=++==-#@@@@"
+			echo "@@@@@@@@@@@@@*::=-=@@@%*=:..:=+++++=++==+==-:#@@@@"
+			echo "@@@@@@@@@%%*==.-=--+***+*+:  :-=--=:----:::.-@@@@@"
+			echo "@@@@@@@@%%*++--=----+====-:... ..::::---==+*@@@@@@"
+			echo "@@@@@@@@@@@@%%##**####%%%##****##%%%@@@@@@@@@@@@@@"
+			echo "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
+			echo "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
+
+}
+		clear
+		echo " "
+		echo "https://github.com/yordisc/"
+			sleep 2s
+		clear
+		chiguire
+			sleep 2s
+		clear
 
 dialog --title "https://github.com/yordisc/dotfiles" \
        --msgbox "En este dotfiles se encuentra mi configuración personal." 0 0 
@@ -2238,11 +2414,18 @@ choices=$aur
 
 		3_editor)
 			installnvim
+			wget -P $temp https://github.com/wfxr/code-minimap/releases/download/v0.6.4/code-minimap-musl_0.6.4_amd64.deb
+			cd $temp
+			sudo dpkg -i ./code-minimap-musl_0.6.4_amd64.deb
+			sudo apt install build-essential cmake vim-nox python3-dev
+			cd $usuario
 			;;
 
 		3_editor_rpm)
 			cambiored
 			installnvim
+			sudo dnf install cmake gcc-c++ make python3-devel
+			cd $usuario
 			;;
 
 		3_editor_aur)
@@ -2264,8 +2447,7 @@ choices=$aur
 		4_editor_aur)
 			cambioarch
 			vscode=vscodearch
-			pacman -S
-            pacman -S git
+			pacman -S git
             cd $tmp_dir
             git clone https://AUR.archlinux.org/visual-studio-code-bin.git $tmp_dir
             cd visual-studio-code-bin/
@@ -2340,6 +2522,15 @@ choices=$aur
 			sleep 1s
 			sudo $install zsh fzf zsh-autosuggestions thefuck -yy
 			sudo usermod -s /usr/bin/zsh $(whoami)
+			# clone
+			git clone https://github.com/powerline/fonts.git --depth=1
+			# install
+			cd fonts
+			./install.sh
+			# clean-up a bit
+			cd ..
+			rm -rf fonts
+			fc-cache -vf
 			echo "#----------------------------Instalado Zsh----------------------------#"
 			sleep 2s
 			;;
@@ -2350,6 +2541,16 @@ choices=$aur
 			sleep 1s
 			sudo $install zsh zsh-completions
 			chsh -s /bin/zsh
+			sudo usermod -s /usr/bin/zsh $(whoami)
+			# clone
+			git clone https://github.com/powerline/fonts.git --depth=1
+			# install
+			cd fonts
+			./install.sh
+			# clean-up a bit
+			cd ..
+			rm -rf fonts
+			fc-cache -vf
 			;;
 
 		3_customize_U)
@@ -2415,17 +2616,38 @@ choices=$aur
 			;;
 
 		3_web)
-			installslack
+			cd $tmp_dir
+			wget https://repo.skype.com/latest/skypeforlinux-64.deb
+			sudo dpkg -i skypeforlinux-64.deb
 			;;
 
 		3_web_rpm)
+			cd $tmp_dir
+			cambiored
+			sudo dnf install https://go.skype.com/skypeforlinux-64.rpm -y
+			;;
+
+		3_web_aur)
+			cambioarch
+			cd $tmp_dir
+			git clone https://aur.archlinux.org/skypeforlinux-stable-bin.git $tmp_dir
+			cd skypeforlinux-stable-bin
+			makepkg -si
+			;;
+
+
+		4_web)
+			installslack
+			;;
+
+		4_web_rpm)
 			cambiored
 			slackname=$slacknamered
 			slack=slackred
 			installslack
 			;;
 
-		3_web_aur)
+		4_web_aur)
 			cambioarch
 			slackname=$slacknamearch
 			slack=$slackarch
@@ -2438,18 +2660,18 @@ choices=$aur
             yay -S slack-desktop
 			;;
 
-		4_web)
+		5_web)
 			installzoom
 			;;
 
-		4_web_rpm)
+		5_web_rpm)
 			cambiored
 			zoomname=$zoomnamered
 			zoom=$zoomred
 			installzoom
 			;;
 
-		4_web_aur)
+		5_web_aur)
 			cambioarch
 			zoomname=$zoomnamearch
 			zoom=zoomarch
@@ -2461,11 +2683,11 @@ choices=$aur
             $install
 			;;
 
-		5_web)
+		6_web)
 			installwhatsapp
 			;;
 
-		5_web_rpm)
+		6_web_rpm)
 			cambiored
 			whatsappname=$whatsappnamered
 			whatsapp=$whatsappred
@@ -2477,10 +2699,10 @@ choices=$aur
 			sudo yum install snapd
 			sudo systemctl enable --now snapd.socket
 			sudo ln -s /var/lib/snapd/snap /snap
-			sudo snap install whatsapp-for-linux
+			sudo snap install "whatsapp-for-linux"
 			;;
 
-		5_web_aur)
+		6_web_aur)
 			cambioarch
 			whatsappname=$whatsappnamearch
 			whatsapp=$whatsapparch
@@ -2490,35 +2712,54 @@ choices=$aur
             $install
             sudo systemctl enable --now snapd.socket
             sudo ln -s /var/lib/snapd/snap /snap
-            sudo snap install whatsapp-for-linux
+            sudo snap install "whatsapp-for-linux"
 			;;
 
-		6_web)
+		7_web)
+			installteams
+			;;
+
+		7_web_rpm)
+			cambiored
+			$team=teamred
+			installteams
+			;;
+
+		7_web_aur)
+			cambioarch
+			$team=teamarch
+			git clone https://aur.archlinux.org/yay.git $tmp_dir
+			cd $tmp_dir/yay
+			$install
+			sudo yay -S teams
+			;;
+
+		8_web)
 			installtorrent
 			;;
 
-		6_web_rpm)
+		8_web_rpm)
 			cambiored
 			installtorrent
 			;;
 
-		6_web_aur)
+		8_web_aur)
 			cambioarch
 			installtorrent
 			;;
 
-		7_web)
+		9_web)
 			installteamviewer
 			;;
 
-		7_web_rpm)
+		9_web_rpm)
 			cambiored
 			teamviewername=$teamviewernamered
 			teamviewer=$teamviewerred
 			installteamviewer
 			;;
 
-		7_web_aur)
+		9_web_aur)
 			cambioarch
 			teamviewername=$teamviewernamearch
 			teamviewer=$teamviewerarch
@@ -2533,58 +2774,131 @@ choices=$aur
             sudo pacman -U teamviewer*.pkg.tar.xz
 			;;
 
-		8_web)
+		10_web)
 			installjdownloader
 			;;
 
-		8_web_rpm)
+		10_web_rpm)
 			cambiored
 			installjdownloader
 			;;
 
-		8_web_aur)
+		10_web_aur)
 			cambioarch
 			installjdownloader
 			;;
 
-		9_web)
+		11_web)
 			installgithub
 			;;
 
-		9_web_rpm)
+		11_web_rpm)
 			cambiored
 			githubdesktop=githubdesktopred
 			installgithub
 			;;
 
-		9_web_aur)
+		11_web_aur)
 			cambioarch
 			githubdesktop=$githubdesktoparch
 			git clone https://aur.archlinux.org/github-desktop-bin.git $tmp_dir
-            cd $tmp_dir/github-desktop-bin/
-            $install
-            #with aur helper yay
-           sudo yay -S github-desktop
+			 cd $tmp_dir/github-desktop-bin/
+			$install
+			#with aur helper yay
+			sudo yay -S github-desktop
 			;;
 
-		10_web)
-			installteams
+		12_web)
+						echo "#----------------------------Instalando GitKraken----------------------------#"
+			sleep 1s
+			cd $tmp_dir
+			wget https://release.gitkraken.com/linux/gitkraken-amd64.deb
+			sudo dpkg -i gitkraken-amd64.deb
+						echo "#----------------------------Instalado GitKraken----------------------------#"
 			;;
 
-		10_web_rpm)
+		12_web_rpm)
+						echo "#----------------------------Instalando GitKraken----------------------------#"
+			sleep 1s
 			cambiored
-			$team=teamred
-			installteams
+			cd $tmp_dir
+			wget https://release.gitkraken.com/linux/gitkraken-amd64.rpm
+			sudo yum install ./gitkraken-amd64.rpm
+						echo "#----------------------------Instalado GitKraken----------------------------#"
 			;;
 
-		10_web_aur)
+		12_web_aur)
+			sleep 1s
 			cambioarch
-			$team=teamarch
-			git clone https://aur.archlinux.org/yay.git $tmp_dir
-            cd $tmp_dir/yay
-           $install
-           sudo yay -S teams
+			installgitkraken
 			;;
+
+		13_web)
+			cd $tmp_dir
+			echo "#----------------------------Instalando Docker----------------------------#"
+			#Docker Desktop (Debian)
+			sudo modprobe kvm
+			#sudo modprobe kvm_intel  ### intel processors
+			#sudo modprob kvm_amd ### amd processors
+			sudo usermod -aG kvm $USER
+			sudo apt remove docker-desktop
+			sudo rm -r $HOME/.docker/desktop
+			sudo rm /usr/local/bin/com.docker.cli
+			sudo apt purge docker-desktop
+			sudo apt update -y
+			sudo apt install apparmor -y
+			curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian \
+  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+			sudo apt update
+			sudo apt install docker-ce docker-ce-cli containerd.io docker-compose-plugin
+			sudo usermod -aG docker $USER
+newgrp docker
+			wget https://desktop.docker.com/linux/main/amd64/docker-desktop-4.12.0-amd64.deb
+			sudo apt install ./docker-desktop-*-amd64.deb
+			echo "#----------------------------Instalado Docker----------------------------#"
+			;;
+
+		13_web_rpm)
+			cambiored
+			echo "#----------------------------Instalando Docker----------------------------#"
+			cd $tmp_dir
+#Docker para Fedora
+			sudo dnf -y install dnf-plugins-core
+			sudo dnf config-manager \
+				--add-repo \
+				https://download.docker.com/linux/fedora/docker-ce.repo
+			sudo dnf install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
+			sudo systemctl start docker
+			sudo docker run hello-world
+			wget https://desktop.docker.com/linux/main/amd64/95914/docker-desktop-4.16.2-x86_64.rpm
+			sudo dnf install -y docker-desktop-*.rpm
+			echo "#----------------------------Instalado Docker----------------------------#"
+			;;
+
+		13_web_aur)
+			cambioarch
+			echo "#----------------------------Instalando Docker---------------------------#"
+			cd $tmp_dir
+#Docker Arch
+			sudo pacman -S docker # (docker, containerd, runc)
+docker info
+			sudo systemctl enable --now docker
+# Docker without sudo:
+			sudo usermod -aG docker $USER
+			reboot or [logout/login and restart docker.service]
+# Docker-Desktop
+#>download from https://docs.docker.com/desktop/release-notes/
+			wget https://desktop.docker.com/linux/main/amd64/95914/docker-desktop-4.16.2-x86_64.pkg.tar.zst
+			sudo pacman -U ./docker-desktop-<version>-<arch>.pkg.tar.zst
+# dependencies= docker-compose, docker-scan
+# Credentials Management:
+			gpg --generate-key
+# SIGNIN on Docker-Desktop!
+			echo "#----------------------------Instalado Docker----------------------------#"
+			;;
+
 # Section G ----------------------------------Networking----------------------------------------------
 
 		1_network)
@@ -2595,7 +2909,7 @@ choices=$aur
 			cambiored
 						echo "#----------------------------Instalando Samba----------------------------#"
 			sleep 1s
-			sudo $install samba cifs-utils cups net-tools -yy
+			sudo $install samba cifs-utils gvfs-smb cups net-tools -yy
 			#backup smb.conf
 			sudo cp /etc/samba/smb.conf /etc/samba/smb.conf.bak
 			cd /etc/samba/
@@ -2642,6 +2956,67 @@ sudo chgrp -R sambashare $usuario/Public
 			cambioarch
 			installzfs
 			;;
+
+		3_network_U)
+			installxampp
+			;;
+
+		4_network)
+			cd $tmp_dir
+			echo "#----------------------------Instalando ProtonVPN-----------------------------#"
+# Descarga la aplicación de ProtonVPN
+			wget -O protonvpn-cli.deb https://protonvpn.com/download/protonvpn-cli.deb
+			wget -O protonvpn.deb https://repo.protonvpn.com/debian/dists/stable/main/binary-all/protonvpn-stable-release_1.0.3_all.deb
+# Instala la aplicación
+			sudo dpkg -i protonvpn-cli.deb
+			sudo dpkg -i protonvpn.deb
+# Inicia la aplicación
+			sudo protonvpn-cli --install
+			sudo apt-get update
+			sudo apt-get protonvpn
+			cd $usuario
+echo "#----------------------------ProtonVPN Instalado-----------------------------#"
+			;;
+
+		4_network_rpm)
+			cambiored
+			cd $tmp_dir
+echo "#----------------------------Instalando ProtonVPN-----------------------------#"
+			sudo dnf install python3-pip
+			pip3 install --user 'dnspython>=1.16.0'
+# Descarga la aplicación de ProtonVPN
+			wget -O protonvpn-cli.rpm https://protonvpn.com/download/protonvpn-cli.rpm
+			wget -O protonvpn.rpm https://repo.protonvpn.com/fedora-36-stable/release-packages/protonvpn-stable-release-1.0.1-1.noarch.rpm
+# Instala la aplicación
+			sudo yum install protonvpn-cli.rpm
+			sudo yum install protonvpn.rpm
+			sudo dnf install protonvpn
+# Inicia la aplicación
+			sudo protonvpn-cli --install
+			cd $usuario
+echo "#----------------------------ProtonVPN Instalado-----------------------------#"
+			;;
+
+		4_network_aur)
+			cambioarch
+			cd $tmp_dir
+echo "#----------------------------Instalando ProtonVPN-----------------------------#"
+# Descarga la aplicación de ProtonVPN
+			wget -O protonvpn-cli.tar.gz https://protonvpn.com/download/protonvpn-cli.tar.gz
+# Descomprime el archivo
+			tar xvzf protonvpn-cli.tar.gz
+# Instala la aplicación
+			cd protonvpn-cli
+			sudo python setup.py install
+# Inicia la aplicación
+			sudo protonvpn-cli --install
+			pamac update --force-refresh
+			pamac search --aur protonvpn
+			pamac build protonvpn
+			cd $usuario
+echo "#----------------------------ProtonVPN Instalado-----------------------------#"
+			;;
+
 # Section H -------------------------------Graphics---------------------------------------------------
 
 		1_graphics)
@@ -2993,7 +3368,7 @@ sudo pip3 install WoeUSB-ng
 			cambiored
 			echo "#----------------------------Instalando base BSPWM-----------------------------#"
 			sleep 1s
-			sudo $install xterm terminator rxvt-unicode inxi bspwm sxhkd rofi dunst cava maim bmon nitrogen xbacklight gpick light xsettingsd polybar dmenu pcmanfm pcmanfm-qt lxappearance fzf viewnior zenity arandr pavucontrol -yy
+			sudo $install xterm terminator rxvt-unicode inxi bspwm sxhkd rofi dunst cava maim bmon nitrogen xbacklight gpick light xsettingsd polybar dmenu pcmanfm pcmanfm-qt lxappearance fzf viewnior zenity arandr gnome-screenshot pavucontrol -yy
 			cp -rf $usuario/dotfiles/bspwm/.Xresources.d $usuario
 			sudo chown -R 777 $usuario/Xresources.d
 			sudo chown -R $nombre:$nombre $usuario/Xresources.d
@@ -3103,3 +3478,4 @@ fi
 
 
 
+# Hecho por Yordis Cujar

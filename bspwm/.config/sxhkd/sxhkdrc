@@ -20,11 +20,11 @@ super + Return
 
 # uxterm
 super + alt + Return
-	$HOME/.config/bspwm/bin/bspfloat xterm -name Float
+	uxterm
 
 # Terminal or Fullscreen Terminal
 super + {_,shift + } Return
-	{uxterm,~/.config/bspwm/scripts/bin/furminal}
+	xfce4-terminal
 
 # Toggle notification center
 super + o
@@ -48,11 +48,15 @@ ctrl + super + k
 
 # Reloading Polybar
 ctrl + super + p
-	sh ~/.config/bspwm/bin/bspbar
+	sh ~/.config/polybar/panels/launch.sh
 
 # Reloading Alternative Polybar
 alt + super + p
 	sh ~/.config/polybar/launch.sh
+
+# Reloading Polybar
+super + p
+	killall polybar
 
 # Hide/Show Polybar
 super + shift + p
@@ -83,7 +87,7 @@ super + shift + Tab
                 -show-icons -drun-icon-theme "Qogir-dark" -font "Droid Sans Regular 10"
 
 # Rofi Menus/Applets
-super + {w,0,r,p,n,t}
+super + {w,0,r,v,n,t}
 	sh ~/.config/bspwm/rofi/bin/{windows,powermenu,asroot,mpd,network,apps}
 
 # Rofi Network Manager
@@ -295,11 +299,11 @@ super + {_,shift + }{h,j,k,l}
 ##---------- Moving ----------##
 
 
-super + {1,2,3,4,5,6,7,8,9}
-	bspc desktop -f {1,2,3,4,5,6,7,8,9}
+super + {1,2,3,4,5,6,7,8}
+	bspc desktop -f {1,2,3,4,5,6,7,8}
 
-super + {_,shift + }{1-9,0}
-	bspc node -d '^{1-9,10}'
+#super + {_,shift + }{1-8}
+#	bspc node -d '^{0-7}'
 
 # move a floating window
 super + {Left,Down,Up,Right}
@@ -320,8 +324,8 @@ super + alt + shift + {Left,Down,Up,Right}
 ##---------- focus/swap ----------##
 
 # Send focused window to another workspace
-super + {_,shift + }{1-8}
-	bspc {desktop -f,node -d} '^{1-8}'
+super + {_,shift + }{0-7}
+	bspc {desktop -f,node -d} '^{0-7}'
 
 # focus the node in the given direction
 super + {_,shift + }{Left,Down,Up,Right}

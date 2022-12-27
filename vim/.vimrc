@@ -2,6 +2,12 @@
 " General
 "==============================================================================
 
+"Directories
+so ~/.vim/plugins.vim
+so ~/.vim/pluginsconfig.vim
+so ~/.vim/maps.vim
+so ~/.vim/color.vim
+
 filetype off					" Helps force plug-ins to load correctly when it is turned back on below.
 filetype plugin indent on		" For plug-ins to load correctly.
 se t_Co=256
@@ -14,20 +20,25 @@ set nu rnu 	            	    " Hybrid. Relative numbers and the current line num
 set mouse=a		  		        " cursor interactive
 set showmode					" Display options
 set showcmd		    		    " show command
-set cursorline					" Muestra líena debajo del cursor.
+set cursorline					" Muestra línea debajo del cursor.
 set clipboard=unnamed
-set lazyredraw  
+set lazyredraw
 set sw=2
 set ruler 		     		    " show cursor position
 set showmatch		   		    " show end
 set laststatus=2				" Status bar
 set ttyfast						" Speed up scrolling in Vim
-set nocompatible	     	    " Use Vim settings, rather then Vi settings (much better!).
+set nocompatible
 set history=1000	      	    " command line history
+set undolevels=1000
+set undofile
+set undodir=~/.vim/undo
 set nobackup
 set nowritebackup
 set noswapfile
+set hidden						" move buffers whith save
 set wildmenu     	  	        " enable visual wildmenu
+set wildoptions=pum
 set backspace=indent,eol,start  " backspace everywhere in insert mode
 set autoindent 	 	 	        " autoindent always ON.
 set expandtab 		 	        " expand tabs
@@ -39,11 +50,13 @@ set wrap						" Automatically wrap text that extends beyond the screen length.
 set viminfo='100,<9999,s100		" Store info from no more than 100 files at a time, 9999 lines of text, 100kb of data. Useful for copying large amounts of data between files.
 syntax enable 			   		" Turn on syntax highlighting.
 let &t_ut=''  	                " To render properly background of the color scheme
+set splitright
 
 " Uncomment below to set the max textwidth. Use a value corresponding to the width of your screen.
 set textwidth=79
 set formatoptions=tcqrn1
 set noshiftround
+set termguicolors
 
 "search
 set nohlsearch     	    	    " clear highlight after a search
@@ -51,63 +64,9 @@ set hlsearch				    " Highlight matching search patterns
 set incsearch					" Enable incremental search
 set ignorecase					" Include matching uppercase words with lowercase search term
 set smartcase					" Include only uppercase words with uppercase search term
-
-"Directories
-so ~/.vim/plugins.vim
-so ~/.vim/maps.vim
-
+set grepprg=rg\ --vimgrep\ --smart-case\ --follow					" plugin ripgrep
 " Set status line display
 set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ [BUFFER=%n]\ %{strftime('%c')}
 
-"==============================================================================
-"Color Theme Config
-"==============================================================================
-
-"let g:vim_monokai_tasty_italic = 1                    " allow italics, set this before the colorscheme
-"colorscheme vim-monokai-tasty                         " set the colorscheme
-
-let g:one_allow_italics = 1
-hi Normal guibg=NONE ctermbg=NONE
-colorscheme srcery
-
-
-" Optional themes for airline/lightline
-"let g:airline_theme='monokai_tasty'                   " airline theme
-let g:airline_theme='base16'
-"let g:lightline = { 'colorscheme': 'monokai_tasty' }  " lightline theme
-
-" If you don't like a particular colour choice from `vim-monokai-tasty`, you can
-" override it here. For example, to change the colour of the search hightlight:
-hi Search guifg=#bada55 guibg=#000000 gui=bold ctermfg=green ctermbg=black cterm=bold
-
-" If you don't know what the name of a particular hightlight is, you can use
-" `What`. It will print out the syntax group that the cursor is currently above.
-" from https://www.reddit.com/r/vim/comments/6z4aau/how_to_stop_vim_from_autohighlighting_italics_in/
-command! What echo synIDattr(synID(line('.'), col('.'), 1), 'name')
-
-" Enable true colors
-if exists('+termguicolors')
-  " Necessary when using tmux
-  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-  set termguicolors
-endif
-
-" File-types
-autocmd BufNewFile,BufRead *.go set filetype=go
-
-" Tabs
-set sw=2 ts=2 sts=2 " Default
-autocmd FileType html :setlocal sw=2 ts=2 sts=2
-autocmd FileType ruby :setlocal sw=2 ts=2 sts=2
-autocmd FileType javascript :setlocal sw=2 ts=2 sts=2
-autocmd FileType xml :setlocal sw=2 ts=2 sts=2
-autocmd FileType python :setlocal sw=4 ts=4 sts=4
-autocmd FileType go :setlocal sw=4 ts=4 sts=4
-
-" Make vertical separator pretty
-highlight VertSplit cterm=NONE
-set fillchars+=vert:\▏
-
-" Get rid of unnecessary highlight for spelling
-highlight clear SpellBad
+" Debug
+echom "Loaded <filename>"

@@ -114,6 +114,7 @@ bspc rule -a Alacritty desktop='^1' follow=on focus=on
 bspc rule -a Terminal desktop='^1' state=floating border=off
 bspc rule -a Terminator desktop='^1' border=off
 bspc rule -a Tilix desktop='^1' state=floating border=off
+bspc rule -a xfce4-terminal state=floating centered=true sticky=on
 declare -a term=(UXTerm Alacrity)
 for i in ${term[@]}; do
    bspc rule -a $i desktop='^1' state=floating follow=on focus=on; done
