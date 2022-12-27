@@ -9,12 +9,12 @@
 
 <hr>
 
-# :sunny: Dotfiles :goat: :shipit:
+# :venezuela: Dotfiles :place_of_worship:
 This Dotfiles is made particularly to help me install things that I think can be done faster, I also hope it will be useful for whoever needs it.
 
 My favorite distro is *Debian* so it's mostly meant to work well on Debian, it also has functionality on *Fedora* (since I use it too) and *Archlinux* (because I might use it again in the future) ).
 
-## :zap: Dependencies📋
+## :zap: Dependencies :zap:
 
 ```bash
 sudo apt install dialog git inxi -y
@@ -43,7 +43,7 @@ Include = /etc/pacman.d/chaotic-mirrorlist" >> -a /etc/pacman.conf
 sudo pacman -Syyu
 ```
 
-## :wrench: Installer 
+## :sparkles: Installer :sparkles:
 
 This is a Script that I wrote to facilitate the installation in the three right-handed ones that I use most frequently (Debian, Fedora and ArchLinux).
 To use it, you just have to put this command line in the terminal.
