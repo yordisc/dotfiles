@@ -38,6 +38,7 @@ Plug 'easymotion/vim-easymotion'  "motion on speed!
 "Plug 'terryma/vim-multiple-cursors' "Multiple selection
 Plug 'Yggdroot/indentLine'
 Plug 'alpertuna/vim-header' "Agrega Headers al codigo
+Plug 'anufrievroman/vim-tex-kawaii' "Latex para Vim"
 
 "Nerd
 Plug 'preservim/nerdtree'
