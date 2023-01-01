@@ -125,7 +125,7 @@ animation-charging-3 = 
 animation-charging-4 =  
 animation-charging-framerate = 750
 
-format-discharging = <ramp-capacity> <label-discharging>
+format-discharging = <ramp-capacity>  <label-discharging>
 format-discharging-underline = ${colors.notify}
 ramp-capacity-0 =  
 ramp-capacity-1 =  

@@ -1122,13 +1122,15 @@ function installsamba()
 			sudo chmod 755 /etc/samba/smb.conf.bak
 			sudo chmod 755 /etc/samba/smb.conf
 			# sudo grep -v -E "^#|^;" /etc/samba/smb.conf.bak | grep . > /etc/samba/smb.conf
-            sudo useradd $nombre
-            sudo pdbedit -a -u $nombre
-            sudo smbpasswd $nombre
-            sudo systemctl restart smbd nmbd
-            sudo systemctl start smbd nmbd
-            sudo systemctl enable smbd nmbd
-            sudo chown -R $nombre:$nombre $usuario/Public
+			sudo useradd $nombre
+			sudo pdbedit -a -u $nombre
+			sudo smbpasswd $nombre
+			sudo systemctl enable smb --now
+			sudo systemctl start smb --now
+			sudo systemctl enable smbd nmbd
+			sudo systemctl enable --now nmb
+			sudo systemctl start --now nmb
+			sudo chown -R $nombre:$nombre $usuario/Public
 			sudo chmod -R 777 $usuario/Public
 			sudo chown -R $nombre:$nombre $usuario/Downloads
 			sudo chmod -R 777 $usuario/Downloads
