@@ -97,6 +97,7 @@ sudo mousepad /etc/fstab
 * [Manjaro XFCE](https://manjaro.org/download/)
 ### Repair GRUB (if the case comes to pass)
 * [BootRepair](https://bootrepair.es/)
+  
 To repair grub on Fedora use this command:
 ```bash
 sudo grub2-mkconfig -o /etc/grub2.cfg
