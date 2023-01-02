@@ -95,7 +95,13 @@ sudo mousepad /etc/fstab
 * [Spiral Linux XFCE](https://spirallinux.github.io/#download)
 * [Fedora XFCE](https://spins.fedoraproject.org/xfce/download/index.html)
 * [Manjaro XFCE](https://manjaro.org/download/)
-
+### Repair GRUB (if the case comes to pass)
+* [BootRepair](https://bootrepair.es/)
+To repair grub on Fedora use this command:
+```bash
+sudo grub2-mkconfig -o /etc/grub2.cfg
+sudo grub2-mkconfig -o /etc/grub2-efi.cfg
+```
 ## :loudspeaker: Pages of interest 
 * [Montar particion automaticamente en linux](https://vivaelsoftwarelibre.com/montar-particiones-al-iniciar-linux-automaticamente/)
 * [Servicios](https://www.hostinger.es/tutoriales/administrar-y-listar-servicios-en-linux)
