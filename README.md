@@ -57,6 +57,11 @@ And follow the next steps:
 2) The package you want to use according to the distribution is placed: Deb , Rpm , Aur.
 3) Select what you want to install (there are three menus so if you are not going to install anything from one press ENTER and go to the next menu).
 
+<details>
+<summary><b>Dotfiles.sh</b></summary>
+
+**`Dotfiles.sh`**
+
 ![dotfiles01](https://raw.githubusercontent.com/yordisc/dotfiles/master/dotfilesimages/dotfiles.sh01.png)
 ![dotfiles02](https://raw.githubusercontent.com/yordisc/dotfiles/master/dotfilesimages/dotfiles.sh02.png)
 ![dotfiles03](https://raw.githubusercontent.com/yordisc/dotfiles/master/dotfilesimages/dotfiles.sh03.png)
@@ -64,13 +69,20 @@ And follow the next steps:
 ![dotfiles05](https://raw.githubusercontent.com/yordisc/dotfiles/master/dotfilesimages/dotfiles.sh05.png)
 ![dotfiles06](https://raw.githubusercontent.com/yordisc/dotfiles/master/dotfilesimages/dotfiles.sh06.png)
 
+</details>
+
 ### :pushpin: Bspwm
 The Bspwm installer is inside dotfiles.sh, just select it.
 
+<details>
+<summary><b>Bspwm</b></summary>
+
+**`Bspwm`**
 ![bspwm01](https://raw.githubusercontent.com/yordisc/dotfiles/master/dotfilesimages/bspwm01.png)
 ![bspwm02](https://raw.githubusercontent.com/yordisc/dotfiles/master/dotfilesimages/bspwm02.png)
 ![bspwm03](https://raw.githubusercontent.com/yordisc/dotfiles/master/dotfilesimages/bspwm03.png)
 
+</details>
 
 <kbd>Ctrl</kbd> + <kbd>Super</kbd> + <kbd>h</kbd> - It will show the keybindings menu <br>
 <kbd>Alt</kbd> + <kbd>Super</kbd> + <kbd>p</kbd> - Switch to polybar alternative <br>
