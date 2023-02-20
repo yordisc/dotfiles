@@ -9,13 +9,13 @@
 
 <hr>
 
-#  :floppy_disk: Dotfiles :place_of_worship:
+#  :penguin: Dotfiles :place_of_worship:
 This Dotfiles is made particularly to help me install things that I think can be done faster, I also hope it will be useful for whoever needs it.
 
 My favorite distro is *Debian* so it's mostly meant to work well on Debian, it also has functionality on *Fedora* (since I use it too) and *Archlinux* (because I might use it again in the future) ).
 
-## :zap: Dependencies :zap:
 
+## :zap: Dependencies :zap:
 ```bash
 sudo apt install dialog git inxi -y
 ```
@@ -57,6 +57,11 @@ And follow the next steps:
 2) The package you want to use according to the distribution is placed: Deb , Rpm , Aur.
 3) Select what you want to install (there are three menus so if you are not going to install anything from one press ENTER and go to the next menu).
 
+<details>
+<summary><b>Dotfiles.sh</b></summary>
+
+**`Dotfiles.sh`**
+
 ![dotfiles01](https://raw.githubusercontent.com/yordisc/dotfiles/master/dotfilesimages/dotfiles.sh01.png)
 ![dotfiles02](https://raw.githubusercontent.com/yordisc/dotfiles/master/dotfilesimages/dotfiles.sh02.png)
 ![dotfiles03](https://raw.githubusercontent.com/yordisc/dotfiles/master/dotfilesimages/dotfiles.sh03.png)
@@ -64,13 +69,20 @@ And follow the next steps:
 ![dotfiles05](https://raw.githubusercontent.com/yordisc/dotfiles/master/dotfilesimages/dotfiles.sh05.png)
 ![dotfiles06](https://raw.githubusercontent.com/yordisc/dotfiles/master/dotfilesimages/dotfiles.sh06.png)
 
+</details>
+
 ### :pushpin: Bspwm
 The Bspwm installer is inside dotfiles.sh, just select it.
 
+<details>
+<summary><b>Bspwm</b></summary>
+
+**`Bspwm`**
 ![bspwm01](https://raw.githubusercontent.com/yordisc/dotfiles/master/dotfilesimages/bspwm01.png)
 ![bspwm02](https://raw.githubusercontent.com/yordisc/dotfiles/master/dotfilesimages/bspwm02.png)
 ![bspwm03](https://raw.githubusercontent.com/yordisc/dotfiles/master/dotfilesimages/bspwm03.png)
 
+</details>
 
 <kbd>Ctrl</kbd> + <kbd>Super</kbd> + <kbd>h</kbd> - It will show the keybindings menu <br>
 <kbd>Alt</kbd> + <kbd>Super</kbd> + <kbd>p</kbd> - Switch to polybar alternative <br>
@@ -95,9 +107,17 @@ sudo mousepad /etc/fstab
 * [Spiral Linux XFCE](https://spirallinux.github.io/#download)
 * [Fedora XFCE](https://spins.fedoraproject.org/xfce/download/index.html)
 * [Manjaro XFCE](https://manjaro.org/download/)
-
+### Repair GRUB (if the case comes to pass)
+* [BootRepair](https://bootrepair.es/)
+  
+To repair grub on Fedora use this command:
+```bash
+sudo grub2-mkconfig -o /etc/grub2.cfg
+sudo grub2-mkconfig -o /etc/grub2-efi.cfg
+```
 ## :loudspeaker: Pages of interest 
 * [Montar particion automaticamente en linux](https://vivaelsoftwarelibre.com/montar-particiones-al-iniciar-linux-automaticamente/)
+* [Instalar varios sistemas en un USB-Ventoy](https://github.com/ventoy/Ventoy)
 * [Servicios](https://www.hostinger.es/tutoriales/administrar-y-listar-servicios-en-linux)
 
 ## :100: Resources used / Credits 

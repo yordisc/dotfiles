@@ -423,7 +423,7 @@ teams=teamsdeb
 			9_web_aur "	TeamViewer" off
 			10_web_aur "	JDownloader" off
 			11_web_aur "	GitHub Desktop" off
-			12_web_aur "	GitKraken" off
+			12_web_U "	GitKraken" off
 			13_web_aur "	Docker Desktop" off
 		#G "<----Category: Networking---->" on
 			1_network_aur "	SAMBA" off
@@ -786,7 +786,7 @@ function installnvim()
 			sudo npm install -g ts-node
 			sudo npm install -g tslib @types/node
 			#Install Rust
-			curl https://sh.rustup.rs -sSf | sh
+			#curl https://sh.rustup.rs -sSf | sh
 			#Install jupyter (requiere PIP)
 			sudo pip install jupyter
 			#Copy Config
@@ -890,7 +890,7 @@ function installzsh()
 {
 			echo "#----------------------------Instalando Zsh----------------------------#"
 			sleep 1s
-			sudo $install zsh zsh-common zsh-doc zsh-static fzf zplug zsh-autosuggestions thefuck -yy
+			sudo $install zsh -yy
 			sudo usermod -s /usr/bin/zsh $(whoami)
 			# clone
 			git clone https://github.com/powerline/fonts.git --depth=1
@@ -974,7 +974,7 @@ function installpackterminal()
 {
 			echo "#----------------------------Instalando Pack Personal Terminal----------------------------#"
 			sleep 1s
-			sudo $install cmake terminator zsh zsh-common htop feh thefuck fake neofetch ncmpcpp cmatrix piu-piu bat caca-utils bat ncat nmap ranger mc googler youtube-dl pup links2 lynx powerline powerline-gitstatus calc w3m w3m-img calendar lolcat lsd lr sl fzf zplug p7zip p7zip-full unrar-free unzip zip -yy
+			sudo $install jq curl cmake terminator zsh zsh-common htop feh thefuck fake  caca-utils neofetch ncmpcpp cmatrix piu-piu bat ncat nmap ranger mc googler youtube-dl ytfzf pup tty-clock links2 lynx powerline powerline-gitstatus calc w3m w3m-img calendar chafa lolcat lsd lr sl fzf zplug p7zip p7zip-full unrar-free unzip zip -yy
 			curl -sS https://webi.sh/lsd | sh
 			chsh -s $(which zsh)
 			mkdir -p $usuario/.config/terminator/plugins
@@ -984,6 +984,25 @@ function installpackterminal()
 			sudo chown -R $nombre:$nombre $usuario/.config/ranger
 			cp -rf $usuario/dotfiles/bspwm/ranger $usuario/.config/ranger
 			wget https://git.io/v5Zwz -O $usuario"/.config/terminator/plugins/terminator-themes.py"
+### Youtube por terminal
+			cd $tmp_dir
+			git clone https://github.com/pystardust/ytfzf
+			cd ytfzf
+			sudo make install
+			cd $usuario
+			mkdir -p ~/.config/ytfzf
+			echo "cache_dir="$HOME/.cache/ytfzf"
+history_file="$YTFZF_CACHE/ytfzf_hst"
+current_file="$YTFZF_CACHE/ytfzf_cur"
+thumb_dir="$YTFZF_CACHE/thumb"
+YTFZF_HIST=1
+YTFZF_LOOP=0
+video_pref="360p"
+YTFZF_ENABLE_FZF_DEFAULT_OPTS=1
+YTFZF_PLAYER="mpv"
+thumbnail_viewer="chafa-16"
+show_thumbnails="1"">> ~/.config/ytfzf/conf.sh
+###
 			echo "#----------------------------Instalado Pack Personal Terminal------------------------------#"
 			sleep 2s
 
@@ -1209,9 +1228,12 @@ function installteams()
 function installsamba()
 
 {
+
 			echo "#----------------------------Instalando Samba----------------------------#"
 			sleep 1s
-			sudo $install samba cifs-utils libcups2 cups smbclient gvfs-backends net-tools network-manager network-manager-openvpn network-manager-openvpn-gnome -yy
+			### Dependencias Multiplataforma
+			sudo $install samba cups net-tools -yy
+			### Config
 			#backup smb.conf
 			sudo cp /etc/samba/smb.conf /etc/samba/smb.conf.bak
 			cd /etc/samba/
@@ -1238,7 +1260,8 @@ sudo chown -R $nombre:$nombre $usuario/Public
 sudo chown -R 777 $usuario/Public
 sudo chgrp -R sambashare $usuario/Public
 " >> $usuario/Abrir
-
+			echo "#----------------------------Instalado Samba----------------------------#"
+			
 }
 
 
@@ -1800,7 +1823,7 @@ function installpackhome()
 {
 			echo "#--------------------------------Instalando Paquete Hogar--------------------------------#"
 			sleep 1s
-			sudo $install bleachbit perl aspell catfish galculator gnome-multi-writer gparted lightdm lightdm-gtk-greeter-settings midori mousepad feh putty ristretto simple-scan smartmontools abiword telegram-desktop tlp viewnior yad firewalld exfat-utils -yy
+			sudo $install bleachbit perl aspell catfish peek galculator gnome-multi-writer gparted lightdm lightdm-gtk-greeter-settings midori mousepad feh putty ristretto simple-scan smartmontools abiword telegram-desktop tlp viewnior yad firewalld exfat-utils -yy
 			echo "#--------------------------------Instalado Paquete Hogar--------------------------------#"
 			sleep 2s
 
@@ -1848,9 +1871,15 @@ function installi3lock()
 echo "#-----------------------------Habilitar I3LOCK---------------------------------#"
 			sleep 1s
 			sudo $install i3lock autoconf gcc make pkg-config libpam0g-dev libcairo2-dev libfontconfig1-dev libxcb-composite0-dev libev-dev libx11-xcb-dev libxcb-xkb-dev libxcb-xinerama0-dev libxcb-randr0-dev libxcb-image0-dev libxcb-util0-dev libxcb-xrm-dev libxcb-xtest0-dev libxkbcommon-dev libxkbcommon-x11-dev libjpeg-dev -yy
+			###i3lock-Color
 			git clone https://github.com/Raymo111/i3lock-color.git $tmp_dir
 			cd $tmp_dir
 			sudo bash install-i3lock-color.sh
+			###i3lock-fancy
+			git clone https://github.com/meskarune/i3lock-fancy.git $tmp_dir
+			cd i3lock-fancy
+			sudo make install
+			cd $usuario
 			echo "#-----------------------------I3LOCK habilitado--------------------------------#"
 			sleep 2s
 
@@ -1862,7 +1891,9 @@ function installbspwm()
 {
 echo "#----------------------------Instalando base BSPWM-----------------------------#"
 			sleep 1s
-			sudo $install xterm terminator rxvt-unicode inxi bspwm sxhkd rofi dunst cava xfce4-clipman maim bmon mpd nitrogen xbacklight gpick nm-tray light xsettingsd polybar suckless-tools dmenu network-manager network-manager network-manager-openvpn pcmanfm pcmanfm-qt ffmpegthumbnailer lxappearance fzf feh viewnior zenity policykit-1-gnome arandr pulseaudio pulseaudio-utils pavucontrol gnome-screenshot pulseaudio-equalizer gstreamer1.0-pulseaudio toilet -yy
+			### Dependencias
+			sudo $install xterm terminator rxvt-unicode inxi bspwm sxhkd rofi dunst cava maim bmon nitrogen xbacklight gpick light xsettingsd polybar dmenu pcmanfm lxappearance fzf viewnior zenity arandr gnome-screenshot pavucontrol -yy
+			### Agregar Dotfiles
 			cp -rf $usuario/dotfiles/bspwm/.Xresources.d $usuario
 			sudo chown -R 777 $usuario/Xresources.d
 			sudo chown -R $nombre:$nombre $usuario/Xresources.d
@@ -1891,15 +1922,21 @@ echo "#----------------------------Instalando base BSPWM------------------------
 			cp -rf $usuario/dotfiles/bspwm/.config/* $usuario/.config
 			sudo chown -R 777 $usuario/.config
 			sudo chown -R $nombre:$nombre $usuario/.config
-			sudo systemctl disable mpd
-			sudo systemctl disable bluetooth
-			sudo systemctl enable NetworkManager
-			sudo systemctl start NetworkManager
 			cd $tmp_dir
 			wget https://github.com/archcraft-os/packages/raw/main/x86_64/archcraft-fonts-1.0-3-any.pkg.tar.zst
 			tar -xf archcraft-fonts-1.0-3-any.pkg.tar.zst
 			sudo cp -r usr /
+			### Configurar servicios
 			cd $tmp_dir
+			sudo systemctl disable mpd
+			sudo systemctl disable bluetooth
+			sudo systemctl enable NetworkManager
+			sudo systemctl start NetworkManager
+			### Extras
+			installi3lock
+			installpicom
+			installwallpapers
+			cd $usuario
 			echo "#----------------------------Base BSPWM instalada------------------------------#"
 			sleep 2s
 
@@ -1909,7 +1946,18 @@ function installwallpapers()
 
 {
 			echo "#---------Agregando Wallpapers---------#"
-			sudo cp -r $usuario/dotfiles/backgrounds/* /usr/share/backgrounds
+
+			mkdir $tmp_dir/backgrounds
+			git clone https://github.com/yordisc/Wallpapers $tmp_dir/backgrounds
+			sudo cp -r $tmp_dir/backgrounds/* /usr/share/backgrounds
+			### nitrogen
+			sudo echo "
+dirs=/usr/share/backgrounds;
+" >> $usuario/.config/nitrogen/nitrogen.cfg
+			### Feh
+			sudo echo "
+feh --no-fehbg --bg-fill '/usr/share/backgrounds/gruvbox.png'
+" >> $usuario/.fehbg
 			echo "#---------------------Wallpapers agregados-------------------#"
 			sleep 3s
 			clear
@@ -2143,34 +2191,37 @@ function swappiness10()
 function chiguire()
 
 {
-			echo "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
-			echo "@@@@@@@%#++*###*=@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
-			echo "@@@@@#***++=-===+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
-			echo "@@@@=-=-+*++++*+#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
-			echo "@@@%*++-+*+**+**+*%@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
-			echo "@@@@#=++#*+++=+++**%@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
-			echo "@@@@@*====--:-=++*####%%@@@@@@@@@@@@@@@@@@@@@@@@@@"
-			echo "@@@@@@@@=   :=++*****+**####%%%%%@@@@@@@@@@@@@@@@@"
-			echo "@@@@@@@@#::-=++****+=+++*###########%@@@@@@@@@@@@@"
-			echo "@@@@@@@@*-==+++**++++++++*********#####%%@@@@@@@@@"
-			echo "@@@@@@@@*=++++++++++++++******************%@@@@@@@"
-			echo "@@@@@@@@@+++**+===++++=++****#***********++%@@@@@@"
-			echo "@@@@@@@@@#=++**=-+====+****************++*+=#@@@@@"
-			echo "@@@@@@@@@@#=+++==---:-=+++***+*++*++***+**+==@@@@@"
-			echo "@@@@@@@@@@@*--.-==: .-=-==++++++++**+*****+==%@@@@"
-			echo "@@@@@@@@@@@@+:.:-==:..:--======*++**+**++*+==%@@@@"
-			echo "@@@@@@@@@@@@@=.:-=-%%-...::::-+**++*+++=++==-#@@@@"
-			echo "@@@@@@@@@@@@@*::=-=@@@%*=:..:=+++++=++==+==-:#@@@@"
-			echo "@@@@@@@@@%%*==.-=--+***+*+:  :-=--=:----:::.-@@@@@"
-			echo "@@@@@@@@%%*++--=----+====-:... ..::::---==+*@@@@@@"
-			echo "@@@@@@@@@@@@%%##**####%%%##****##%%%@@@@@@@@@@@@@@"
-			echo "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
-			echo "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
-
+		clear
+			echo -e "\033[33m@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
+			echo -e "\033[33m@@@@@@@%#++*###*=@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
+			echo -e "\033[33m@@@@@#***++=-===+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
+			echo -e "\033[33m@@@@=-=-+*++++*+#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
+			echo -e "\033[33m@@@%*++-+*+**+**+*%@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
+			echo -e "\033[33m@@@@#=++#*+++=+++**%@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
+			echo -e "\033[33m@@@@@*====--:-=++*####%%@@@@@@@@@@@@@@@@@@@@@@@@@@"
+			echo -e "\033[33m@@@@@@@@=   :=++*****+**####%%%%%@@@@@@@@@@@@@@@@@"
+			echo -e "\033[33m@@@@@@@@#::-=++****+=+++*###########%@@@@@@@@@@@@@"
+			echo -e "\033[33m@@@@@@@@*-==+++**++++++++*********#####%%@@@@@@@@@"
+			echo -e "\033[33m@@@@@@@@*=++++++++++++++******************%@@@@@@@"
+			echo -e "\033[33m@@@@@@@@@+++**+===++++=++****#***********++%@@@@@@"
+			echo -e "\033[33m@@@@@@@@@#=++**=-+====+****************++*+=#@@@@@"
+			echo -e "\033[33m@@@@@@@@@@#=+++==---:-=+++***+*++*++***+**+==@@@@@"
+			echo -e "\033[33m@@@@@@@@@@@*--.-==: .-=-==++++++++**+*****+==%@@@@"
+			echo -e "\033[33m@@@@@@@@@@@@+:.:-==:..:--======*++**+**++*+==%@@@@"
+			echo -e "\033[33m@@@@@@@@@@@@@=.:-=-%%-...::::-+**++*+++=++==-#@@@@"
+			echo -e "\033[33m@@@@@@@@@@@@@*::=-=@@@%*=:..:=+++++=++==+==-:#@@@@"
+			echo -e "\033[33m@@@@@@@@@%%*==.-=--+***+*+:  :-=--=:----:::.-@@@@@"
+			echo -e "\033[33m@@@@@@@@%%*++--=----+====-:... ..::::---==+*@@@@@@"
+			echo -e "\033[33m@@@@@@@@@@@@%%##**####%%%##****##%%%@@@@@@@@@@@@@@"
+			echo -e "\033[33m@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
+			echo -e "\033[33m@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
+			sleep 2s
+		clear
 }
+
 		clear
 		echo " "
-		echo "https://github.com/yordisc/"
+			echo -e "\033[4mhttps://github.com/yordisc/"
 			sleep 2s
 		clear
 		chiguire
@@ -2514,43 +2565,19 @@ choices=$aur
 
 		2_customize)
 			installzsh
+			sudo $install zsh-doc zsh-static fzf zplug zsh-autosuggestions thefuck -yy
 			;;
 
 		2_customize_rpm)
 			cambiored
-			echo "#----------------------------Instalando Zsh----------------------------#"
-			sleep 1s
-			sudo $install zsh fzf zsh-autosuggestions thefuck -yy
-			sudo usermod -s /usr/bin/zsh $(whoami)
-			# clone
-			git clone https://github.com/powerline/fonts.git --depth=1
-			# install
-			cd fonts
-			./install.sh
-			# clean-up a bit
-			cd ..
-			rm -rf fonts
-			fc-cache -vf
-			echo "#----------------------------Instalado Zsh----------------------------#"
-			sleep 2s
+			installzsh
+			sudo $install fzf zsh-autosuggestions thefuck -yy
 			;;
 
 		2_customize_aur)
 			cambioarch
-			echo "#----------------------------Instalando Zsh----------------------------#"
-			sleep 1s
-			sudo $install zsh zsh-completions
-			chsh -s /bin/zsh
-			sudo usermod -s /usr/bin/zsh $(whoami)
-			# clone
-			git clone https://github.com/powerline/fonts.git --depth=1
-			# install
-			cd fonts
-			./install.sh
-			# clean-up a bit
-			cd ..
-			rm -rf fonts
-			fc-cache -vf
+			installzsh
+			sudo $install zsh-completions -yy
 			;;
 
 		3_customize_U)
@@ -2827,7 +2854,7 @@ choices=$aur
 						echo "#----------------------------Instalado GitKraken----------------------------#"
 			;;
 
-		12_web_aur)
+		12_web_U)
 			sleep 1s
 			cambioarch
 			installgitkraken
@@ -2903,39 +2930,13 @@ docker info
 
 		1_network)
 			installsamba
+			sudo $install libcups2 smbclient gvfs-backends network-manager -yy
 			;;
 
 		1_network_rpm)
 			cambiored
-						echo "#----------------------------Instalando Samba----------------------------#"
-			sleep 1s
-			sudo $install samba cifs-utils gvfs-smb cups net-tools -yy
-			#backup smb.conf
-			sudo cp /etc/samba/smb.conf /etc/samba/smb.conf.bak
-			cd /etc/samba/
-			sudo rm smb.conf
-			sudo cp -rf $usuario/dotfiles/smb.conf /etc/samba/smb.conf
-			sudo chmod 755 /etc/samba/smb.conf.bak
-			sudo chmod 755 /etc/samba/smb.conf
-			# sudo grep -v -E "^#|^;" /etc/samba/smb.conf.bak | grep . > /etc/samba/smb.conf
-            sudo useradd $nombre
-            sudo pdbedit -a -u $nombre
-            sudo smbpasswd $nombre
-            sudo systemctl restart smbd nmbd
-            sudo systemctl start smbd nmbd
-            sudo systemctl enable smbd nmbd
-            sudo chown -R $nombre:$nombre $usuario/Public
-			sudo chmod -R 777 $usuario/Public
-			sudo chown -R $nombre:$nombre $usuario/Downloads
-			sudo chmod -R 777 $usuario/Downloads
-			sudo chown -R $nombre:$nombre $usuario/Desktop
-			sudo chmod -R 777 $usuario/Desktop
-			echo "
-Samba: 
-sudo chown -R $nombre:$nombre $usuario/Public
-sudo chown -R 777 $usuario/Public
-sudo chgrp -R sambashare $usuario/Public
-" >> $usuario/Abrir
+			installsamba
+			sudo $install cifs-utils gvfs-smb cups  -yy
 			;;
 
 		1_network_aur)
@@ -3361,53 +3362,13 @@ sudo pip3 install WoeUSB-ng
 			;;
 
 		4_desktop)
+			sudo $install xfce4-clipman mpd nm-tray light suckless-tools network-manager network-manager network-manager-openvpn ffmpegthumbnailer lxappearance feh policykit-1-gnome pulseaudio pulseaudio-utils pulseaudio-equalizer gstreamer1.0-pulseaudio toilet -yy
 			installbspwm
 			;;
 
 		4_desktop_rpm)
 			cambiored
-			echo "#----------------------------Instalando base BSPWM-----------------------------#"
-			sleep 1s
-			sudo $install xterm terminator rxvt-unicode inxi bspwm sxhkd rofi dunst cava maim bmon nitrogen xbacklight gpick light xsettingsd polybar dmenu pcmanfm pcmanfm-qt lxappearance fzf viewnior zenity arandr gnome-screenshot pavucontrol -yy
-			cp -rf $usuario/dotfiles/bspwm/.Xresources.d $usuario
-			sudo chown -R 777 $usuario/Xresources.d
-			sudo chown -R $nombre:$nombre $usuario/Xresources.d
-			cp -rf $usuario/dotfiles/bspwm/.Xresources $usuario
-			sudo chmod -R 777 $usuario/Xresources
-			sudo chown -R $nombre:$nombre $usuario/Xresources
-			cp -rf $usuario/dotfiles/bspwm/.xsettingsd $usuario
-			sudo chmod -R 777 $usuario/.xsettingsd
-			sudo chown -R $nombre:$nombre $usuario/.xsettingsd
-			cp -rf $usuario/dotfiles/bspwm/.gtkrc-2.0 $usuario
-			sudo chmod -R 777 $usuario/.gtkrc-2.0
-			sudo chown -R $nombre:$nombre $usuario/.gtkrc-2.0
-			cp -rf $usuario/dotfiles/bspwm/.hidden $usuario
-			sudo chmod -R 777 $usuario/.hidden
-			sudo chown -R $nombre:$nombre $usuario/.hidden
-			cp -rf $usuario/dotfiles/bspwm/.dmrc $usuario
-			sudo chmod -R 777 $usuario/.dmrc
-			sudo chown -R $nombre:$nombre $usuario/.dmrc
-			cp -rf $usuario/dotfiles/bspwm/.fehbg $usuario
-			sudo chmod -R 777 $usuario/.fehbg
-			sudo chown -R $nombre:$nombre $usuario/.fehbg
-			sudo mkdir -m 777 $usuario/.config/polybar
-			sudo chown -R 777 $usuario/.config/polybar
-			sudo chown -R $nombre:$nombre $usuario/.config/polybar
-			cp -rf $usuario/dotfiles/polybar/* $usuario/.config/polybar
-			cp -rf $usuario/dotfiles/bspwm/.config/* $usuario/.config
-			sudo chown -R 777 $usuario/.config
-			sudo chown -R $nombre:$nombre $usuario/.config
-			sudo systemctl disable mpd
-			sudo systemctl disable bluetooth
-			sudo systemctl enable NetworkManager
-			sudo systemctl start NetworkManager
-			cd $tmp_dir
-			wget https://github.com/archcraft-os/packages/raw/main/x86_64/archcraft-fonts-1.0-3-any.pkg.tar.zst
-			tar -xf archcraft-fonts-1.0-3-any.pkg.tar.zst
-			sudo cp -r usr /
-			cd $tmp_dir
-			echo "#----------------------------Base BSPWM instalada------------------------------#"
-			sleep 2s
+			installbspwm
 			;;
 
 		4_desktop_aur)

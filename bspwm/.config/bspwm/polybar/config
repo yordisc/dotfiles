@@ -58,7 +58,7 @@ font-4 = "Iosevka Nerd Font:pixelsize=11;4"
 
 modules-left = bspwm sep cpu sps memory sep
 modules-center = title
-modules-right = networksep vpn-openvpn-isrunning checknet  sep battery sps sep brightness sps volume sep date
+modules-right = networksep vpn-openvpn-isrunning checknet sep brightness sps volume sps mic-volume sep date sep battery
 
 separator =
 spacing = 0

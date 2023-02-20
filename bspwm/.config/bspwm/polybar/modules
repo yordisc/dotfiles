@@ -116,25 +116,25 @@ full-at = ${config.battery-full-at}
 battery = ${system.battery}
 adapter = AC
 
-format-charging = <label-charging> <animation-charging>
+format-charging =  <animation-charging>  <label-charging>
 format-charging-underline = ${colors.foreground}
-animation-charging-0 = 
+animation-charging-0 =  
 animation-charging-1 = 
-animation-charging-2 = 
-animation-charging-3 = 
-animation-charging-4 = 
+animation-charging-2 =  
+animation-charging-3 =  
+animation-charging-4 =  
 animation-charging-framerate = 750
 
-format-discharging = <ramp-capacity> <label-discharging>
+format-discharging = <ramp-capacity>  <label-discharging>
 format-discharging-underline = ${colors.notify}
-ramp-capacity-0 = 
-ramp-capacity-1 = 
-ramp-capacity-2 = 
-ramp-capacity-3 = 
-ramp-capacity-4 = 
+ramp-capacity-0 =  
+ramp-capacity-1 =  
+ramp-capacity-2 =  
+ramp-capacity-3 =  
+ramp-capacity-4 =  
 ramp-capacity-foreground = ${colors.notify}
 
-label-full = 
+label-full =  
 label-full-foreground = ${colors.success}
 label-full-underline = ${colors.success}
 
@@ -546,6 +546,23 @@ label-empty-foreground = #707880
 type = custom/text
 content = " "
 content-padding = 0
+
+[module/mic-volume]
+type = custom/script
+interval = 1
+format = <label>
+exec = bash ~/.config/bspwm/polybar/scripts/mic-volume.sh show-vol
+format-prefix = " " 
+format-prefix-foreground = ${colors.primary}
+format-prefix-font = 4
+#format-underline = #4bffdc
+
+click-right = pavucontrol
+click-left = bash ~/.config/bspwm/polybar/scripts/mic-volume.sh mute-vol
+scroll-up = bash ~/.config/bspwm/polybar/scripts/mic-volume.sh inc-vol
+scroll-down = bash ~/.config/bspwm/polybar/scripts/mic-volume.sh dec-vol
+format-foreground = ${colors.foreground}
+label-font = 1
 
 ;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 

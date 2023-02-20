@@ -57,6 +57,9 @@ xsetroot -cursor_name left_ptr &
 #nm-tray &
 #sleep 0.3
 
+/usr/bin/picom &
+#sleep 0.3
+
 #pavucontrol &
 #sleep 0.3
 
