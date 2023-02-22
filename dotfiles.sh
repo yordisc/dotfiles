@@ -2132,6 +2132,7 @@ xamppversion='8.2.0'
 			wget -O xampp.run https://sourceforge.net/projects/xampp/files/XAMPP%20Linux/$xamppversion/xampp-linux-x64-$xamppversion-0-installer.run
 			sudo chmod 777 $tmp_dir/xampp.run
 			sudo $tmp_dir/xampp.run  > /dev/null
+			### Lanzador
 			sudo rm -rf /usr/share/applications/xampp-control-panel.desktop
 			sudo touch /usr/share/applications/xampp-control-panel.desktop
 			sudo chmod -R 777 /usr/share/applications/xampp-control-panel.desktop
@@ -2139,7 +2140,7 @@ xamppversion='8.2.0'
 			echo "Name=XAMPP Control Panel
 GenericName=XAMPP Control Panel
 Comment=Start and Stop XAMPP
-Exec=sudo /opt/lampp/manager-linux-x64.run
+Exec=/opt/lampp/manager-linux-x64.run
 Encoding=UTF-8
 Terminal=true
 Icon=/opt/lampp/htdocs/favicon.ico
@@ -2147,7 +2148,87 @@ Type=Application
 Categories=Development;
 Comment=Start and Stop XAMPP
 StartupNotify=true">> /usr/share/applications/xampp-control-panel.desktop
-			# Instalar wordpress
+			#sudo chmod -R 777 /opt/lampp
+			#sudo chown -R $USER /opt/lampp
+# Permisos de xampp
+			sudo groupadd xamppusers
+			sudo usermod -a -G xamppusers $USER
+			cd /opt/lampp
+			sudo chown root.xamppusers htdocs
+			sudo chmod 775 htdocs
+			groupadd gitusers
+			usermod -a -G gitusers $USER
+			cd /opt/lampp
+			chown root.gitusers htdocs
+			chmod 775 htdocs
+# Permisos de Servidor
+			sudo groupadd ftp
+			usermod -a -G xamppusers $USER
+			cd /opt/lampp
+			sudo chown root.ftp htdocs
+			sudo chmod 775 htdocs
+# Config
+			sudo /usr/sbin/setenforce 0
+			#sudo /opt/lampp/lampp security
+##
+			sudo rm -rf /opt/lampp/phpmyadmin/config.inc.php
+			sudo touch /opt/lampp/phpmyadmin/config.inc.php
+			sudo chmod -R 777 /opt/lampp/phpmyadmin/config.inc.php
+			sudo chown -R $nombre:$nombre /opt/lampp/phpmyadmin/config.inc.php
+sudo echo '<?php
+/**
+ * or at <https://docs.phpmyadmin.net/>.
+ */
+declare(strict_types=1);
+$cfg['blowfish_secret'] = 'xampp'; /* YOU SHOULD CHANGE THIS FOR A MORE SECURE COOKIE AUTH! */
+/*
+ * Servers configuration
+ */
+$i = 1;
+/*
+ * First server
+ */
+$i++;
+/* Authentication type and info */
+$cfg['Servers'][$i]['auth_type'] = 'cookie';
+$cfg['Servers'][$i]['user'] = 'root';
+$cfg['Servers'][$i]['password'] = 'root';
+$cfg['Servers'][$i]['compress'] = false;
+$cfg['Servers'][$i]['AllowNoPassword'] = true;
+/* Bind to the localhost ipv4 address and tcp */
+$cfg['Servers'][$i]['host'] = 'localhost';
+$cfg['Servers'][$i]['port'] = '3306';
+/* User for advanced features */
+$cfg['Servers'][$i]['controluser'] = '';
+$cfg['Servers'][$i]['controlpass'] = '';
+$cfg[$i]['UploadDir'] = '';
+$cfg[$i]['SaveDir'] = '';
+$cfg[$i][‘TempDir’] = ‘ ‘;
+//$cfg[$i]['ExecTimeLimit'] = 6000;
+/*
+ * End of servers configuration
+ */
+?>' >> /opt/lampp/phpmyadmin/config.inc.php
+			sudo chmod 755 /opt/lampp/phpmyadmin/config.inc.php
+			sudo chown mysql:mysql /opt/lampp/etc/my.cnf
+			sudo chmod 644 /opt/lampp/etc/my.cnf
+		### PhpMyAdmin
+phpmyadmin='5.2.1'
+			sudo mv /opt/lampp/phpmyadmin/config.inc.php /opt/
+			cd
+			wget -O phpmyadmin.zip https://files.phpmyadmin.net/phpMyAdmin/$phpmyadmin/phpMyAdmin-$phpmyadmin-all-languages.zip
+			unzip phpmyadmin.zip
+			rm phpmyadmin.zip
+			mv phpMyAdmin* phpmyadmin
+			sudo chmod 777 /opt/lampp/phpmyadmin
+			sudo rm -r /opt/lampp/phpmyadmin
+			sudo mv phpmyadmin /opt/lampp/
+			sudo mv /opt/config.inc.php /opt/lampp/phpmyadmin
+			sudo chmod 755 /opt/lampp/phpmyadmin
+			sudo mkdir /opt/lampp/phpmyadmin/tmp/
+			sudo chmod 777 /opt/lampp/phpmyadmin/tmp/
+			cd
+	# Instalar wordpress
 			sudo rm -rf /opt/lampp/htdocs/wordpress
 			cd $tmp_dir
 			wget https://wordpress.org/latest.zip
