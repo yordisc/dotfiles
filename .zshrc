@@ -1,3 +1,5 @@
+# Fig pre block. Keep at the top of this file.
+[[ -f "$HOME/.fig/shell/zshrc.pre.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.pre.zsh"
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -24,7 +26,7 @@ autoload -U compinit colors zcalc
 compinit -d
 colors
 
-# Functions
+############################## Functions ##############################
 function mkt(){
 	mkdir {nmap,content,exploits,scripts}
 }
@@ -56,6 +58,20 @@ function rmk(){
 	scrub -p dod $1
 	shred -zun 10 -v $1
 }
+
+function traducir(){
+	echo "colocala el texto a traducir"
+	  read translate
+	trans :es "$translate"
+}
+
+function translate(){
+	echo "place the text to translate"
+	  read translate
+	trans :en "$translate"
+}
+
+
 
 #====================COLORt======================================
 
@@ -310,6 +326,8 @@ alias mousepads='sudo mousepad > /dev/null'
 alias pcmanfms='sudo pcmanfm > /dev/null'
 alias mousepad='mousepad > /dev/null'
 alias pcmanfm='pcmanfm > /dev/null'
+alias youtube='ytfzf -t > /dev/null'
+alias youtubemusic='ytfzf -ml > /dev/null'
 alias zeal='zeal > /dev/null'
 alias code='code > /dev/null'
 alias firefox='firefox > /dev/null'
@@ -411,3 +429,15 @@ PATH=/root/.local/bin:/snap/bin:/usr/sandbox/:/usr/local/bin:/usr/bin:/bin:/usr/
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+## pyenv configs
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$HOME/.pyenv/bin:$PATH"
+eval "$(pyenv init -)"
+eval "$(pyenv init --path)"
+
+### Codex CLI setup - start
+export CODEX_CLI_PATH=/home/admin/.codex-cli
+source "$CODEX_CLI_PATH/scripts/zsh_plugin.zsh"
+bindkey '^G' create_completion
+### Codex CLI setup - end

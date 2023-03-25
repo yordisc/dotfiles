@@ -737,7 +737,7 @@ function installnano()
 			sleep 1s
 			sudo $install nano -yy
 			cp -rf $usuario/dotfiles/.nanorc $usuario &&
-			sudo chmod -R 777 $usuario/.nanorc
+			sudo chmod -R 755 $usuario/.nanorc
 			sudo chown -R $nombre:$nombre $usuario/.nanorc
 			echo "#----------------------------Instalado Nano----------------------------#"
 			sleep 2s
@@ -765,9 +765,9 @@ function installnvim()
 			sudo $install curl xterm ranger fzf rxvt-unicode neovim python3-pip powerline tmux python3-neovim -yy &&
 			pip3 install pipenv
 			cd $usuario
-			sudo mkdir -m 777 $usuario/.nvm
-			sudo mkdir -m 777 $usuario/.local/share/nvim/site/autoload/
-			sudo mkdir -m 777 $usuario/.vim/autoload/
+			sudo mkdir -m 755 $usuario/.nvm
+			sudo mkdir -m 755 $usuario/.local/share/nvim/site/autoload/
+			sudo mkdir -m 755 $usuario/.vim/autoload/
 			git clone https://github.com/nvm-sh/nvm.git $usuario/.nvm
 			cd $usuario
 			wget -P $usuario/.local/share/nvim/site/autoload/ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -793,14 +793,14 @@ function installnvim()
 			cp -rf $usuario/dotfiles/vim/.config/* $usuario/.config &&
 			cp -rf $usuario/dotfiles/vim/.vimrc $usuario &&
 			cp -rf $usuario/dotfiles/vim/.vim /$usuario &&
-			sudo chown -R 777 $usuario/.vim
-			sudo chown -R 777 $usuario/.config/coc
-			sudo chown -R 777 $usuario/.config/nvim
-			sudo chown -R 777 $usuario/.config/github-copilot
-			sudo chmod -R 777 $usuario/.vim/maps.vim
-			sudo chmod -R 777 $usuario/.vim/plugins.vim
-			sudo chmod -R 777 $usuario/.vim/pluginsconfig.vim
-			sudo chmod -R 777 $usuario/.vimrc
+			sudo chown -R 755 $usuario/.vim
+			sudo chown -R 755 $usuario/.config/coc
+			sudo chown -R 755 $usuario/.config/nvim
+			sudo chown -R 755 $usuario/.config/github-copilot
+			sudo chmod -R 755 $usuario/.vim/maps.vim
+			sudo chmod -R 755 $usuario/.vim/plugins.vim
+			sudo chmod -R 755 $usuario/.vim/pluginsconfig.vim
+			sudo chmod -R 755 $usuario/.vimrc
 			sudo chown -R $nombre:$nombre $usuario/.vim
 			sudo chown -R $nombre:$nombre $usuario/.config/coc
 			sudo chown -R $nombre:$nombre $usuario/.config/nvim
@@ -809,15 +809,15 @@ function installnvim()
 			sudo chown -R $nombre:$nombre $usuario/.vim/plugins.vim
 			sudo chown -R $nombre:$nombre $usuario/.vimrc
 			#Ranger
-			sudo mkdir -m 777 $usuario/.config/ranger
-			sudo chown -R 777 $usuario/.config/ranger
+			sudo mkdir -m 755 $usuario/.config/ranger
+			sudo chown -R 755 $usuario/.config/ranger
 			sudo chown -R $nombre:$nombre $usuario/.config/ranger
 			cp -rf $usuario/dotfiles/bspwm/ranger $usuario/.config/ranger
 			#Open IA key api
 			touch .open_ai
 			echo '### KEY API OPEN-IA
 ### export OPENAI_API_KEY=""' >> example.sh
-			sudo chown -R 777 $usuario/.config/.open_ai
+			sudo chown -R 755 $usuario/.config/.open_ai
 			cd $usuario
 			echo "#----------------------------Instalado NVim personalizado-----------------------------#"
 			sleep 2s
@@ -877,7 +877,7 @@ function installbash()
 			sudo $install bash-completion bash-doc fzf -yy
 			cd $usuario
 			cp -rf $usuario/dotfiles/.bashrc $usuario
-			sudo chmod -R 777 .bashrc
+			sudo chmod -R 755 .bashrc
 			sudo chown -R $nombre:$nombre .bashrc
 			echo "#----------------------------Instalado Bash----------------------------#"
 			sleep 2s
@@ -919,13 +919,13 @@ echo "#----------------------------Instalando Oh my Zsh-------------------------
 			git clone https://github.com/kutsan/fast-syntax-highlighting.git \
   ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/fast-syntax-highlighting &&
 			cp -rf $usuario/dotfiles/.zshrc $usuario
-			sudo chmod -R 777 .zshrc
+			sudo chmod -R 755 .zshrc
 			sudo chown -R $nombre:$nombre .zshrc
 			cp -rf $usuario/dotfiles/.p10k.zsh $usuario
-			sudo chmod -R 777 .p10k.zsh
+			sudo chmod -R 755 .p10k.zsh
 			sudo chown -R $nombre:$nombre .p10k.zsh
 			cp -rf $usuario/dotfiles/.p10k-portable.zsh $usuario
-			sudo chmod -R 777 .p10k-portable.zsh
+			sudo chmod -R 755 .p10k-portable.zsh
 			sudo chown -R $nombre:$nombre .p10k-portable.zsh
 			touch $usuario/Abrir
 			echo "
@@ -950,7 +950,7 @@ function installpowerline()
 			# change directories into fonts folder created by cloning powerline from github
 			cd $tmp_dir/fonts
 			# run installation script for powerline fonts
-			sudo chmod +x install.sh
+			sudo chmod -R +x install.sh
 			sudo bash install.sh
 			# copy powerline fonts into the powerline folder wer created eariler
 			sudo cp $usuario/.local.share/fonts/*Powerline* /usr/share/fonts/powerline
@@ -979,8 +979,8 @@ function installpackterminal()
 			chsh -s $(which zsh)
 			mkdir -p $usuario/.config/terminator/plugins
 			#Ranger
-			sudo mkdir -m 777 $usuario/.config/ranger
-			sudo chown -R 777 $usuario/.config/ranger
+			sudo mkdir -m 755 $usuario/.config/ranger
+			sudo chown -R 755 $usuario/.config/ranger
 			sudo chown -R $nombre:$nombre $usuario/.config/ranger
 			cp -rf $usuario/dotfiles/bspwm/ranger $usuario/.config/ranger
 			wget https://git.io/v5Zwz -O $usuario"/.config/terminator/plugins/terminator-themes.py"
@@ -1002,7 +1002,16 @@ YTFZF_ENABLE_FZF_DEFAULT_OPTS=1
 YTFZF_PLAYER="mpv"
 thumbnail_viewer="chafa-16"
 show_thumbnails="1"">> ~/.config/ytfzf/conf.sh
-###
+### traductor
+cd ~
+git clone https://github.com/soimort/translate-shell
+cd translate-shell
+make
+sudo make install
+cd ~
+rm -r translate-shell
+cd ~
+####
 			echo "#----------------------------Instalado Pack Personal Terminal------------------------------#"
 			sleep 2s
 
@@ -1022,7 +1031,7 @@ function installfirefoxdev()
 			sudo chown -R $USER /opt/firefox
 			sudo rm -rf /usr/share/applications/firefox-developer.desktop
 			sudo touch /usr/share/applications/firefox-developer.desktop
-			sudo chmod -R 777 /usr/share/applications/firefox-developer.desktop
+			sudo chmod -R 755 /usr/share/applications/firefox-developer.desktop
 			sudo chown -R $nombre:$nombre /usr/share/applications/firefox-developer.desktop
 			echo "[Desktop Entry]
 Name=Firefox Developer 
@@ -1151,7 +1160,7 @@ function installjdownloader()
 			sudo $install default-jdk -yy
 			rm $tmp_dir/JD2SilentSetup_x64.sh
 			wget -P $tmp_dir http://installer.jdownloader.org/JD2SilentSetup_x64.sh
-			sudo chmod +x $tmp_dir/JD2SilentSetup_x64.sh
+			sudo chmod -R +x $tmp_dir/JD2SilentSetup_x64.sh
 			cd $tmp_dir
 			sudo bash JD2SilentSetup_x64.sh
 			rm $tmp_dir/JD2SilentSetup_x64.sh
@@ -1190,7 +1199,7 @@ function installgitkraken()
 			sudo chown -R $USER /opt/gitkraken
 			sudo rm -rf /usr/share/applications/gitkraken.desktop
 			sudo touch /usr/share/applications/gitkraken.desktop
-			sudo chmod -R 777 /usr/share/applications/gitkraken.desktop
+			sudo chmod -R 755 /usr/share/applications/gitkraken.desktop
 			sudo chown -R $nombre:$nombre /usr/share/applications/gitkraken.desktop
 			echo "[Desktop Entry]
 Name=GitKraken
@@ -1239,8 +1248,8 @@ function installsamba()
 			cd /etc/samba/
 			sudo rm smb.conf
 			sudo cp -rf $usuario/dotfiles/smb.conf /etc/samba/smb.conf
-			sudo chmod 755 /etc/samba/smb.conf.bak
-			sudo chmod 755 /etc/samba/smb.conf
+			sudo chmod -R 755 /etc/samba/smb.conf.bak
+			sudo chmod -R 755 /etc/samba/smb.conf
 			# sudo grep -v -E "^#|^;" /etc/samba/smb.conf.bak | grep . > /etc/samba/smb.conf
             sudo useradd $nombre
             sudo pdbedit -a -u $nombre
@@ -1249,15 +1258,15 @@ function installsamba()
             sudo systemctl start smbd nmbd
             sudo systemctl enable smbd nmbd
             sudo chown -R $nombre:$nombre $usuario/Public
-			sudo chmod -R 777 $usuario/Public
+			sudo chmod -R 755 $usuario/Public
 			sudo chown -R $nombre:$nombre $usuario/Downloads
-			sudo chmod -R 777 $usuario/Downloads
+			sudo chmod -R 755 $usuario/Downloads
 			sudo chown -R $nombre:$nombre $usuario/Desktop
-			sudo chmod -R 777 $usuario/Desktop
+			sudo chmod -R 755 $usuario/Desktop
 			echo "
 Samba: 
 sudo chown -R $nombre:$nombre $usuario/Public
-sudo chown -R 777 $usuario/Public
+sudo chown -R 755 $usuario/Public
 sudo chgrp -R sambashare $usuario/Public
 " >> $usuario/Abrir
 			echo "#----------------------------Instalado Samba----------------------------#"
@@ -1652,8 +1661,8 @@ function installoptical()
 			echo "#--------------------------------Instalando Optical Drive Software--------------------------------#"
 			sleep 1s
 			sudo $install k3b asunder -yy
-			sudo chmod 4711 /usr/bin/cdrdao
-			sudo chmod 4711 /usr/bin/wodim
+			sudo chmod -R 4711 /usr/bin/cdrdao
+			sudo chmod -R 4711 /usr/bin/wodim
 			echo "#--------------------------------Instalado Optical Drive Software--------------------------------#"
 			sleep 2s
 
@@ -1705,9 +1714,9 @@ function installlutris()
 			sleep 1s
 			# import wine gpg key
 			sudo chown $USER /etc/apt/sources.list
-			sudo chmod 755 /etc/apt/sources.list
+			sudo chmod -R 755 /etc/apt/sources.list
 			sudo chown $USER /etc/apt/sources.list.d/
-			sudo chmod 755 /etc/apt/sources.list.d/
+			sudo chmod -R 755 /etc/apt/sources.list.d/
 			sudo wget -nc https://dl.winehq.org/wine-builds/winehq.key
 			# add wine gpg key
 			sudo apt-get-key add winehq.key
@@ -1732,9 +1741,9 @@ function installlutris()
 			sudo $install lutris -yy
 			# Change Permissions to Root
 			sudo chown root:root /etc/apt/sources.list
-			sudo chmod 600 /etc/apt/sources.list
+			sudo chmod -R 600 /etc/apt/sources.list
 			sudo chown root:root /etc/apt/sources.list.d/
-			sudo chmod 600 /etc/apt/sources.list.d/
+			sudo chmod -R 600 /etc/apt/sources.list.d/
 			echo "#--------------------------------Instalado Lutris--------------------------------#"
 			sleep 2s
 
@@ -1782,13 +1791,13 @@ function installespanso()
 			# Download the AppImage inside it
 			sudo wget -O /opt/Espanso.AppImage 'https://github.com/espanso/espanso/releases/download/v2.1.8/Espanso-X11.AppImage'
 			# Make it executable
-			sudo chmod 777 /opt/Espanso.AppImage
+			sudo chmod -R 755 /opt/Espanso.AppImage
 			# Create the "espanso" command alias
 			sudo /opt/Espanso.AppImage env-path register
 			# Register espanso as a systemd service (required only once)
 			sudo mkdir $usuario/.config/espanso
 			sudo cp -rf $usuario/dotfiles/espanso/* $usuario/.config/espanso
-			sudo chown -R 777 $usuario/.config
+			sudo chown -R 755 $usuario/.config
 			sudo chown -R $nombre:$nombre $usuario/.config
 			sudo espanso service register
 			# Start espanso
@@ -1810,7 +1819,7 @@ function installpcloud()
 			cd $tmp_dir
 			sudo wget -P $tmp_dir https://p-def4.pcloud.com/cBZnrXB1wZijGdL3ZZZHrUlc7Z2ZZg0LZkZvP5pVZ9zZNFZ8RZTFZqzZpRZJHZIHZvFZaHZgLZlRZt7ZQ5ZCy4sVZPBbv9xnzaVjDnFdKvFA31VNxtQeV/pcloud
 			sudo mv pcloud /usr/bin/
-			sudo chmod 777 /usr/bin/pcloud 
+			sudo chmod -R 755 /usr/bin/pcloud 
 			pcloud
 			echo "#--------------------------------Instalado PCloud--------------------------------#"
 			sleep 2s
@@ -1836,10 +1845,10 @@ function installgtk()
 			echo "#--------------------------------Make QT match GTK Themes--------------------------------#"
 			sleep 1s
 			sudo chown $user /etc/environment
-			sudo chmod 755 /etc/environment
+			sudo chmod -R 755 /etc/environment
 			sudo echo "QT_QPA_PLATFORMTHEME=gtk2" >> /etc/environment
 			sudo chown root:root /etc/environment
-			sudo chmod 600 /etc/environment
+			sudo chmod -R 600 /etc/environment
 			echo "#--------------------------------Instalado QT/GTK--------------------------------#"
 			sleep 2s
 
@@ -1895,32 +1904,32 @@ echo "#----------------------------Instalando base BSPWM------------------------
 			sudo $install xterm terminator rxvt-unicode inxi bspwm sxhkd rofi dunst cava maim bmon nitrogen xbacklight gpick light xsettingsd polybar dmenu pcmanfm lxappearance fzf viewnior zenity arandr gnome-screenshot pavucontrol -yy
 			### Agregar Dotfiles
 			cp -rf $usuario/dotfiles/bspwm/.Xresources.d $usuario
-			sudo chown -R 777 $usuario/Xresources.d
+			sudo chown -R 755 $usuario/Xresources.d
 			sudo chown -R $nombre:$nombre $usuario/Xresources.d
 			cp -rf $usuario/dotfiles/bspwm/.Xresources $usuario
-			sudo chmod -R 777 $usuario/Xresources
+			sudo chmod -R 755 $usuario/Xresources
 			sudo chown -R $nombre:$nombre $usuario/Xresources
 			cp -rf $usuario/dotfiles/bspwm/.xsettingsd $usuario
-			sudo chmod -R 777 $usuario/.xsettingsd
+			sudo chmod -R 755 $usuario/.xsettingsd
 			sudo chown -R $nombre:$nombre $usuario/.xsettingsd
 			cp -rf $usuario/dotfiles/bspwm/.gtkrc-2.0 $usuario
-			sudo chmod -R 777 $usuario/.gtkrc-2.0
+			sudo chmod -R 755 $usuario/.gtkrc-2.0
 			sudo chown -R $nombre:$nombre $usuario/.gtkrc-2.0
 			cp -rf $usuario/dotfiles/bspwm/.hidden $usuario
-			sudo chmod -R 777 $usuario/.hidden
+			sudo chmod -R 755 $usuario/.hidden
 			sudo chown -R $nombre:$nombre $usuario/.hidden
 			cp -rf $usuario/dotfiles/bspwm/.dmrc $usuario
-			sudo chmod -R 777 $usuario/.dmrc
+			sudo chmod -R 755 $usuario/.dmrc
 			sudo chown -R $nombre:$nombre $usuario/.dmrc
 			cp -rf $usuario/dotfiles/bspwm/.fehbg $usuario
-			sudo chmod -R 777 $usuario/.fehbg
+			sudo chmod -R 755 $usuario/.fehbg
 			sudo chown -R $nombre:$nombre $usuario/.fehbg
-			sudo mkdir -m 777 $usuario/.config/polybar
-			sudo chown -R 777 $usuario/.config/polybar
+			sudo mkdir -m 755 $usuario/.config/polybar
+			sudo chown -R 755 $usuario/.config/polybar
 			sudo chown -R $nombre:$nombre $usuario/.config/polybar
 			cp -rf $usuario/dotfiles/polybar/* $usuario/.config/polybar
 			cp -rf $usuario/dotfiles/bspwm/.config/* $usuario/.config
-			sudo chown -R 777 $usuario/.config
+			sudo chown -R 755 $usuario/.config
 			sudo chown -R $nombre:$nombre $usuario/.config
 			cd $tmp_dir
 			wget https://github.com/archcraft-os/packages/raw/main/x86_64/archcraft-fonts-1.0-3-any.pkg.tar.zst
@@ -1975,7 +1984,7 @@ function installarchcraft()
 			unzip master
 			rm master
 			cd $tmp_dir/Lyra-icon-theme-master
-			sudo chmod 777 install.sh 
+			sudo chmod -R 755 install.sh 
 			sudo ./install.sh -a --all
 			cd $tmp_dir
 			rm Lyra-icon-theme*
@@ -2033,7 +2042,7 @@ function installwindowsthemes()
 			cd $tmp_dir
 			unzip main
 			cd $tmp_dir/Win11-icon-theme-main
-			sudo chmod +x install.sh
+			sudo chmod -R +x install.sh
 			sudo ./install.sh -a
 			cd $tmp_dir
 			rm Win11*
@@ -2051,7 +2060,7 @@ function installmacthemes()
 			cd $tmp_dir
 			git clone https://github.com/vinceliuice/WhiteSur-gtk-theme
 			cd $tmp_dir/WhiteSur-gtk-theme
-			sudo chmod +x install.sh
+			sudo chmod -R +x install.sh
 			sudo bash install.sh -c Dark -c Light
 			cd $tmp_dir
 			rm WhiteSur*
@@ -2059,7 +2068,7 @@ function installmacthemes()
 			cd $tmp_dir
 			git clone https://github.com/vinceliuice/WhiteSur-icon-theme
 			cd $tmp_dir/WhiteSur-icon-theme
-			sudo chmod +x install.sh
+			sudo chmod -R +x install.sh
 			sudo bash install.sh
 			cd $tmp_dir
 			rm WhiteSur*
@@ -2126,16 +2135,16 @@ function installxampp()
 			sudo /opt/lampp/uninstall
 			sudo rm -rf /opt/lampp
 #Instalar XAMPP
-xamppversion='8.2.0'
+xamppversion='8.1.2'
 			cd $tmp_dir
 			echo "Installing XAMPP"
 			wget -O xampp.run https://sourceforge.net/projects/xampp/files/XAMPP%20Linux/$xamppversion/xampp-linux-x64-$xamppversion-0-installer.run
-			sudo chmod 777 $tmp_dir/xampp.run
+			sudo chmod -R 755 $tmp_dir/xampp.run
 			sudo $tmp_dir/xampp.run  > /dev/null
 			### Lanzador
 			sudo rm -rf /usr/share/applications/xampp-control-panel.desktop
 			sudo touch /usr/share/applications/xampp-control-panel.desktop
-			sudo chmod -R 777 /usr/share/applications/xampp-control-panel.desktop
+			sudo chmod -R 755 /usr/share/applications/xampp-control-panel.desktop
 			sudo chown -R $nombre:$nombre /usr/share/applications/xampp-control-panel.desktop
 			echo "Name=XAMPP Control Panel
 GenericName=XAMPP Control Panel
@@ -2148,93 +2157,65 @@ Type=Application
 Categories=Development;
 Comment=Start and Stop XAMPP
 StartupNotify=true">> /usr/share/applications/xampp-control-panel.desktop
-			#sudo chmod -R 777 /opt/lampp
+####reparar permisos
+			#sudo chmod -R 755 /opt/lampp
 			#sudo chown -R $USER /opt/lampp
+			#sudo chown -R nobody:nogroup /opt/lampp/htdocs
+			#sudo chmod -R 777 /opt/lampp/
+			#sudo chmod 644 /opt/lampp/etc/my.cnf
+			#sudo chown -R mysql:mysql /opt/lampp/var/mysql
+			#####
 # Permisos de xampp
 			sudo groupadd xamppusers
 			sudo usermod -a -G xamppusers $USER
 			cd /opt/lampp
 			sudo chown root.xamppusers htdocs
-			sudo chmod 775 htdocs
+			sudo chmod -R 777 htdocs
 			groupadd gitusers
 			usermod -a -G gitusers $USER
 			cd /opt/lampp
 			chown root.gitusers htdocs
-			chmod 775 htdocs
 # Permisos de Servidor
 			sudo groupadd ftp
 			usermod -a -G xamppusers $USER
 			cd /opt/lampp
 			sudo chown root.ftp htdocs
-			sudo chmod 775 htdocs
+			sudo chmod -R 777 htdocs
 # Config
 			sudo /usr/sbin/setenforce 0
-			#sudo /opt/lampp/lampp security
-##
-			sudo rm -rf /opt/lampp/phpmyadmin/config.inc.php
-			sudo touch /opt/lampp/phpmyadmin/config.inc.php
-			sudo chmod -R 777 /opt/lampp/phpmyadmin/config.inc.php
-			sudo chown -R $nombre:$nombre /opt/lampp/phpmyadmin/config.inc.php
-sudo echo '<?php
-/**
- * or at <https://docs.phpmyadmin.net/>.
- */
-declare(strict_types=1);
-$cfg['blowfish_secret'] = 'xampp'; /* YOU SHOULD CHANGE THIS FOR A MORE SECURE COOKIE AUTH! */
-/*
- * Servers configuration
- */
-$i = 1;
-/*
- * First server
- */
-$i++;
-/* Authentication type and info */
-$cfg['Servers'][$i]['auth_type'] = 'cookie';
-$cfg['Servers'][$i]['user'] = 'root';
-$cfg['Servers'][$i]['password'] = 'root';
-$cfg['Servers'][$i]['compress'] = false;
-$cfg['Servers'][$i]['AllowNoPassword'] = true;
-/* Bind to the localhost ipv4 address and tcp */
-$cfg['Servers'][$i]['host'] = 'localhost';
-$cfg['Servers'][$i]['port'] = '3306';
-/* User for advanced features */
-$cfg['Servers'][$i]['controluser'] = '';
-$cfg['Servers'][$i]['controlpass'] = '';
-$cfg[$i]['UploadDir'] = '';
-$cfg[$i]['SaveDir'] = '';
-$cfg[$i][‘TempDir’] = ‘ ‘;
-//$cfg[$i]['ExecTimeLimit'] = 6000;
-/*
- * End of servers configuration
- */
-?>' >> /opt/lampp/phpmyadmin/config.inc.php
-			sudo chmod 755 /opt/lampp/phpmyadmin/config.inc.php
-			sudo chown mysql:mysql /opt/lampp/etc/my.cnf
-			sudo chmod 644 /opt/lampp/etc/my.cnf
-		### PhpMyAdmin
-phpmyadmin='5.2.1'
-			sudo mv /opt/lampp/phpmyadmin/config.inc.php /opt/
-			cd
-			wget -O phpmyadmin.zip https://files.phpmyadmin.net/phpMyAdmin/$phpmyadmin/phpMyAdmin-$phpmyadmin-all-languages.zip
-			unzip phpmyadmin.zip
-			rm phpmyadmin.zip
-			mv phpMyAdmin* phpmyadmin
-			sudo chmod 777 /opt/lampp/phpmyadmin
-			sudo rm -r /opt/lampp/phpmyadmin
-			sudo mv phpmyadmin /opt/lampp/
-			sudo mv /opt/config.inc.php /opt/lampp/phpmyadmin
-			sudo chmod 755 /opt/lampp/phpmyadmin
 			sudo mkdir /opt/lampp/phpmyadmin/tmp/
-			sudo chmod 777 /opt/lampp/phpmyadmin/tmp/
-			cd
-	# Instalar wordpress
+			sudo chmod 777 -R /opt/lampp/phpmyadmin/tmp/
+			sudo chown -R mysql:mysql /tmp/user/0/
+# firewall
+			sudo ufw allow 3306/tcp
+			sudo ufw allow mysql
+		### Arreglo
+cd /opt/lampp/phpmyadmin/
+sudo sed -i "29s/\/\/ //" config.inc.php
+sudo sed -i "30s/\/\/ //" config.inc.php
+sudo sed -i "32s/\/\/ //" config.inc.php
+sudo sed -i "43s/\/\/ //" config.inc.php
+sudo sed -i "28s/config/cookie/g" config.inc.php
+sudo sed -i "32s/localhost/127.0.0.1:3306/g" config.inc.php
+sudo sed -i "43s/pma//g" config.inc.php
+cd ~
+			#### Wordpress ####
+						echo Instalar wordpress
+			sudo rm -rf /tmp/dis/latest*
 			sudo rm -rf /opt/lampp/htdocs/wordpress
-			cd $tmp_dir
+			cd /tmp/dis
 			wget https://wordpress.org/latest.zip
 			sudo unzip -d /opt/lampp/htdocs ./latest.zip
-			cd $usuario
+			# Permisos de Servidor
+			sudo groupadd ftp
+			usermod -a -G xamppusers $USER
+			cd /opt/lampp
+			sudo chown root.ftp htdocs
+			sudo chmod -R 777 htdocs
+			#sudo echo "define( 'FS_METHOD','direct');" >> /opt/lampp/htdocs/wordpress/wp-config.php
+			cd $HOME
 			echo "#---------------------XAMPP Instalado-------------------#"
+			sudo /opt/lampp/lampp start
 }
 
 function limpiar()
@@ -2329,7 +2310,7 @@ else
 
 	echo "Creating temporary folder"
 	rm -rf /tmp/dis
-	mkdir -m 777 $tmp_dir
+	mkdir -m 755 $tmp_dir
 
 
 diestro=$(dialog --title "Elige el tipo de paquete: deb / rpm / aur" \
