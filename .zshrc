@@ -429,15 +429,3 @@ PATH=/root/.local/bin:/snap/bin:/usr/sandbox/:/usr/local/bin:/usr/bin:/bin:/usr/
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-## pyenv configs
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$HOME/.pyenv/bin:$PATH"
-eval "$(pyenv init -)"
-eval "$(pyenv init --path)"
-
-### Codex CLI setup - start
-export CODEX_CLI_PATH=/home/admin/.codex-cli
-source "$CODEX_CLI_PATH/scripts/zsh_plugin.zsh"
-bindkey '^G' create_completion
-### Codex CLI setup - end

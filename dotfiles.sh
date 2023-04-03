@@ -916,8 +916,7 @@ echo "#----------------------------Instalando Oh my Zsh-------------------------
 			git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$usuario/.oh-my-zsh/custom}/themes/powerlevel10k &&
 			git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-$usuario/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting &&
 			git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-$usuario/.oh-my-zsh/custom}/plugins/zsh-autosuggestions &&
-			git clone https://github.com/kutsan/fast-syntax-highlighting.git \
-  ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/fast-syntax-highlighting &&
+			sudo git clone https://github.com/kutsan/fast-syntax-highlighting.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/fast-syntax-highlighting &&
 			cp -rf $usuario/dotfiles/.zshrc $usuario
 			sudo chmod -R 755 .zshrc
 			sudo chown -R $nombre:$nombre .zshrc
@@ -1157,7 +1156,7 @@ function installjdownloader()
 			echo "#----------------------------Instalando JDownloader----------------------------#"
 			sleep 1s
 			sudo $install default-jre -yy
-			sudo $install default-jdk -yy
+			#sudo $install default-jdk -yy
 			rm $tmp_dir/JD2SilentSetup_x64.sh
 			wget -P $tmp_dir http://installer.jdownloader.org/JD2SilentSetup_x64.sh
 			sudo chmod -R +x $tmp_dir/JD2SilentSetup_x64.sh
@@ -1773,7 +1772,8 @@ function installlibreoffice()
 {
 			echo "#--------------------------------Instalando LibreOffice--------------------------------#"
 			sleep 1s
-			sudo $install libreoffice hyphen-es hunspell-es mythes-es auto-multiple-choice liblibreoffice-java libreoffice-help-es libreoffice-java-common libreoffice-l10n-es libreoffice-mysql-connector libreoffice-qt5 libreoffice-script-provider-bsh libreoffice-script-provider-js libreoffice-script-provider-python libreoffice-texmaths libreoffice-voikko openclipart-libreoffice -yy
+			sudo $install libreoffice hyphen-es hunspell-es mythes-es auto-multiple-choice libreoffice-help-es libreoffice-l10n-es libreoffice-mysql-connector libreoffice-qt5 libreoffice-script-provider-bsh libreoffice-script-provider-js libreoffice-script-provider-python -yy
+			sudo $install liblibreoffice-java libreoffice-java-common libreoffice-texmaths libreoffice-voikko openclipart-libreoffice -yy
 			echo "#--------------------------------Instalado LibreOffice--------------------------------#"
 			sleep 2s
 
@@ -1942,9 +1942,11 @@ echo "#----------------------------Instalando base BSPWM------------------------
 			sudo systemctl enable NetworkManager
 			sudo systemctl start NetworkManager
 			### Extras
-			installi3lock
-			installpicom
+			#installi3lock
+			#installpicom
 			installwallpapers
+			cd $HOME/dotfiles/bspwm/.config/bspwm/polybar/
+			./configbspwm.sh
 			cd $usuario
 			echo "#----------------------------Base BSPWM instalada------------------------------#"
 			sleep 2s
@@ -2884,6 +2886,10 @@ choices=$aur
 		11_web_rpm)
 			cambiored
 			githubdesktop=githubdesktopred
+			sudo rpm --import https://rpm.packages.shiftkey.dev/gpg.key
+			sudo sh -c 'echo -e "[shiftkey-packages]\nname=GitHub Desktop\nbaseurl=https://rpm.packages.shiftkey.dev/rpm/\nenabled=1\ngpgcheck=1\nrepo_gpgcheck=1\ngpgkey=https://rpm.packages.shiftkey.dev/gpg.key" > /etc/yum.repos.d/shiftkey-packages.repo'
+			sudo rpm --import https://mirror.mwt.me/shiftkey-desktop/gpgkey
+			sudo sh -c 'echo -e "[mwt-packages]\nname=GitHub Desktop\nbaseurl=https://mirror.mwt.me/shiftkey-desktop/rpm\nenabled=1\ngpgcheck=1\nrepo_gpgcheck=1\ngpgkey=https://mirror.mwt.me/shiftkey-desktop/gpgkey" > /etc/yum.repos.d/mwt-packages.repo'
 			installgithub
 			;;
 
@@ -3323,10 +3329,10 @@ echo "#----------------------------ProtonVPN Instalado--------------------------
 			sudo pacman -Syyu
 			sudo pacman -S --needed ttf-caladea ttf-carlito ttf-dejavu ttf-liberation ttf-linux-libertine-g noto-fonts adobe-source-code-pro-fonts adobe-source-sans-pro-fonts adobe-source-serif-pro-fonts
 			paru ttf-gentium-basic
-			paru hsqldb2-java
-			sudo pacman -S --needed jre-openjdk
+			#paru hsqldb2-java
+			#sudo pacman -S --needed jre-openjdk
 			sudo pacman -S libreoffice-fresh
-			sudo pacman -S libreoffice-extension-texmaths libreoffice-extension-writer2latex
+			#sudo pacman -S libreoffice-extension-texmaths libreoffice-extension-writer2latex
 			sudo pacman -S hunspell-en_us hunspell-es_es
 			paru libreoffice-extension-languagetool
 			echo "#--------------------------------Instalado LibreOffice--------------------------------#"
