@@ -973,7 +973,7 @@ function installpackterminal()
 {
 			echo "#----------------------------Instalando Pack Personal Terminal----------------------------#"
 			sleep 1s
-			sudo $install jq curl cmake terminator zsh zsh-common htop feh thefuck fake  caca-utils neofetch ncmpcpp cmatrix piu-piu bat ncat nmap ranger mc googler youtube-dl ytfzf pup tty-clock links2 lynx powerline powerline-gitstatus calc w3m w3m-img calendar chafa lolcat lsd lr sl fzf zplug p7zip p7zip-full unrar-free unzip zip -yy
+			sudo $install jq curl cmake terminator zsh zsh-common htop feh thefuck fake  caca-utils neofetch ncmpcpp cmatrix piu-piu bat ncat nmap httpie ranger mc googler youtube-dl ytfzf pup tty-clock links2 lynx powerline powerline-gitstatus calc w3m w3m-img calendar chafa lolcat lsd lr sl fzf zplug p7zip p7zip-full unrar-free unzip zip -yy
 			curl -sS https://webi.sh/lsd | sh
 			chsh -s $(which zsh)
 			mkdir -p $usuario/.config/terminator/plugins
