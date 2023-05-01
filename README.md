@@ -12,7 +12,7 @@
 #  :penguin: Dotfiles :place_of_worship:
 This Dotfiles is made particularly to help me install things that I think can be done faster, I also hope it will be useful for whoever needs it.
 
-My favorite distro is *Debian* so it's mostly meant to work well on Debian, it also has functionality on *Fedora* (since I use it too) and *Archlinux* (because I might use it again in the future) ).
+My favorite distro is *Debian* so it's mostly meant to work well on Debian, it also has functionality on *Fedora* (since I use it too) and *Archlinux* (because I might use it again in the future).
 
 
 ## :zap: Dependencies :zap:

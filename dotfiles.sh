@@ -764,14 +764,16 @@ function installnvim()
 			sleep 1s
 			sudo $install curl xterm ranger fzf rxvt-unicode neovim python3-pip powerline tmux python3-neovim -yy &&
 			pip3 install pipenv
-			cd $usuario
-			sudo mkdir -m 755 $usuario/.nvm
-			sudo mkdir -m 755 $usuario/.local/share/nvim/site/autoload/
-			sudo mkdir -m 755 $usuario/.vim/autoload/
-			git clone https://github.com/nvm-sh/nvm.git $usuario/.nvm
-			cd $usuario
-			wget -P $usuario/.local/share/nvim/site/autoload/ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-			wget -P $usuario/.vim/autoload/ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+			#Install jupyter (requiere PIP)
+			sudo pip install jupyter
+			wget -P $HOME/.local/share/nvim/site/autoload/ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+			wget -P $HOME/.vim/autoload/ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+			cd $HOME
+			sudo mkdir -m 755 $HOME/.nvm
+			sudo mkdir -m 755 $HOME/.local/share/nvim/site/autoload/
+			sudo mkdir -m 755 $HOME/.vim/autoload/
+			git clone https://github.com/nvm-sh/nvm.git $HOME/.nvm
+			cd $HOME
 			sudo $install npm &&
 			sudo npm install --global yarn &&
 			sudo npm install -g n latest
@@ -787,38 +789,26 @@ function installnvim()
 			sudo npm install -g tslib @types/node
 			#Install Rust
 			#curl https://sh.rustup.rs -sSf | sh
-			#Install jupyter (requiere PIP)
-			sudo pip install jupyter
 			#Copy Config
-			cp -rf $usuario/dotfiles/vim/.config/* $usuario/.config &&
-			cp -rf $usuario/dotfiles/vim/.vimrc $usuario &&
-			cp -rf $usuario/dotfiles/vim/.vim /$usuario &&
-			sudo chown -R 755 $usuario/.vim
-			sudo chown -R 755 $usuario/.config/coc
-			sudo chown -R 755 $usuario/.config/nvim
-			sudo chown -R 755 $usuario/.config/github-copilot
-			sudo chmod -R 755 $usuario/.vim/maps.vim
-			sudo chmod -R 755 $usuario/.vim/plugins.vim
-			sudo chmod -R 755 $usuario/.vim/pluginsconfig.vim
-			sudo chmod -R 755 $usuario/.vimrc
-			sudo chown -R $nombre:$nombre $usuario/.vim
-			sudo chown -R $nombre:$nombre $usuario/.config/coc
-			sudo chown -R $nombre:$nombre $usuario/.config/nvim
-			sudo chown -R $nombre:$nombre $usuario/.config/github-copilot
-			sudo chown -R $nombre:$nombre $usuario/.vim/maps.vim
-			sudo chown -R $nombre:$nombre $usuario/.vim/plugins.vim
-			sudo chown -R $nombre:$nombre $usuario/.vimrc
-			#Ranger
-			sudo mkdir -m 755 $usuario/.config/ranger
-			sudo chown -R 755 $usuario/.config/ranger
-			sudo chown -R $nombre:$nombre $usuario/.config/ranger
-			cp -rf $usuario/dotfiles/bspwm/ranger $usuario/.config/ranger
+			cd $HOME
+			git clone https://github.com/yordisc/Vimconfig
+			chmod -R 775 Vimconfig/
+			mv Vimconfig/vim/* $HOME
+			sudo chown -R 755 $HOME/.vim
+			sudo chown -R 755 $HOME/.config/coc
+			sudo chown -R 755 $HOME/.config/nvim
+			sudo chown -R 755 $HOME/.config/github-copilot
+			sudo chmod -R 755 $HOME/.vim/maps.vim
+			sudo chmod -R 755 $HOME/.vim/plugins.vim
+			sudo chmod -R 755 $HOME/.vim/pluginsconfig.vim
+			sudo chmod -R 755 $HOME/.vimrc
+			rm -rf Vimconfig
+			cd $HOME
 			#Open IA key api
 			touch .open_ai
-			echo '### KEY API OPEN-IA
-### export OPENAI_API_KEY=""' >> example.sh
-			sudo chown -R 755 $usuario/.config/.open_ai
-			cd $usuario
+			echo '### KEY API OPEN-IA ### export OPENAI_API_KEY=""' >> example.sh
+			sudo chown -R 755 $HOME/.config/.open_ai
+			cd $HOME
 			echo "#----------------------------Instalado NVim personalizado-----------------------------#"
 			sleep 2s
 
@@ -981,7 +971,7 @@ function installpackterminal()
 			sudo mkdir -m 755 $usuario/.config/ranger
 			sudo chown -R 755 $usuario/.config/ranger
 			sudo chown -R $nombre:$nombre $usuario/.config/ranger
-			cp -rf $usuario/dotfiles/bspwm/ranger $usuario/.config/ranger
+			cp -rf $usuario/dotfiles/personalconfig/ranger $usuario/.config/ranger
 			wget https://git.io/v5Zwz -O $usuario"/.config/terminator/plugins/terminator-themes.py"
 ### Youtube por terminal
 			cd $tmp_dir
@@ -1093,7 +1083,7 @@ function installzoom()
 			sudo $install wget -yy
 			cd $tmp_dir
 			rm zoom*
-			$zoom
+			wget $zoom
 			sudo $unpack $zoomname
 			rm zoom*
 			cd $usuario
@@ -1894,43 +1884,56 @@ echo "#-----------------------------Habilitar I3LOCK----------------------------
 
 }
 
-
 function installbspwm()
 
 {
-echo "#----------------------------Instalando base BSPWM-----------------------------#"
+echo "#-----------------------------Habilitar BSPWM---------------------------------#"
+			sleep 1s
+			installwmdependence
+			### BSPWM
+			sudo $install bspwm sxhkd rofi dmenu polybar -yy
+			### bspwm config
+			sudo chown -R 755 $usuario/dotfiles/bspwm/
+			cp -rf $usuario/dotfiles/bspwm/.config/* $usuario/.config
+			installpolybar
+			echo "#-----------------------------BSPWM habilitado--------------------------------#"
+			sleep 2s
+
+}
+
+function installwmdependence()
+
+{
+echo "#----------------------------Instalando dependencias de Gestión de ventanas-----------------------------#"
 			sleep 1s
 			### Dependencias
-			sudo $install xterm terminator rxvt-unicode inxi bspwm sxhkd rofi dunst cava maim bmon nitrogen xbacklight gpick light xsettingsd polybar dmenu pcmanfm lxappearance fzf viewnior zenity arandr gnome-screenshot pavucontrol -yy
+			sudo $install xterm terminator rxvt-unicode inxi dunst cava maim bmon nitrogen xbacklight gpick light xsettingsd  pcmanfm lxappearance fzf viewnior zenity arandr gnome-screenshot pavucontrol -yy
 			### Agregar Dotfiles
-			cp -rf $usuario/dotfiles/bspwm/.Xresources.d $usuario
+			cp -rf $usuario/dotfiles/personalconfig/.config/* $usuario/.config
+			cp -rf $usuario/dotfiles/personalconfig/.Xresources.d $usuario
 			sudo chown -R 755 $usuario/Xresources.d
 			sudo chown -R $nombre:$nombre $usuario/Xresources.d
-			cp -rf $usuario/dotfiles/bspwm/.Xresources $usuario
+			cp -rf $usuario/dotfiles/personalconfig/.Xresources $usuario
 			sudo chmod -R 755 $usuario/Xresources
 			sudo chown -R $nombre:$nombre $usuario/Xresources
-			cp -rf $usuario/dotfiles/bspwm/.xsettingsd $usuario
+			cp -rf $usuario/dotfiles/personalconfig/.xsettingsd $usuario
 			sudo chmod -R 755 $usuario/.xsettingsd
 			sudo chown -R $nombre:$nombre $usuario/.xsettingsd
-			cp -rf $usuario/dotfiles/bspwm/.gtkrc-2.0 $usuario
+			cp -rf $usuario/dotfiles/personalconfig/.gtkrc-2.0 $usuario
 			sudo chmod -R 755 $usuario/.gtkrc-2.0
 			sudo chown -R $nombre:$nombre $usuario/.gtkrc-2.0
-			cp -rf $usuario/dotfiles/bspwm/.hidden $usuario
+			cp -rf $usuario/dotfiles/personalconfig/.hidden $usuario
 			sudo chmod -R 755 $usuario/.hidden
 			sudo chown -R $nombre:$nombre $usuario/.hidden
-			cp -rf $usuario/dotfiles/bspwm/.dmrc $usuario
+			cp -rf $usuario/dotfiles/personalconfig/.dmrc $usuario
 			sudo chmod -R 755 $usuario/.dmrc
 			sudo chown -R $nombre:$nombre $usuario/.dmrc
-			cp -rf $usuario/dotfiles/bspwm/.fehbg $usuario
+			cp -rf $usuario/dotfiles/personalconfig/.fehbg $usuario
 			sudo chmod -R 755 $usuario/.fehbg
 			sudo chown -R $nombre:$nombre $usuario/.fehbg
-			sudo mkdir -m 755 $usuario/.config/polybar
-			sudo chown -R 755 $usuario/.config/polybar
-			sudo chown -R $nombre:$nombre $usuario/.config/polybar
-			cp -rf $usuario/dotfiles/polybar/* $usuario/.config/polybar
-			cp -rf $usuario/dotfiles/bspwm/.config/* $usuario/.config
 			sudo chown -R 755 $usuario/.config
 			sudo chown -R $nombre:$nombre $usuario/.config
+			### Fonts
 			cd $tmp_dir
 			wget https://github.com/archcraft-os/packages/raw/main/x86_64/archcraft-fonts-1.0-3-any.pkg.tar.zst
 			tar -xf archcraft-fonts-1.0-3-any.pkg.tar.zst
@@ -1945,11 +1948,26 @@ echo "#----------------------------Instalando base BSPWM------------------------
 			#installi3lock
 			#installpicom
 			installwallpapers
-			cd $HOME/dotfiles/bspwm/.config/bspwm/polybar/
-			./configbspwm.sh
 			cd $usuario
-			echo "#----------------------------Base BSPWM instalada------------------------------#"
+			echo "#----------------------------Base de dependencias de Gestión de ventanas instaladas------------------------------#"
 			sleep 2s
+
+}
+
+function installpolybar()
+
+{
+			echo "#---------Agregando Polybar---------#"
+			mkdir $tmp_dir/polybar
+			git clone https://github.com/yordisc/polybar $tmp_dir/polybar
+			### Polybar
+			sudo mkdir -m 755 $usuario/.config/polybar
+			sudo cp -r $tmp_dir/polybar/* $usuario/.config/polybar
+			sudo chown -R 755 $usuario/.config/polybar
+			sudo chown -R $nombre:$nombre $usuario/.config/polybar
+			echo "#---------------------Polybar agregados-------------------#"
+			sleep 3s
+			clear
 
 }
 
@@ -1957,7 +1975,6 @@ function installwallpapers()
 
 {
 			echo "#---------Agregando Wallpapers---------#"
-
 			mkdir $tmp_dir/backgrounds
 			git clone https://github.com/yordisc/Wallpapers $tmp_dir/backgrounds
 			sudo cp -r $tmp_dir/backgrounds/* /usr/share/backgrounds
@@ -2528,18 +2545,18 @@ choices=$aur
 			;;
 
 		3_editor)
+			sudo apt install build-essential cmake vim-nox python3-dev
 			installnvim
 			wget -P $temp https://github.com/wfxr/code-minimap/releases/download/v0.6.4/code-minimap-musl_0.6.4_amd64.deb
 			cd $temp
 			sudo dpkg -i ./code-minimap-musl_0.6.4_amd64.deb
-			sudo apt install build-essential cmake vim-nox python3-dev
 			cd $usuario
 			;;
 
 		3_editor_rpm)
 			cambiored
-			installnvim
 			sudo dnf install cmake gcc-c++ make python3-devel
+			installnvim
 			cd $usuario
 			;;
 
