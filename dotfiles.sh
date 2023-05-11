@@ -322,7 +322,7 @@ teams=teamsdeb
 			2_customize_rpm "	Zsh" off
 			3_customize_U "	Oh my Zsh" off
 			4_customize_U "	Powerline" off
-			5_customize "	Paquete Terminal" off
+			5_customize_rpm "	Paquete Terminal" off
 		#F "<----Category: Web Browsers/Downloaders---->" on
 			1_web_U "	Firefox Developer Edition" off
 			2_web_rpm "	Google Chrome" off
@@ -750,7 +750,7 @@ function installvim()
 {
 			echo "#----------------------------Instalando Vim----------------------------#"
 			sleep 1s
-			sudo $install vim vim-doc vim-scripts vim-snippets vim-ultisnips vim-fugitive vim-git-hub vim-gitgutter -yy
+			sudo $install vim vim-fugitive vim-gitgutter -yy
 			echo "#----------------------------Instalado Vim----------------------------#"
 			sleep 2s
 
@@ -766,14 +766,14 @@ function installnvim()
 			pip3 install pipenv
 			#Install jupyter (requiere PIP)
 			sudo pip install jupyter
-			wget -P $HOME/.local/share/nvim/site/autoload/ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-			wget -P $HOME/.vim/autoload/ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-			cd $HOME
-			sudo mkdir -m 755 $HOME/.nvm
-			sudo mkdir -m 755 $HOME/.local/share/nvim/site/autoload/
-			sudo mkdir -m 755 $HOME/.vim/autoload/
-			git clone https://github.com/nvm-sh/nvm.git $HOME/.nvm
-			cd $HOME
+			wget -P $usuario/.local/share/nvim/site/autoload/ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+			wget -P $usuario/.vim/autoload/ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+			cd $usuario
+			sudo mkdir -m 755 $usuario/.nvm
+			sudo mkdir -m 755 $usuario/.local/share/nvim/site/autoload/
+			sudo mkdir -m 755 $usuario/.vim/autoload/
+			git clone https://github.com/nvm-sh/nvm.git $usuario/.nvm
+			cd $usuario
 			sudo $install npm &&
 			sudo npm install --global yarn &&
 			sudo npm install -g n latest
@@ -790,25 +790,27 @@ function installnvim()
 			#Install Rust
 			#curl https://sh.rustup.rs -sSf | sh
 			#Copy Config
-			cd $HOME
-			git clone https://github.com/yordisc/Vimconfig
-			chmod -R 775 Vimconfig/
-			mv Vimconfig/vim/* $HOME
-			sudo chown -R 755 $HOME/.vim
-			sudo chown -R 755 $HOME/.config/coc
-			sudo chown -R 755 $HOME/.config/nvim
-			sudo chown -R 755 $HOME/.config/github-copilot
-			sudo chmod -R 755 $HOME/.vim/maps.vim
-			sudo chmod -R 755 $HOME/.vim/plugins.vim
-			sudo chmod -R 755 $HOME/.vim/pluginsconfig.vim
-			sudo chmod -R 755 $HOME/.vimrc
+			cd $usuario
+			git clone https://github.com/yordisc/Vimconfig.git
+			sudo chown -R 777 Vimconfig/
+			sudo rm -r $usuario/.vim
+			#chmod -R 775 $usuario/.vim
+			sudo mv Vimconfig/vim/* $usuario
+			sudo chown -R 775 $usuario/.vim
+			sudo chown -R 775 $usuario/.config/coc
+			sudo chown -R 775 $usuario/.config/samnvim
+			sudo chown -R 775 $usuario/.config/github-copilot
+			sudo chmod -R 775 $usuario/.vim/maps.vim
+			sudo chmod -R 775 $usuario/.vim/plugins.vim
+			sudo chmod -R 775 $usuario/.vim/pluginsconfig.vim
+			sudo chmod -R 775 $usuario/.vimrc
 			rm -rf Vimconfig
-			cd $HOME
+			cd $usuario
 			#Open IA key api
 			touch .open_ai
 			echo '### KEY API OPEN-IA ### export OPENAI_API_KEY=""' >> example.sh
-			sudo chown -R 755 $HOME/.config/.open_ai
-			cd $HOME
+			sudo chown -R 755 $usuario/.config/.open_ai
+			cd $usuario
 			echo "#----------------------------Instalado NVim personalizado-----------------------------#"
 			sleep 2s
 
@@ -902,24 +904,27 @@ function installohmyzsh()
 {
 echo "#----------------------------Instalando Oh my Zsh----------------------------#"
 			sleep 1s
+			rm -rf $usuario/.oh-my-zsh
 			git clone https://github.com/ohmyzsh/ohmyzsh.git $usuario/.oh-my-zsh
 			git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$usuario/.oh-my-zsh/custom}/themes/powerlevel10k &&
 			git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-$usuario/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting &&
 			git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-$usuario/.oh-my-zsh/custom}/plugins/zsh-autosuggestions &&
-			sudo git clone https://github.com/kutsan/fast-syntax-highlighting.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/fast-syntax-highlighting &&
+			sudo git clone https://github.com/kutsan/fast-syntax-highlighting.git ${ZSH_CUSTOM:-$usuario/.oh-my-zsh/custom}/plugins/fast-syntax-highlighting &&
 			cp -rf $usuario/dotfiles/.zshrc $usuario
-			sudo chmod -R 755 .zshrc
+			sudo chmod -R 775 .zshrc
 			sudo chown -R $nombre:$nombre .zshrc
 			cp -rf $usuario/dotfiles/.p10k.zsh $usuario
-			sudo chmod -R 755 .p10k.zsh
+			sudo chmod -R 775 .p10k.zsh
 			sudo chown -R $nombre:$nombre .p10k.zsh
 			cp -rf $usuario/dotfiles/.p10k-portable.zsh $usuario
-			sudo chmod -R 755 .p10k-portable.zsh
+			sudo chmod -R 775 .p10k-portable.zsh
 			sudo chown -R $nombre:$nombre .p10k-portable.zsh
 			touch $usuario/Abrir
 			echo "
 chsh -s $(which zsh) && # Cambiar de Bash a Zsh" >> $usuario/Abrir
-			# chsh -s $(which zsh) && # Cambiar de Bash a Zsh
+			#
+			zsh
+			chsh -s $(which zsh) && # Cambiar de Bash a Zsh
 			echo "#--------------------------------Oh my ZSH habilitado--------------------------------#"
 			sleep 2s
 
@@ -957,15 +962,14 @@ function installpowerline()
 
 }
 
-
 function installpackterminal()
 
 {
 			echo "#----------------------------Instalando Pack Personal Terminal----------------------------#"
 			sleep 1s
-			sudo $install jq curl cmake terminator zsh zsh-common htop feh thefuck fake  caca-utils neofetch ncmpcpp cmatrix piu-piu bat ncat nmap httpie ranger mc googler youtube-dl ytfzf pup tty-clock links2 lynx powerline powerline-gitstatus calc w3m w3m-img calendar chafa lolcat lsd lr sl fzf zplug p7zip p7zip-full unrar-free unzip zip -yy
+			sudo $install jq curl cmake terminator htop feh thefuck caca-utils neofetch ncmpcpp cmatrix bat nmap httpie ranger mc googler youtube-dl lynx powerline calc w3m w3m-img calendar chafa lolcat lsd sl fzf p7zip  unrar-free unzip zip -yy
 			curl -sS https://webi.sh/lsd | sh
-			chsh -s $(which zsh)
+			#chsh -s $(which zsh)
 			mkdir -p $usuario/.config/terminator/plugins
 			#Ranger
 			sudo mkdir -m 755 $usuario/.config/ranger
@@ -980,7 +984,7 @@ function installpackterminal()
 			sudo make install
 			cd $usuario
 			mkdir -p ~/.config/ytfzf
-			echo "cache_dir="$HOME/.cache/ytfzf"
+			echo "cache_dir="$usuario/.cache/ytfzf"
 history_file="$YTFZF_CACHE/ytfzf_hst"
 current_file="$YTFZF_CACHE/ytfzf_cur"
 thumb_dir="$YTFZF_CACHE/thumb"
@@ -1822,7 +1826,7 @@ function installpackhome()
 {
 			echo "#--------------------------------Instalando Paquete Hogar--------------------------------#"
 			sleep 1s
-			sudo $install bleachbit perl aspell catfish peek galculator gnome-multi-writer gparted lightdm lightdm-gtk-greeter-settings midori mousepad feh putty ristretto simple-scan smartmontools abiword telegram-desktop tlp viewnior yad firewalld exfat-utils -yy
+			sudo $install bleachbit perl aspell catfish peek galculator gnome-multi-writer gparted lightdm lightdm-gtk-greeter-settings midori mousepad feh putty ristretto simple-scan smartmontools abiword tlp viewnior yad firewalld -yy
 			echo "#--------------------------------Instalado Paquete Hogar--------------------------------#"
 			sleep 2s
 
@@ -1893,9 +1897,13 @@ echo "#-----------------------------Habilitar BSPWM-----------------------------
 			### BSPWM
 			sudo $install bspwm sxhkd rofi dmenu polybar -yy
 			### bspwm config
-			sudo chown -R 755 $usuario/dotfiles/bspwm/
+			sudo chown -R 775 $usuario/dotfiles/bspwm/
 			cp -rf $usuario/dotfiles/bspwm/.config/* $usuario/.config
 			installpolybar
+			sudo chown -R $nombre:$nombre ~/.config/bspwm
+			sudo chown -R $nombre:$nombre ~/.config/networkmanager-dmenu
+			sudo chown -R $nombre:$nombre ~/.config/rofi
+			sudo chown -R $nombre:$nombre ~/.config/sxhkd
 			echo "#-----------------------------BSPWM habilitado--------------------------------#"
 			sleep 2s
 
@@ -1907,31 +1915,30 @@ function installwmdependence()
 echo "#----------------------------Instalando dependencias de Gestión de ventanas-----------------------------#"
 			sleep 1s
 			### Dependencias
-			sudo $install xterm terminator rxvt-unicode inxi dunst cava maim bmon nitrogen xbacklight gpick light xsettingsd  pcmanfm lxappearance fzf viewnior zenity arandr gnome-screenshot pavucontrol -yy
+			sudo $install gtk2 gtk3 zstd xterm terminator rxvt-unicode inxi dunst cava maim bmon nitrogen pipewire-pulseaudio xbacklight gpick light xsettingsd parcellite pcmanfm lxappearance fzf viewnior zenity arandr polkit-gnome gnome-screenshot pavucontrol -yy
 			### Agregar Dotfiles
-			cp -rf $usuario/dotfiles/personalconfig/.config/* $usuario/.config
-			cp -rf $usuario/dotfiles/personalconfig/.Xresources.d $usuario
-			sudo chown -R 755 $usuario/Xresources.d
+			sudo cp -rf $usuario/dotfiles/personalconfig/.Xresources.d $usuario
+			sudo chmod -R 775 $usuario/Xresources.d
 			sudo chown -R $nombre:$nombre $usuario/Xresources.d
 			cp -rf $usuario/dotfiles/personalconfig/.Xresources $usuario
-			sudo chmod -R 755 $usuario/Xresources
+			sudo chown -R 775 $usuario/Xresources
 			sudo chown -R $nombre:$nombre $usuario/Xresources
-			cp -rf $usuario/dotfiles/personalconfig/.xsettingsd $usuario
-			sudo chmod -R 755 $usuario/.xsettingsd
+			sudo cp -rf $usuario/dotfiles/personalconfig/.xsettingsd $usuario
+			sudo chmod -R 775 $usuario/.xsettingsd
 			sudo chown -R $nombre:$nombre $usuario/.xsettingsd
-			cp -rf $usuario/dotfiles/personalconfig/.gtkrc-2.0 $usuario
-			sudo chmod -R 755 $usuario/.gtkrc-2.0
+			sudo cp -rf $usuario/dotfiles/personalconfig/.gtkrc-2.0 $usuario
+			sudo chmod -R 775 $usuario/.gtkrc-2.0
 			sudo chown -R $nombre:$nombre $usuario/.gtkrc-2.0
-			cp -rf $usuario/dotfiles/personalconfig/.hidden $usuario
-			sudo chmod -R 755 $usuario/.hidden
+			sudo cp -rf $usuario/dotfiles/personalconfig/.hidden $usuario
+			sudo chmod -R 775 $usuario/.hidden
 			sudo chown -R $nombre:$nombre $usuario/.hidden
-			cp -rf $usuario/dotfiles/personalconfig/.dmrc $usuario
-			sudo chmod -R 755 $usuario/.dmrc
+			sudo cp -rf $usuario/dotfiles/personalconfig/.dmrc $usuario
+			sudo chmod -R 775 $usuario/.dmrc
 			sudo chown -R $nombre:$nombre $usuario/.dmrc
-			cp -rf $usuario/dotfiles/personalconfig/.fehbg $usuario
-			sudo chmod -R 755 $usuario/.fehbg
+			sudo cp -rf $usuario/dotfiles/personalconfig/.fehbg $usuario
+			sudo chmod -R 775 $usuario/.fehbg
 			sudo chown -R $nombre:$nombre $usuario/.fehbg
-			sudo chown -R 755 $usuario/.config
+			sudo chown -R 775 $usuario/.config
 			sudo chown -R $nombre:$nombre $usuario/.config
 			### Fonts
 			cd $tmp_dir
@@ -1948,7 +1955,24 @@ echo "#----------------------------Instalando dependencias de Gestión de ventan
 			#installi3lock
 			#installpicom
 			installwallpapers
+			### Fuentes
+			wget -P $tmp_dir https://github.com/ryanoasis/nerd-fonts/releases/download/$nerdfontsversion/Hack.zip
+			unzip Hack.zip
+			rm Hack.zip
+			sudo mkdir -p /usr/share/fonts/nerd-fonts/Hack
+			sudo mv Hack* /usr/share/fonts/nerd-fonts/Hack
+			rm LICENSE*
+			rm readme*
+			wget -P $tmp_dir https://github.com/ryanoasis/nerd-fonts/releases/download/$nerdfontsversion/LiberationMono.zip
+			unzip LiberationMono.zip
+			rm LiberationMono.zip
+			sudo mkdir -p /usr/share/fonts/nerd-fonts/Liberation-Mono
+			sudo mv Literation* /usr/share/fonts/nerd-fonts/Liberation-Mono
+			rm LICENSE*
+			rm readme*
+			###
 			cd $usuario
+			bash $usuario/.config/bspwm/polybar/configbspwm.sh
 			echo "#----------------------------Base de dependencias de Gestión de ventanas instaladas------------------------------#"
 			sleep 2s
 
@@ -2232,7 +2256,7 @@ cd ~
 			sudo chown root.ftp htdocs
 			sudo chmod -R 777 htdocs
 			#sudo echo "define( 'FS_METHOD','direct');" >> /opt/lampp/htdocs/wordpress/wp-config.php
-			cd $HOME
+			cd $usuario
 			echo "#---------------------XAMPP Instalado-------------------#"
 			sudo /opt/lampp/lampp start
 }
@@ -2388,6 +2412,11 @@ choices=$aur
 		0_basic_rpm)
 			cambiored
 			#Update and Upgrade
+			sudo dnf install \
+  https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
+			sudo dnf install \
+  https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+  			sudo dnf install gtk-murrine-engine
 		echo "Updating"
 		sudo $update
 		sudo $reparar
@@ -2478,8 +2507,8 @@ choices=$aur
 			cambiored
 			echo "#--------------------------------Instalando Yumex (Sinaptic para Fedora)--------------------------------#"
 			sleep 1s
-			sudo dnf copr enable timlau/yumex-dnf
-			sudo dnf install yumex-dnf -yy
+			sudo dnf copr enable timlau/yumex-ng
+			sudo dnf install yumex
 			echo "#--------------------------------Instalado  Yumex (Sinaptic para Fedora)--------------------------------#"
 			sleep 2s
 			;;
@@ -2531,6 +2560,7 @@ choices=$aur
 			
 		2_editor)
 			installvim
+			sudo $install vim-doc vim-scripts vim-snippets vim-ultisnips vim-git-hub -yy
 			;;
 			
 		2_editor_rpm)
@@ -2683,6 +2713,7 @@ choices=$aur
 
 		5_customize)
 			installpackterminal
+			sudo $install zsh-common fake piu-piu ncat ytfzf pup tty-clock links2 powerline-gitstatus lr zplug p7zip-full -yy
 			;;
 
 		5_customize_rpm)
@@ -2903,8 +2934,6 @@ choices=$aur
 		11_web_rpm)
 			cambiored
 			githubdesktop=githubdesktopred
-			sudo rpm --import https://rpm.packages.shiftkey.dev/gpg.key
-			sudo sh -c 'echo -e "[shiftkey-packages]\nname=GitHub Desktop\nbaseurl=https://rpm.packages.shiftkey.dev/rpm/\nenabled=1\ngpgcheck=1\nrepo_gpgcheck=1\ngpgkey=https://rpm.packages.shiftkey.dev/gpg.key" > /etc/yum.repos.d/shiftkey-packages.repo'
 			sudo rpm --import https://mirror.mwt.me/shiftkey-desktop/gpgkey
 			sudo sh -c 'echo -e "[mwt-packages]\nname=GitHub Desktop\nbaseurl=https://mirror.mwt.me/shiftkey-desktop/rpm\nenabled=1\ngpgcheck=1\nrepo_gpgcheck=1\ngpgkey=https://mirror.mwt.me/shiftkey-desktop/gpgkey" > /etc/yum.repos.d/mwt-packages.repo'
 			installgithub
@@ -2954,7 +2983,7 @@ choices=$aur
 			#sudo modprob kvm_amd ### amd processors
 			sudo usermod -aG kvm $USER
 			sudo apt remove docker-desktop
-			sudo rm -r $HOME/.docker/desktop
+			sudo rm -r $usuario/.docker/desktop
 			sudo rm /usr/local/bin/com.docker.cli
 			sudo apt purge docker-desktop
 			sudo apt update -y
@@ -3366,6 +3395,7 @@ echo "#----------------------------ProtonVPN Instalado--------------------------
 
 		5_files)
 			installpackhome
+			sudo $install telegram-desktop exfat-utils
 			;;
 
 		5_files_rpm)

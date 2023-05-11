@@ -27,11 +27,11 @@ xsettingsd &
 
 # Polkit agent
 if [[ ! `pidof xfce-polkit` ]]; then
-	/usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &
+/usr/libexec/polkit-gnome-authentication-agent-1 &
 fi
 
-#parcellite &
-xfce4-clipman &
+parcellite &
+#xfce4-clipman &
 sleep 1
 
 nitrogen --restore; sleep 1; picom -b &
@@ -55,19 +55,19 @@ xsetroot -cursor_name left_ptr &
 # Notifications
 /usr/bin/dunst &
 #nm-tray &
-#sleep 0.3
+sleep 0.3
 
 /usr/bin/picom &
 #sleep 0.3
 
 #pavucontrol &
-#sleep 0.3
+sleep 0.3
 
 #blueman-applet &
 #sleep 2
 
-#pulseaudio &
-#sleep 1
+pulseaudio &
+sleep 1
 
 #killall -eq volumeicon &
 #sleep 1.5
