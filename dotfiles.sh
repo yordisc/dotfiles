@@ -792,10 +792,10 @@ function installnvim()
 			#Copy Config
 			cd $usuario
 			git clone https://github.com/yordisc/Vimconfig.git
-			sudo chown -R 777 Vimconfig/
+			sudo chown -R $nombre:$nombre Vimconfig/
 			sudo rm -r $usuario/.vim
 			#chmod -R 775 $usuario/.vim
-			sudo mv Vimconfig/vim/* $usuario
+			sudo cp Vimconfig/* $usuario
 			sudo chown -R 775 $usuario/.vim
 			sudo chown -R 775 $usuario/.config/coc
 			sudo chown -R 775 $usuario/.config/samnvim
@@ -804,7 +804,6 @@ function installnvim()
 			sudo chmod -R 775 $usuario/.vim/plugins.vim
 			sudo chmod -R 775 $usuario/.vim/pluginsconfig.vim
 			sudo chmod -R 775 $usuario/.vimrc
-			rm -rf Vimconfig
 			cd $usuario
 			#Open IA key api
 			touch .open_ai
@@ -924,7 +923,7 @@ echo "#----------------------------Instalando Oh my Zsh-------------------------
 chsh -s $(which zsh) && # Cambiar de Bash a Zsh" >> $usuario/Abrir
 			#
 			zsh
-			chsh -s $(which zsh) && # Cambiar de Bash a Zsh
+			chsh -s $(which zsh) &  y # Cambiar de Bash a Zsh
 			echo "#--------------------------------Oh my ZSH habilitado--------------------------------#"
 			sleep 2s
 
@@ -1826,7 +1825,7 @@ function installpackhome()
 {
 			echo "#--------------------------------Instalando Paquete Hogar--------------------------------#"
 			sleep 1s
-			sudo $install bleachbit perl aspell catfish peek galculator gnome-multi-writer gparted lightdm lightdm-gtk-greeter-settings midori mousepad feh putty ristretto simple-scan smartmontools abiword tlp viewnior yad firewalld -yy
+			sudo $install bleachbit perl aspell catfish peek galculator gnome-multi-writer gparted lightdm lightdm-gtk-greeter-settings midori mousepad feh mpv putty ristretto simple-scan smartmontools abiword tlp yad firewalld -yy
 			echo "#--------------------------------Instalado Paquete Hogar--------------------------------#"
 			sleep 2s
 
@@ -1838,7 +1837,7 @@ function installgtk()
 {
 			echo "#--------------------------------Make QT match GTK Themes--------------------------------#"
 			sleep 1s
-			sudo chown $user /etc/environment
+			sudo chown $nombre /etc/environment
 			sudo chmod -R 755 /etc/environment
 			sudo echo "QT_QPA_PLATFORMTHEME=gtk2" >> /etc/environment
 			sudo chown root:root /etc/environment
@@ -1893,11 +1892,12 @@ function installbspwm()
 {
 echo "#-----------------------------Habilitar BSPWM---------------------------------#"
 			sleep 1s
+			installgtk
 			installwmdependence
 			### BSPWM
 			sudo $install bspwm sxhkd rofi dmenu polybar -yy
 			### bspwm config
-			sudo chown -R 775 $usuario/dotfiles/bspwm/
+			sudo chown 777 $usuario/dotfiles/bspwm/
 			cp -rf $usuario/dotfiles/bspwm/.config/* $usuario/.config
 			installpolybar
 			sudo chown -R $nombre:$nombre ~/.config/bspwm
@@ -1915,13 +1915,14 @@ function installwmdependence()
 echo "#----------------------------Instalando dependencias de Gestión de ventanas-----------------------------#"
 			sleep 1s
 			### Dependencias
-			sudo $install gtk2 gtk3 zstd xterm terminator rxvt-unicode inxi dunst cava maim bmon nitrogen pipewire-pulseaudio xbacklight gpick light xsettingsd parcellite pcmanfm lxappearance fzf viewnior zenity arandr polkit-gnome gnome-screenshot pavucontrol -yy
+			sudo $desinstall pipewire-pulse
+			sudo $install gtk2 gtk3 zstd xterm terminator rxvt-unicode inxi dunst cava maim bmon nitrogen ffmpegthumbnailer toilet xbacklight gpick light xsettingsd parcellite pcmanfm lxappearance fzf viewnior zenity arandr polkit-gnome gnome-screenshot pulseaudio pavucontrol -yy
 			### Agregar Dotfiles
 			sudo cp -rf $usuario/dotfiles/personalconfig/.Xresources.d $usuario
 			sudo chmod -R 775 $usuario/Xresources.d
 			sudo chown -R $nombre:$nombre $usuario/Xresources.d
 			cp -rf $usuario/dotfiles/personalconfig/.Xresources $usuario
-			sudo chown -R 775 $usuario/Xresources
+			sudo chown 775 $usuario/Xresources
 			sudo chown -R $nombre:$nombre $usuario/Xresources
 			sudo cp -rf $usuario/dotfiles/personalconfig/.xsettingsd $usuario
 			sudo chmod -R 775 $usuario/.xsettingsd
@@ -1934,11 +1935,11 @@ echo "#----------------------------Instalando dependencias de Gestión de ventan
 			sudo chown -R $nombre:$nombre $usuario/.hidden
 			sudo cp -rf $usuario/dotfiles/personalconfig/.dmrc $usuario
 			sudo chmod -R 775 $usuario/.dmrc
-			sudo chown -R $nombre:$nombre $usuario/.dmrc
+			sudo chown $nombre:$nombre $usuario/.dmrc
 			sudo cp -rf $usuario/dotfiles/personalconfig/.fehbg $usuario
 			sudo chmod -R 775 $usuario/.fehbg
 			sudo chown -R $nombre:$nombre $usuario/.fehbg
-			sudo chown -R 775 $usuario/.config
+			sudo chown 775 $usuario/.config
 			sudo chown -R $nombre:$nombre $usuario/.config
 			### Fonts
 			cd $tmp_dir
@@ -1987,7 +1988,7 @@ function installpolybar()
 			### Polybar
 			sudo mkdir -m 755 $usuario/.config/polybar
 			sudo cp -r $tmp_dir/polybar/* $usuario/.config/polybar
-			sudo chown -R 755 $usuario/.config/polybar
+			sudo chown 755 $usuario/.config/polybar
 			sudo chown -R $nombre:$nombre $usuario/.config/polybar
 			echo "#---------------------Polybar agregados-------------------#"
 			sleep 3s
@@ -2003,11 +2004,11 @@ function installwallpapers()
 			git clone https://github.com/yordisc/Wallpapers $tmp_dir/backgrounds
 			sudo cp -r $tmp_dir/backgrounds/* /usr/share/backgrounds
 			### nitrogen
-			sudo echo "
+			echo "
 dirs=/usr/share/backgrounds;
 " >> $usuario/.config/nitrogen/nitrogen.cfg
 			### Feh
-			sudo echo "
+			echo "
 feh --no-fehbg --bg-fill '/usr/share/backgrounds/gruvbox.png'
 " >> $usuario/.fehbg
 			echo "#---------------------Wallpapers agregados-------------------#"
@@ -2201,7 +2202,7 @@ Categories=Development;
 Comment=Start and Stop XAMPP
 StartupNotify=true">> /usr/share/applications/xampp-control-panel.desktop
 ####reparar permisos
-			#sudo chmod -R 755 /opt/lampp
+			#sudo chmod 755 /opt/lampp
 			#sudo chown -R $USER /opt/lampp
 			#sudo chown -R nobody:nogroup /opt/lampp/htdocs
 			#sudo chmod -R 777 /opt/lampp/
@@ -3477,7 +3478,7 @@ sudo pip3 install WoeUSB-ng
 			;;
 
 		4_desktop)
-			sudo $install xfce4-clipman mpd nm-tray light suckless-tools network-manager network-manager network-manager-openvpn ffmpegthumbnailer lxappearance feh policykit-1-gnome pulseaudio pulseaudio-utils pulseaudio-equalizer gstreamer1.0-pulseaudio toilet -yy
+			sudo $install xfce4-clipman mpd nm-tray light suckless-tools network-manager network-manager network-manager-openvpn lxappearance feh policykit-1-gnome pulseaudio pulseaudio-utils pulseaudio-equalizer gstreamer1.0-pulseaudio toilet -yy
 			installbspwm
 			;;
 

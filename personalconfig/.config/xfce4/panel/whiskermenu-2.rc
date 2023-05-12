@@ -1,5 +1,5 @@
-favorites=synaptic.desktop,gnome-software-root.desktop,org.gnome.Software.desktop,xfce4-terminal-emulator.desktop
-recent=synaptic.desktop,terminator.desktop,xfce-settings-manager.desktop,xfce-wm-settings.desktop,xfce4-terminal-emulator.desktop,xfce-ui-settings.desktop,xfce4-mime-settings.desktop,xfce-display-settings.desktop,pcmanfm-qt.desktop,github-desktop.desktop
+favorites=xfce4-terminal-emulator.desktop
+recent=xfce4-terminal-emulator.desktop,xfce4-taskmanager.desktop,htop.desktop,terminator.desktop,xfce-settings-manager.desktop,xfce-wm-settings.desktop,xfce-ui-settings.desktop,xfce4-mime-settings.desktop,xfce-display-settings.desktop,github-desktop.desktop
 button-title=Menu
 button-icon=draw-spiral
 button-single-row=true

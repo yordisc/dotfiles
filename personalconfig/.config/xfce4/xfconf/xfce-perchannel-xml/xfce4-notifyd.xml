@@ -18,6 +18,7 @@
   <property name="log-level" type="uint" value="0"/>
   <property name="log-level-apps" type="uint" value="0"/>
   <property name="theme" type="string" value="Smoke"/>
-  <property name="initial-opacity" type="double" value="0.900000"/>
+  <property name="initial-opacity" type="double" value="0.90000000000000002"/>
   <property name="expire-timeout" type="int" value="3"/>
+  <property name="log-max-size-enabled" type="bool" value="true"/>
 </channel>

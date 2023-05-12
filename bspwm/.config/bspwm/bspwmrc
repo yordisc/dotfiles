@@ -6,7 +6,6 @@ pgrep -x sxhkd > /dev/null || sxhkd &
 
 ## Environtment
 export PATH="${PATH}:$HOME/.config/bspwm/bin"
-export GTK2_RC_FILES="$HOME/.gtk-2.0/.gtkrc-2.0"
 
 ## Start System Applications ##
 ~/.config/bspwm/autostart.sh &

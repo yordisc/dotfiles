@@ -19,7 +19,6 @@
         <value type="int" value="3"/>
         <value type="int" value="15"/>
         <value type="int" value="13"/>
-        <value type="int" value="7"/>
         <value type="int" value="14"/>
         <value type="int" value="6"/>
         <value type="int" value="17"/>
@@ -58,6 +57,12 @@
     <property name="plugin-6" type="string" value="systray">
       <property name="show-frame" type="bool" value="false"/>
       <property name="known-legacy-items" type="array">
+        <value type="string" value="wi-fi network connection “cm” active: cm (58%)"/>
+        <value type="string" value="wi-fi network connection “cm” active: cm (61%)"/>
+        <value type="string" value="selinux troubleshooter"/>
+        <value type="string" value="seapplet"/>
+        <value type="string" value="wi-fi network connection “cm” active: cm (60%)"/>
+        <value type="string" value="parcellite"/>
         <value type="string" value="wi-fi network connection “cm” active: cm (57%)"/>
         <value type="string" value="nm-tray"/>
         <value type="string" value="pcloud"/>
@@ -69,13 +74,10 @@
         <value type="string" value="networkmanager applet"/>
       </property>
       <property name="known-items" type="array">
+        <value type="string" value="dnfdragora-updater"/>
         <value type="string" value="pcloud1"/>
         <value type="string" value="blueman"/>
       </property>
-    </property>
-    <property name="plugin-7" type="string" value="pulseaudio">
-      <property name="enable-keyboard-shortcuts" type="bool" value="true"/>
-      <property name="mpris-players" type="string" value="firefox.instance109866"/>
     </property>
     <property name="plugin-2" type="string" value="whiskermenu"/>
     <property name="plugin-8" type="string" value="launcher">
@@ -85,7 +87,7 @@
     </property>
     <property name="plugin-9" type="string" value="launcher">
       <property name="items" type="array">
-        <value type="string" value="16524708172.desktop"/>
+        <value type="string" value="16838575481.desktop"/>
       </property>
     </property>
     <property name="plugin-10" type="string" value="separator">
