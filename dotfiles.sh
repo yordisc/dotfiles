@@ -737,7 +737,7 @@ function installnano()
 			sleep 1s
 			sudo $install nano -yy
 			cp -rf $usuario/dotfiles/.nanorc $usuario &&
-			sudo chmod -R 755 $usuario/.nanorc
+			sudo chmod -R 775 $usuario/.nanorc
 			sudo chown -R $nombre:$nombre $usuario/.nanorc
 			echo "#----------------------------Instalado Nano----------------------------#"
 			sleep 2s
@@ -790,7 +790,7 @@ function installnvim()
 			#Install Rust
 			#curl https://sh.rustup.rs -sSf | sh
 			#Copy Config
-			cd $usuario
+			cd $tmp_dir
 			git clone https://github.com/yordisc/Vimconfig.git
 			sudo chown -R $nombre:$nombre Vimconfig/
 			sudo rm -r $usuario/.vim
@@ -808,7 +808,7 @@ function installnvim()
 			#Open IA key api
 			touch .open_ai
 			echo '### KEY API OPEN-IA ### export OPENAI_API_KEY=""' >> example.sh
-			sudo chown -R 755 $usuario/.config/.open_ai
+			sudo chown -R 775 $usuario/.config/.open_ai
 			cd $usuario
 			echo "#----------------------------Instalado NVim personalizado-----------------------------#"
 			sleep 2s
@@ -868,7 +868,7 @@ function installbash()
 			sudo $install bash-completion bash-doc fzf -yy
 			cd $usuario
 			cp -rf $usuario/dotfiles/.bashrc $usuario
-			sudo chmod -R 755 .bashrc
+			sudo chmod -R 775 .bashrc
 			sudo chown -R $nombre:$nombre .bashrc
 			echo "#----------------------------Instalado Bash----------------------------#"
 			sleep 2s
@@ -918,6 +918,8 @@ echo "#----------------------------Instalando Oh my Zsh-------------------------
 			cp -rf $usuario/dotfiles/.p10k-portable.zsh $usuario
 			sudo chmod -R 775 .p10k-portable.zsh
 			sudo chown -R $nombre:$nombre .p10k-portable.zsh
+			zsh
+			chsh -s $(which zsh)
 			touch $usuario/Abrir
 			echo "
 chsh -s $(which zsh) && # Cambiar de Bash a Zsh" >> $usuario/Abrir
@@ -1666,7 +1668,8 @@ function installffmpeg()
 {
 			echo "#--------------------------------Instalando FFmpeg--------------------------------#"
 			sleep 1s
-			sudo $install ffmpeg -yy
+			sudo $remove ffmpeg-free
+			sudo $install ffmpeg gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly gstreamer1.0-libav-yy
 			echo "#--------------------------------Instalado FFmpeg--------------------------------#"
 			sleep 2s
 
@@ -1825,7 +1828,7 @@ function installpackhome()
 {
 			echo "#--------------------------------Instalando Paquete Hogar--------------------------------#"
 			sleep 1s
-			sudo $install bleachbit perl aspell catfish peek galculator gnome-multi-writer gparted lightdm lightdm-gtk-greeter-settings midori mousepad feh mpv putty ristretto simple-scan smartmontools abiword tlp yad firewalld -yy
+			sudo $install bleachbit perl aspell catfish peek galculator gnome-multi-writer gparted lightdm lightdm-gtk-greeter-settings mousepad feh mpv putty ristretto simple-scan smartmontools abiword tlp yad firewalld -yy
 			echo "#--------------------------------Instalado Paquete Hogar--------------------------------#"
 			sleep 2s
 
@@ -2389,8 +2392,10 @@ choices=$aur
 }
 
 
+
 	inicio dialog
 		$diestro
+		sudo chown -R $nombre:$nombre $usuario
 		clear
 		for choice in $choices
 		do
