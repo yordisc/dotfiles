@@ -25,16 +25,14 @@ bspfloat &
 # Lauch xsettingsd daemon
 xsettingsd &
 #xfsettingsd &
-#sleep 0.3
+sleep 0.3s
 
 # Polkit agent
-/usr/libexec/xfce-polkit &
-#if [[ /usr/libexec/xfce-polkit ]]; then
-#	/usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &
-#fi
+/usr/libexec/polkit-gnome-authentication-agent-1 &
+sleep 1s
 
 parcellite &
-sleep 1
+sleep 1s
 
 nitrogen --restore; sleep 1; picom -b &
 /usr/libexec/dconf-service &
@@ -48,7 +46,7 @@ xfce4-power-manager &
 wmname LG3D &
 
 pcloud &
-sleep 1
+sleep 1s
 
 #nm-applet --indicator &
 
@@ -57,10 +55,10 @@ xsetroot -cursor_name left_ptr &
 
 # Notifications
 /usr/bin/dunst &
-sleep 0.3
+sleep 0.3s
 
 /usr/bin/picom &
-sleep 0.3
+sleep 0.3s
 
 
 #pavucontrol &
@@ -73,6 +71,7 @@ pulseaudio &
 #blueman-applet &
 #sleep 2
 
+	killall apache2  &
 #killall -eq volumeicon &
 #sleep 1.5
 
