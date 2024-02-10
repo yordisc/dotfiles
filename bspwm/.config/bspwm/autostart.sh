@@ -28,10 +28,12 @@ xsettingsd &
 sleep 0.3s
 
 # Polkit agent
-/usr/libexec/polkit-gnome-authentication-agent-1 &
+#/usr/libexec/polkit-gnome-authentication-agent-1 &
+/usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &
 sleep 1s
 
-parcellite &
+#parcellite &
+xfce4-clipman &
 sleep 1s
 
 nitrogen --restore; sleep 1; picom -b &
@@ -72,6 +74,7 @@ pulseaudio &
 #sleep 2
 
 	killall apache2  &
+	killall /opt/teamviewer/tv_bin/teamvieverd  &
 #killall -eq volumeicon &
 #sleep 1.5
 

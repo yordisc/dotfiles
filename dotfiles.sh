@@ -910,6 +910,8 @@ echo "#----------------------------Instalando Oh my Zsh-------------------------
 			git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-$usuario/.oh-my-zsh/custom}/plugins/zsh-autosuggestions &&
 			sudo git clone https://github.com/kutsan/fast-syntax-highlighting.git ${ZSH_CUSTOM:-$usuario/.oh-my-zsh/custom}/plugins/fast-syntax-highlighting &&
 			cp -rf $usuario/dotfiles/.zshrc $usuario
+			sudo git clone https://github.com/zdharma-continuum/fast-syntax-highlighting.git \
+  ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/fast-syntax-highlighting &&
 			sudo chmod -R 775 .zshrc
 			sudo chown -R $nombre:$nombre .zshrc
 			cp -rf $usuario/dotfiles/.p10k.zsh $usuario
