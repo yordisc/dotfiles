@@ -1948,8 +1948,8 @@ echo "#----------------------------Instalando dependencias de Gestión de ventan
 			sudo chown -R $nombre:$nombre $usuario/.config
 			### Fonts
 			cd $tmp_dir
-			wget https://github.com/archcraft-os/packages/raw/main/x86_64/archcraft-fonts-1.0-3-any.pkg.tar.zst
-			tar -xf archcraft-fonts-1.0-3-any.pkg.tar.zst
+			wget https://github.com/archcraft-os/pkgs/raw/main/x86_64/archcraft-fonts-1.0-7-any.pkg.tar.zst
+			tar -xf archcraft-fonts-1.0-7-any.pkg.tar.zst
 			sudo cp -r usr /
 			### Configurar servicios
 			cd $tmp_dir
@@ -2392,9 +2392,6 @@ function aur()
 choices=$aur
 
 }
-
-
-
 	inicio dialog
 		$diestro
 		sudo chown -R $nombre:$nombre $usuario
